@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jmneutel/we-search"
+    "url": "git+https://github.com/TheNerdyFeline/we-search"
   },
   "author": "Jackie Wellon, Jared Neutel",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/jmneutel/we-search/issues"
+    "url": "https://github.com/TheNerdyFeline/we-search/issues"
   },
-  "homepage": "https://github.com/jmneutel/we-search#readme",
+  "homepage": "https://github.com/TheNerdyFeline/we-search#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.17.2",
