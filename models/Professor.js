@@ -49,7 +49,7 @@ module.exports = function(sequelize, DataTypes) {
     }, {      
 	classMethods: {
             associate: function(model) {
-		Student.hasOne(model.Form, {
+		Prof.hasOne(model.Form, {
 		    onDelete: "cascade"
 		});
             }
@@ -68,5 +68,5 @@ module.exports = function(sequelize, DataTypes) {
 	    }
 	}
     });			     
-    return Student;
+    return Prof;
 };
