@@ -28,6 +28,7 @@
     "passport-local": "^1.0.0",
     "sequelize": "^4.2.0",
     "sequelize-heroku": "^1.0.0",
-    "sequelize-sync": "^0.1.0"
+    "sequelize-sync": "^0.1.0",
+    "stack-trace": "0.0.10"
   }
 }

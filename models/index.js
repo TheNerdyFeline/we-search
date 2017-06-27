@@ -10,10 +10,10 @@ var db        = {};
 if (config.use_env_variable) {
     var sequelize = new Sequelize(process.env[config.use_env_variable]);
 } else {
-    sequelize = new Sequelize(config.database, config.email, config.password, config);
+    sequelize = new Sequelize(config.database, config.username, config.password, config);
 }
 
-db.Sequelize.authenticate().then(function() {
+sequelize.authenticate().then(function() {
   console.log('Database connected and authenticated!');
   return true;
 }).catch(function(err) {
