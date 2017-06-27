@@ -5,6 +5,11 @@ var passport = require("./config/passport.js");
 var PORT = process.env.PORT || 3000;
 var app = express();
 var db = require("./models");
+var stackTrace = require('stack-trace');
+var err = new Error('something went wrong');
+var trace = stackTrace.parse(err);
+
+require('assert').strictEqual(trace[0].getFileName(), __filename);
 
 // Serve static content for the app from the "public" directory in the application directory.
 app.use(express.static(process.cwd() + "/public"));
@@ -22,8 +27,8 @@ app.use(passport.session());
 
 //app.use('/', routes);
 
-db.sequelize.sync().then(function() {
+//db.sequelize.sync().then(function() {
   app.listen(PORT, function() {
     console.log("App listening on PORT " + PORT);
   });
-});
+//});

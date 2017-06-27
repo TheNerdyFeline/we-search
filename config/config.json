@@ -2,14 +2,14 @@
   "development": {
     "username": "root",
     "password": "pChrms1115",
-    "database": "perfectpet_db",
-    "host": "127.0.0.1",
+    "database": "weSearchDb",
+    "host": "localhost",
     "dialect": "mysql"
   },
   "test": {
     "username": "root",
-    "password": null,
-    "database": "database_test",
+    "password": "pChrms1115",
+    "database": "weSearchDb",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
