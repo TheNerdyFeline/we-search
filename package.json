@@ -1,23 +1,20 @@
 {
-  "name": "we-search",
-  "version": "1.0.0",
-  "description": "research app to match students and professors who want to study the same field",
-  "main": "server.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/jmneutel/we-search"
-  },
-  "author": "Jackie Wellons, Jared Neutel",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/jmneutel/we-search/issues"
-  },
-  "homepage": "https://github.com/jmneutel/we-search#readme",
+  "name": "wesearch",
+  "version": "0.1.0",
+  "private": true,
   "dependencies": {
+    "react": "^15.6.1",
+    "react-bootstrap": "^0.31.0",
+    "react-dom": "^15.6.1"
+  },
+  "devDependencies": {
+    "react-scripts": "1.0.7"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
