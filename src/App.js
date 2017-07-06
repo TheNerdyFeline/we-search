@@ -8,10 +8,8 @@ import NavbarComponent from './components/Nav/NavbarComponent';
 class App extends Component {
   render() {
     return (
-      <div className="App">
-      	<NavbarComponent />
-        <Questions />
-
+	    <div className="App">
+	    <NavbarComponent />
       </div>  
     );
   }
