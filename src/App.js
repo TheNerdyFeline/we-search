@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Login from './components/Login/Login.js';
-import Questions from './components/Questions/Questions';
+//import Login from './components/Login/Login.js';
+//import Questions from './components/Questions/Questions';
 import AppCss from './App.css';
 import NavbarComponent from './components/Nav/NavbarComponent';
 

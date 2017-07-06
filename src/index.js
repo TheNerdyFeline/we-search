@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
-import ReactDOM, {render} from 'react-dom';
-import {Router, Route} from 'react-router';
+import ReactDOM from 'react-dom';
 import registerServiceWorker from './registerServiceWorker';
+//import routes from "./routes/routes";
+import {Route} from 'react-router';
 import { BrowserRouter } from 'react-router-dom';
 
 // import each parent component
@@ -15,18 +16,18 @@ import Login from './components/Login/Login';
 // ), document.getElementById('root');
 // registerServiceWorker();
 
-module.exports = (
-    render(
-	<Router>
-	  {/* this wraps all routes to include navbar */}
-	  <Route Component={App} history={BrowserRouter}>
-            <Route path="/" Component={Login}/>
-            <Route path="/login" Component={Login}/>
-            <Route path="/questions" Component={Questions}/>
-	  </Route>
-	</Router>,
-	document.getElementById('root')
-    );
-);
-//ReactDOM.render(<App />, document.getElementById('root'));
+
+<BrowserRouter>
+  <div>
+  {/* this wraps all routes to include navbar */}
+  <Route Component={App} >
+    <Route path="/" Component={Login}/>
+    <Route path="/login" Component={Login}/>
+    <Route path="/questions" Component={Questions}/>
+  </Route>
+  </div>
+</BrowserRouter>,
+document.getElementById('root');
+
+//ReactDOM.render(routes, document.getElementById('root'));
 registerServiceWorker();
