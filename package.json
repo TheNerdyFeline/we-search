@@ -24,7 +24,7 @@
     "stack-trace": "0.0.10" 
   },
   "scripts": {
-    "start": "webpack -w & node server",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
