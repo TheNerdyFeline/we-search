@@ -6,7 +6,7 @@ export default class Questions extends Component {
     render() {
 	return (
 	    <div>
-	      <NavbarComponent/>/>
+	      <NavbarComponent/>
 	      <Grid>
 		<Jumbotron className='text-center'>  
           	  <Row>

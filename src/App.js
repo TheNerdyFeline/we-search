@@ -5,12 +5,11 @@ import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 //import components to render
 import Login from './components/Login/Login';
 import Questions from './components/Questions/Questions';
-import AppCss from './App.css';
 import NavbarComponent from './components/Nav/NavbarComponent';
+import './App.css';
 
 const App = () => (
     <Router>
-      
       <Switch>
       <Route exact path="/" component={Login} />
       <Route path="/" component={Questions} />
