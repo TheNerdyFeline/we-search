@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Form, FormGroup, FormControl, ControlLabel, Checkbox, Col, Grid, Row, Jumbotron, Panel} from 'react-bootstrap';
-import mission from './mission.css'
+//import mission from './mission.css'
 
 const title = (
   <h3 className='text-center'>Mission Statement</h3>

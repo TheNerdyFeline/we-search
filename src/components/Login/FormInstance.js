@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Form, FormGroup, FormControl, ControlLabel, Checkbox, Col, Grid, Row, Jumbotron } from 'react-bootstrap';
-import FormInstanceCss from './FormInstance.css'
+//import FormInstanceCss from './FormInstance.css'
 
 class FormInstance extends Component {
       
