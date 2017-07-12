@@ -5,42 +5,57 @@ module.exports = function(sequelize, DataTypes) {
             autoIncrement: true,
             primaryKey: true
 	},
-	first_name: {
+	gpa: {
+	    type: DataTypes.INTEGER,
+	    allowNull: false,
+	    validate: {
+		len: [4]
+	    }
+	},
+	research_interest: {
 	    type: DataTypes.STRING,
 	    allowNull: false,
 	    validate: {
-		len: [3]
+		len: [5]
 	    }
 	},
-	last_name: {
+	live:  {
 	    type: DataTypes.STRING,
 	    allowNull: false,
 	    validate: {
-		len: [2]
+		len:[3]
 	    }
 	},
-	email:  {
-	    type: DataTypes.STRING,
-	    allowNull: false,
-	    validate: {
-		isEmail: true
-	    }
+	move: {
+	    type: DataTypes.BOOLEAN,
+	    allowNull: false
 	},
-	password: {
+	achieve: {
 	    type: DataTypes.STRING,
 	    allowNull: false
 	},
-	university: {
-	    type: DataTypes.STRING,
-	    allowNull: false
-	},
-	year: {
+	stay_here: {
 	    type: DataTypes.STRING,
 	    allowNull: false 
 	},
-	field: {
+	career: {
 	    type: DataTypes.STRING,
 	    allowNull: false
+	},
+	time_week: {
+	    type: DataTypes.INTEGER,
+	    allowNull: false
+	},
+	resume: {
+	    type: DataTypes.BLOB('long'),
+	    allowNull: false
+	},
+	cover_letter: {
+	    type: DataTypes.BLOB('long'),
+	    allowNull: false
+	}, 
+	uuid: {
+	    type: DataTypes.INTEGER
 	}
     }, {      
 	classMethods: {

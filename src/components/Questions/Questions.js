@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Form, FormGroup, FieldGroup, FormControl, ControlLabel, Checkbox, Col, Grid, Row, Jumbotron, Panel, PageHeader} from 'react-bootstrap';
+import { Button, ButtonGroup, Form, FormGroup, FieldGroup, FormControl, ControlLabel, Checkbox, Col, Grid, Row, Jumbotron, Panel, PageHeader, Radio} from 'react-bootstrap';
 import NavbarComponent from '../Nav/NavbarComponent';
 
 export default class Questions extends Component {
@@ -9,9 +9,9 @@ export default class Questions extends Component {
 	      <NavbarComponent/>
 	      <Grid>
 		<Jumbotron className='text-center'>  
-          	  <Row>
-          	    <Col xs={2}></Col>
-          	    <Col xs={8}>
+		  <Row>
+		    <Col xs={2}></Col>
+		    <Col xs={8}>
 		      <h1>Survey Questions</h1>
 		    </Col>
 		    <Col xs={2}></Col>
@@ -27,90 +27,65 @@ export default class Questions extends Component {
 		  <Col lg={12}>
 		    <form>
 		      <FormGroup controlId='formControlsText'>
-			<ControlLabel>Name</ControlLabel>
-			<FormControl type='text' placeholder="Enter Full Name"/>
-		      </FormGroup>
-		      <FormGroup controlId='formControlsText'>
 			<ControlLabel>GPA</ControlLabel>
-			<FormControl type='text' placeholder="Enter GPA ( Ex: 3.54 )"/>
+			<FormControl type='text' placeholder="Enter GPA ( Ex: 3.54 )">
+			</FormControl>
 		      </FormGroup>
+		      
+		      <FormGroup controlId='formControlsText'>
+			<ControlLabel>Research Interests</ControlLabel>
+			<FormControl type='text' placeholder="Research Ineterests">
+			</FormControl>
+		      </FormGroup>
+		      
+		      <FormGroup controlId="formControlsSelect">
+      			<ControlLabel>Where do you live?</ControlLabel>
+			<FormControl componentClass="text" placeholder="City, ST">
+			</FormControl>
+		      </FormGroup>
+			
+		      <FormGroup controlId="formControlsSelect">
+      			<ControlLabel>Are you willing to move?</ControlLabel>
+			<br/>
+			  <Radio>Yes</Radio>
+			  <Radio>No</Radio>
+			  <Radio>Maybe</Radio>
+		      </FormGroup>
+		      
+		      <FormGroup controlId="formControlsSelect">
+      			<ControlLabel>What do you want to Achieve?</ControlLabel>
+			<FormControl componentClass="text" placeholder="Achieve">
+			</FormControl>
+		      </FormGroup>
+		      
+		      <FormGroup controlId="formControlsSelect">
+      			<ControlLabel>How long are you planning to stay where you are?</ControlLabel>
+			<FormControl componentClass="text" placeholder="How long">
+			</FormControl>
+		      </FormGroup>
+		      
+		      <FormGroup controlId="formControlsSelect">
+      			<ControlLabel>What is your career aspirtation?</ControlLabel>
+			<FormControl componentClass="text" placeholder="Career goals">
+			</FormControl>
+		      </FormGroup>
+		      
+		      <FormGroup controlId="formControlsSelect">
+      			<ControlLabel>How many hours per week can you commit to doing research?</ControlLabel>
+			<FormControl componentClass="text" placeholder="">
+			</FormControl>
+		      </FormGroup>
+
 		      <FormGroup controlId='formControlsFile'>
-	  		<ControlLabel>Resume Upload</ControlLabel>
-	  		<FormControl type='file' />
+			<ControlLabel>Resume Upload</ControlLabel>
+			<FormControl type='file' />
    		      </FormGroup>
-		      <FormGroup controlId="formControlsSelect">
-      			<ControlLabel>Question 1</ControlLabel>
-			<FormControl componentClass="select" placeholder="select">
-			  <option value="select">select</option>
-			  <option value="select">select 1</option>
-			  <option value="select">select 2</option>
-			  <option value="select">select 3</option>
-			  <option value="other">...</option>
-			</FormControl>
-		      </FormGroup>
-		      <FormGroup controlId="formControlsSelect">
-      			<ControlLabel>Question 2</ControlLabel>
-			<FormControl componentClass="select" placeholder="select">
-			  <option value="select">select</option>
-			  <option value="other">...</option>
-			</FormControl>
-		      </FormGroup>
-		      <FormGroup controlId="formControlsSelect">
-      			<ControlLabel>Question 3</ControlLabel>
-			<FormControl componentClass="select" placeholder="select">
-			  <option value="select">select</option>
-			  <option value="other">...</option>
-			</FormControl>
-		      </FormGroup>
-		      <FormGroup controlId="formControlsSelect">
-      			<ControlLabel>Question 4</ControlLabel>
-			<FormControl componentClass="select" placeholder="select">
-			  <option value="select">select</option>
-			  <option value="other">...</option>
-			</FormControl>
-		      </FormGroup>
-		      <FormGroup controlId="formControlsSelect">
-      			<ControlLabel>Question 5</ControlLabel>
-			<FormControl componentClass="select" placeholder="select">
-			  <option value="select">select</option>
-			  <option value="other">...</option>
-			</FormControl>
-		      </FormGroup>
-		      <FormGroup controlId="formControlsSelect">
-      			<ControlLabel>Question 6</ControlLabel>
-			<FormControl componentClass="select" placeholder="select">
-			  <option value="select">select</option>
-			  <option value="other">...</option>
-			</FormControl>
-		      </FormGroup>
-		      <FormGroup controlId="formControlsSelect">
-      			<ControlLabel>Question 7</ControlLabel>
-			<FormControl componentClass="select" placeholder="select">
-			  <option value="select">select</option>
-			  <option value="other">...</option>
-			</FormControl>
-		      </FormGroup>
-		      <FormGroup controlId="formControlsSelect">
-      			<ControlLabel>Question 8</ControlLabel>
-			<FormControl componentClass="select" placeholder="select">
-			  <option value="select">select</option>
-			  <option value="other">...</option>
-			</FormControl>
-		      </FormGroup>
-		      <FormGroup controlId="formControlsSelect">
-      			<ControlLabel>Question 9</ControlLabel>
-			<FormControl componentClass="select" placeholder="select">
-			  <option value="select">select</option>
-			  <option value="other">...</option>
-			</FormControl>
-		      </FormGroup>
-		      <FormGroup controlId="formControlsSelect">
-      			<ControlLabel>Question 10</ControlLabel>
-			<FormControl componentClass="select" placeholder="select">
-			  <option value="select">select</option>
-			  <option value="other">...</option>
-			</FormControl>
-		      </FormGroup>
+		      
+		      <FormGroup controlId='formControlsFile'>
+			<ControlLabel>Cover Letter Upload</ControlLabel>
+			<FormControl type='file' />
+   		      </FormGroup>
+		      
 		      <Button type="submit">
 			Submit
 		      </Button>
