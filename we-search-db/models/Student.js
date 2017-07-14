@@ -38,11 +38,16 @@ module.exports = function(sequelize, DataTypes) {
 	    type: DataTypes.STRING,
 	    allowNull: false
 	},
+
+	university_switch: {
+	    type: DataTypes.STRING,
+	    allowNull: false
+	},
 	year: {
 	    type: DataTypes.STRING,
 	    allowNull: false 
 	},
-	field: {
+	major: {
 	    type: DataTypes.STRING,
 	    allowNull: false
 	}

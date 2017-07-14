@@ -27,7 +27,7 @@ module.exports = function(sequelize, DataTypes) {
 	    }
 	},
 	move: {
-	    type: DataTypes.BOOLEAN,
+	    type: DataTypes.STRING,
 	    allowNull: false
 	},
 	achieve: {

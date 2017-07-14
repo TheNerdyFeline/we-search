@@ -1,8 +1,20 @@
 import React, { Component } from 'react';
-import { Button, ButtonGroup, Form, FormGroup, FieldGroup, FormControl, ControlLabel, Checkbox, Col, Grid, Row, Jumbotron, Panel, PageHeader, Radio} from 'react-bootstrap';
+import { Button, Form, FormGroup, FieldGroup, FormControl, ControlLabel, Checkbox, Col, Grid, Row, Jumbotron, Panel, PageHeader, Radio} from 'react-bootstrap';
 import NavbarComponent from '../Nav/NavbarComponent';
 
 export default class Questions extends Component {
+    constructor(props) {
+	super(props);	
+	this.state = {student_form: {gpa: "", research_interest: "", live: "", move: "", achieve: "", stay_here: "", career: "", time_week: "", resume:"", cover_letter: "", uuid: ""}};
+
+    }
+
+    componentDidUpdate(prevProps, prevState){
+	if (prevState.search != this.state.search){
+	    // once all fields complete save to db
+	    //add routes
+	}
+    }
     render() {
 	return (
 	    <div>
@@ -47,7 +59,7 @@ export default class Questions extends Component {
 		      <FormGroup controlId="formControlsSelect">
       			<ControlLabel>Are you willing to move?</ControlLabel>
 			<br/>
-			  <Radio>Yes</Radio>
+			  <Radio active>Yes</Radio>
 			  <Radio>No</Radio>
 			  <Radio>Maybe</Radio>
 		      </FormGroup>

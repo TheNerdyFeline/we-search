@@ -1,41 +1,28 @@
 {
-  "name": "wesearch",
-  "version": "0.1.0",
-  "private": true,
+  "name": "we-search-db",
+  "version": "1.0.0",
+  "description": "db for we-search",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "node server.js",
+    "client": "node start-app.js"
+  },
+  "author": "Jackie Wellons, Jared Neutel",
+  "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.17.2",
-    "eslint-plugin-react": "^7.1.0",
-    "react": "^15.6.1",
-    "react-bootstrap": "^0.31.0",
-    "react-dom": "^15.6.1",
-    "react-router": "^4.1.1",
-     "react-router-dom": "^4.1.1",
-     "bcryptjs": "^2.4.3",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
-    "express-session": "^1.15.3",
+    "method-override": "^2.3.9",
     "mysql": "^2.13.0",
-    "mysql2": "^1.3.5",
-    "passport": "^0.3.2",
-    "passport-local": "^1.0.0",
-    "sequelize": "^4.2.0",
-    "sequelize-heroku": "^1.0.0",
-    "sequelize-sync": "^0.1.0",
-    "stack-trace": "0.0.10" 
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "mysql2": "^1.3.6",
+    "router": "^1.3.1",
+    "sequelize": "^4.3.1",
+    "sequelize-cli": "^2.7.0"
   },
   "devDependencies": {
-    "babel-core": "^6.25.0",
-    "babel-loader": "^7.1.1",
-    "babel-preset-es2015": "^6.24.1",
-    "babel-preset-react": "^6.24.1",
-    "eslint": "^4.1.1",
-    "react-scripts": "1.0.7",
-    "webpack": "^3.1.0"
+    "concurrently": "^3.5.0"
   }
 }
