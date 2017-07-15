@@ -22,8 +22,8 @@ router.post("/api/studentsignup", function(req,res) {
 	    year: req.body.year,
 	    major: req.body.major
 	}).then(function(newStudent) {
-	    studentId = (newStudent.dataValues.id).toString();
-	    res.send(studentId);
+	    //studentId = (newStudent.dataValues.id).toString();
+	    //res.send(studentId);
 	}).catch(function(err) {
             res.json(err);
 	});
@@ -50,8 +50,8 @@ router.post("/api/professorsignup", function(req,res) {
 	    tenure: req.body.tenure,
 	    field: req.body.field
 	}).then(function(newProf) {
-	    profId = (newProf.dataValues.id).toString();
-	    res.send(profId);
+	    //profId = (newProf.dataValues.id).toString();
+	    //res.send(profId);
 	}).catch(function(err) {
             res.json(err);
 	});
@@ -74,8 +74,8 @@ router.post("/api/studentform", function(req,res) {
 	cover_letter: req.body.cover_letter,
 	uuid: req.body.uuid
     }).then(function(newProf) {
-	    profId = (newProf.dataValues.id).toString();
-	res.send(profId);
+	//profId = (newProf.dataValues.id).toString();
+	//res.send(profId);
     }).catch(function(err) {
         res.json(err);
 	});
@@ -84,20 +84,20 @@ router.post("/api/studentform", function(req,res) {
 // save professor form
 router.post("/api/professform", function(req,res) {
     db.User.create({
-        gpa: req.body.gpa,
+        min_gpa: req.body.min_gpa,
 	research_interest: req.body.reasearch_interest,
         live: req.body.live,
-        move: req.body.move,
-	achieve: req.body.achieve,
-	stay_here: req.body.stay_here,
+	student_achieve: req.body.student_achieve,
+	long_distance: req.body.long_distance,
 	career: req.body.career,
-	time_week: req.body.time_week,
-	resume: req.body.resume,
-	cover_letter: req.body.cover_letter,
+	look_student: req.body.look_student,
+	hours_week: req.body.hours_week,
+	available: req.body.available,
+	cv: req.body.cv,
 	uuid: req.body.uuid
     }).then(function(newProf) {
-	    profId = (newProf.dataValues.id).toString();
-	res.send(profId);
+	//profId = (newProf.dataValues.id).toString();
+	//res.send(profId);
     }).catch(function(err) {
         res.json(err);
 	});
