@@ -5,6 +5,7 @@ import {
   Route,
   Link
 } from 'react-router-dom';
+import axios from "axios";
 //import FormInstanceCss from './FormInstance.css'
 
 
@@ -63,7 +64,21 @@ export default class Professorsignup extends Component {
     }
 
     handleSubmit(event) {
-      alert('A name was submitted: ' + this.state.firstname + " "+ this.state.lastname + " " + this.state.email + " " + this.state.password + " " + this.state.university + " " + this.state.duration + " " + this.state.field);
+      axios.post('/api/professorsignup', {
+        first_name: this.state.firstname, 
+        last_name: this.state.lastname, 
+        email: this.state.email, 
+        password: this.state.password, 
+        university: this.state.university, 
+        duration: this.state.duration, 
+        field: this.state.field
+      }).then(response => {
+        console.log(response.data);
+
+      }).catch(function (error) {
+          console.log(error);
+      });
+      //alert('A name was submitted: ' + this.state.firstname + " "+ this.state.lastname + " " + this.state.email + " " + this.state.password + " " + this.state.university + " " + this.state.duration + " " + this.state.field);
       event.preventDefault();
     }
       

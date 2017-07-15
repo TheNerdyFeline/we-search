@@ -54,31 +54,30 @@ router.post("/api/studentsignup", function(req,res) {
 
 // register new professor
 router.post("/api/professorsignup", function(req,res) {
-    db.Professor.findOne({
+	db.Prof.findOne({
 	where: {email: req.body.email}
-  }).then(function(results) {
+    }).then(function(results) {
     if (results !== null) {
       res.json({
         duplicateUser: true
       });
     } else {
-	db.Professor.create({
-            first_name: req.body.firstname,
+	db.Prof.create({
+        first_name: req.body.firstname,
 	    last_name: req.body.lastname,
-            email: req.body.email,
-            password: req.body.password,
+        email: req.body.email,
+        password: req.body.password,
 	    univsersity: req.body.university,
 	    tenure: req.body.tenure,
 	    field: req.body.field
 	}).then(function(newProf) {
 	    //userId = (newProf.dataValues.id).toString();
 	    //res.send(userId);
+	    res.send('this worked');
 	}).catch(function(err) {
             res.json(err);
 	});
-    }
-  });
-});
+    });
 
 // save student form
 router.post("/api/studentform", isAuthenticated, function(req,res) {
