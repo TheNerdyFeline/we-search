@@ -22,11 +22,7 @@ app.use(passport.session());
 // Import routes and give the server access to them.
 console.log(routes)
 var routes = require("./api-routes/api-routes.js");
-<<<<<<< HEAD
 app.use("/", routes);
-=======
-app.use('/', routes);
->>>>>>> upstream/master
 
 db.sequelize.sync({force: true}).then(function() {
   app.listen(PORT, function() {
