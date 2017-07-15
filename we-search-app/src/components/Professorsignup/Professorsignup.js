@@ -7,7 +7,65 @@ import {
 } from 'react-router-dom';
 //import FormInstanceCss from './FormInstance.css'
 
-class Professorsignup extends Component {
+
+export default class Professorsignup extends Component {
+
+      constructor(props) {
+      super(props);
+      this.state = {
+
+        firstname: '',
+        lastname: '',
+        email: '',
+        password: '',
+        university: '',
+        duration: '',
+        field: '',
+        commitment: ''
+    }
+
+      this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
+      this.handleLastNameChange = this.handleLastNameChange.bind(this);
+      this.handleEmailChange = this.handleEmailChange.bind(this);
+      this.handlePasswordChange = this.handlePasswordChange.bind(this);
+      this.handleUniversityChange = this.handleUniversityChange.bind(this);
+      this.handleDurationChange = this.handleDurationChange.bind(this);
+      this.handleFieldChange = this.handleFieldChange.bind(this);
+      this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleFirstNameChange(event) {
+      this.setState({firstname: event.target.value});
+    }
+
+    handleLastNameChange(event) {
+      this.setState({lastname: event.target.value});
+    }
+
+    handleEmailChange(event) {
+      this.setState({email: event.target.value});
+    }
+
+    handlePasswordChange(event) {
+      this.setState({password: event.target.value});
+    }
+
+    handleUniversityChange(event) {
+      this.setState({university: event.target.value});
+    }
+
+    handleDurationChange(event) {
+      this.setState({duration: event.target.value});
+    }
+
+    handleFieldChange(event) {
+      this.setState({field: event.target.value});
+    }
+
+    handleSubmit(event) {
+      alert('A name was submitted: ' + this.state.firstname + " "+ this.state.lastname + " " + this.state.email + " " + this.state.password + " " + this.state.university + " " + this.state.duration + " " + this.state.field);
+      event.preventDefault();
+    }
       
       render() {
 
@@ -32,51 +90,56 @@ class Professorsignup extends Component {
                     <form onSubmit={this.handleSubmit}>
                       <FormGroup controlId='formControlsText'>
                       <ControlLabel>First Name</ControlLabel>
-                      <FormControl type='text' placeholder="John">
+                      <FormControl type='text' placeholder="John" value={this.state.value} onChange={this.handleFirstNameChange}/>
 
-                      </FormControl>
+                     
                     </FormGroup>
                       
                       <FormGroup controlId='formControlsText'>
-                  <ControlLabel>Last Name</ControlLabel>
-                  <FormControl type='text' placeholder="Smith">
-                  </FormControl>
+                        <ControlLabel>Last Name</ControlLabel>
+                        <FormControl type='text' placeholder="Smith" value={this.state.value} onChange={this.handleLastNameChange}/>
+                        
                       </FormGroup>
                       
                       <FormGroup controlId="formControlsSelect">
                         <ControlLabel>Email</ControlLabel>
-                  <FormControl  type='email' placeholder="johnsmith@gmail.com">
-                  </FormControl>
+                        <FormControl  type='email' placeholder="johnsmith@gmail.com" value={this.state.value} onChange={this.handleEmailChange}/>
+                        
                       </FormGroup>
                   
                       <FormGroup controlId="formControlsSelect">
                         <ControlLabel>Password</ControlLabel>
-                        <FormControl  type='password'>
-                        </FormControl>
+                        <FormControl  type='password' value={this.state.value} onChange={this.handlePasswordChange}/>
+                        
                       </FormGroup>
                       
                       <FormGroup controlId="formControlsSelect">
                         <ControlLabel>Which univeristy are you affiliated with?</ControlLabel>
-                          <FormControl componentClass="select" placeholder="Select">
-                          <option value="select">Select</option>
-                          <option value="select">UCLA</option>
-                          <option value="select">USC</option>
-                        </FormControl>
+                          <br/>
+                          <select value={this.state.value} onChange={this.handleUniversityChange}>
+                            <option value="select">Select</option>
+                            <option value="UCLA">UCLA</option>
+                            <option value="USC">USC</option>
+                          </select>
+                        
                       </FormGroup>
                       
                       <FormGroup controlId="formControlsSelect">
                         <ControlLabel>How long have you been doing research in this discipline?</ControlLabel>
-                           <FormControl type='number' placeholder="0">
-                           </FormControl>
+                           <FormControl type='number' placeholder="0" value={this.state.value} onChange={this.handleDurationChange}/>
+                          
                       </FormGroup>
 
                       <FormGroup controlId="formControlsSelect">
                         <ControlLabel>What field do you work in?</ControlLabel>
-                          <FormControl componentClass="select" placeholder="Select">
-                          <option value="select">Select</option>
-                          <option value="select">Medical/Pre-med</option>
-                          <option value="select">Theatre</option>
-                        </FormControl>
+                        <br/>
+                          <select value={this.state.value} onChange={this.handleFieldChange}>
+                            <option value="select">Select</option>
+                            <option value="Medical">Medical/Pre-med</option>
+                            <option value="Theatre">Theatre</option>
+                          </select>
+                      
+
                       </FormGroup>
                       
                       <br/>
@@ -102,7 +165,4 @@ class Professorsignup extends Component {
       }
 
         
-  }
-
-
-export default Professorsignup;
+  };

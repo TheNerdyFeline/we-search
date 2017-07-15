@@ -10,6 +10,16 @@ import Professorsignup from './components/Professorsignup/Professorsignup';
 import Results from './components/Results/Result';
 import NavbarComponent from './components/Nav/NavbarComponent';
 import './App.css';
+import axios from 'axios';
+
+function testGet(){
+	axios.get('/api/test').then(response => {
+		console.log(response.data)
+	})
+}
+
+testGet();
+
 
 const App = () => (
     <Router>

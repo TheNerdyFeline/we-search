@@ -6,6 +6,7 @@ var db = require("./we-search-db/models");
 var session = require("express-session");
 var passport = require("./we-search-db/config/passport.js");
 
+
 // Serve static content for the app from the "public" directory in the application directory.
 //app.use(express.static(process.cwd() + "/public"));
 app.use(bodyParser.json());
@@ -19,8 +20,13 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Import routes and give the server access to them.
+console.log(routes)
 var routes = require("./api-routes/api-routes.js");
+<<<<<<< HEAD
 app.use("/", routes);
+=======
+app.use('/', routes);
+>>>>>>> upstream/master
 
 db.sequelize.sync({force: true}).then(function() {
   app.listen(PORT, function() {

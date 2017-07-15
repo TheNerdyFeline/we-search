@@ -7,6 +7,9 @@ var isAuthenticated = require("../we-search-db/config/middleware/isAuthenticated
 var userId;
 
 
+router.get('/api/test', function(req, res){
+	res.json('it works');
+})
 // login authenticate
 router.post("/login", passport.authenticate("local"), function(req, res) {
     userId = (req.user.id);
@@ -15,15 +18,15 @@ router.post("/login", passport.authenticate("local"), function(req, res) {
 
 // user signout
 router.get("/sign-out", function(req,res) {
-  req.logout();
-  res.redirect("/");
+    req.logout();
+    res.redirect("/");
 });
 
 // register a new student
 router.post("/api/studentsignup", function(req,res) {
     db.Student.findOne({
-    where: {email: req.body.email}
-  }).then(function(results) {
+	where: {email: req.body.email}
+    }).then(function(results) {
     if (results !== null) {
       res.json({
         duplicateUser: true
@@ -48,10 +51,11 @@ router.post("/api/studentsignup", function(req,res) {
   });
 });
 
+
 // register new professor
 router.post("/api/professorsignup", function(req,res) {
     db.Professor.findOne({
-    where: {email: req.body.email}
+	where: {email: req.body.email}
   }).then(function(results) {
     if (results !== null) {
       res.json({
@@ -119,6 +123,5 @@ router.post("/api/professorform", isAuthenticated, function(req,res) {
         res.json(err);
 	});
 });
-
 
 module.exports = router;
