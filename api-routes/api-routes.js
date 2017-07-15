@@ -3,7 +3,7 @@ var express = require('express');
 var router  = express.Router();
 var session = require("express-session");
 var passport = require("../we-search-db/config/passport");
-var isAuthenticated = require("../we-search-dc/config/middleware/isAuthenticated");
+var isAuthenticated = require("../we-search-db/config/middleware/isAuthenticated");
 var userId;
 
 
