@@ -8,22 +8,24 @@ export default class Questions extends Component {
 	    super(props);
 	    this.state = {
 
-	    	name: '',
 	    	gpa: '',
-	    	q1: '',
-	    	q2: '',
-	    	q3: '',
-	    	q4: '',
-	    	q5: '',
-	    	q6: '',
-	    	q7: '',
-	    	q8: '',
-	    	q9: '',
-	    	q10: ''
+	    	interest: '',
+	    	location: '',
+	    	willingMover: '',
+	    	achieve: '',
+	    	duration: '',
+	    	aspirtation: '',
+	    	commitment: ''
 		};
 
-	    this.handleNameChange = this.handleNameChange.bind(this);
 	    this.handleGPAChange = this.handleGPAChange.bind(this);
+	    this.handleInterestChange = this.handleInterestChange.bind(this);
+	    this.handleLocationChange = this.handleLocationChange.bind(this);
+	    this.handleWillingMoverChange = this.handleWillingMoverChange.bind(this);
+	    this.handleAchieveChange = this.handleAchieveChange.bind(this);
+	    this.handleDurationChange = this.handleDurationChange.bind(this);
+	    this.handleAspirationChange = this.handleAspirationChange.bind(this);
+	    this.handleCommitmentChange = this.handleCommitmentChange.bind(this);
 	    this.handleSubmit = this.handleSubmit.bind(this);
   	}
 
@@ -31,12 +33,36 @@ export default class Questions extends Component {
     	this.setState({gpa: event.target.value});
   	}
 
-  	handleNameChange(event) {
-  		this.setState({name: event.target.value});
+  	handleInterestChange(event) {
+  		this.setState({interest: event.target.value});
+  	}
+
+  	handleLocationChange(event) {
+  		this.setState({location: event.target.value});
+  	}
+
+  	handleWillingMoverChange(event) {
+  		this.setState({willingMover: event.target.value});
+  	}
+
+  	handleAchieveChange(event) {
+  		this.setState({achieve: event.target.value});
+  	}
+
+  	handleDurationChange(event) {
+  		this.setState({duration: event.target.value});
+  	}
+
+  	handleAspirationChange(event) {
+  		this.setState({aspirtation: event.target.value});
+  	}
+
+  	handleCommitmentChange(event) {
+  		this.setState({commitment: event.target.value});
   	}
 
   	handleSubmit(event) {
-    	alert('A name was submitted: ' + this.state.gpa + ' ' + this.state.name + " " + this.state.q1);
+    	alert('A name was submitted: ' + this.state.gpa + " "+ this.state.interest + " " + this.state.location + " " + this.state.willingMover + " " + this.state.achieve + " " + this.state.duration + " " + this.state.aspirtation + " " + this.state.commitment);
     	event.preventDefault();
   	}
 
@@ -65,52 +91,55 @@ export default class Questions extends Component {
 		    <form onSubmit={this.handleSubmit}>
 		      <FormGroup controlId='formControlsText'>
 			<ControlLabel>GPA</ControlLabel>
-			<FormControl type='text' placeholder="Enter GPA ( Ex: 3.54 )">
+			<FormControl type='text' placeholder="Enter GPA ( Ex: 3.54 )" value={this.state.value} onChange={this.handleGPAChange}>
 
 			</FormControl>
 		      </FormGroup>
 		      
 		      <FormGroup controlId='formControlsText'>
 			<ControlLabel>Research Interests</ControlLabel>
-			<FormControl type='text' placeholder="Research Ineterests">
+			<FormControl type='text' placeholder="Research Interests" value={this.state.value} onChange={this.handleInterestChange}>
 			</FormControl>
 		      </FormGroup>
 		      
 		      <FormGroup controlId="formControlsSelect">
       			<ControlLabel>Where do you live?</ControlLabel>
-			<FormControl componentClass="text" placeholder="City, ST">
+			<FormControl type="text" placeholder="City, ST" value={this.state.value} onChange={this.handleLocationChange}>
 			</FormControl>
 		      </FormGroup>
 			
 		      <FormGroup controlId="formControlsSelect">
       			<ControlLabel>Are you willing to move?</ControlLabel>
-			<br/>
-			  <Radio>Yes</Radio>
-			  <Radio>No</Radio>
-			  <Radio>Maybe</Radio>
+				<br/>
+			  	<select value={this.state.value} onChange={this.handleWillingMoverChange}>
+			  		<option>Select</option>
+			  		<option>Yes</option>
+			  		<option>Maybe</option>
+			  		<option>No</option>
+		  		</select>
 		      </FormGroup>
 		      
 		      <FormGroup controlId="formControlsSelect">
       			<ControlLabel>What do you want to Achieve?</ControlLabel>
-			<FormControl componentClass="text" placeholder="Achieve">
+			<FormControl type="text" placeholder="Achieve" value={this.state.value} onChange={this.handleAchieveChange}>
 			</FormControl>
 		      </FormGroup>
 		      
 		      <FormGroup controlId="formControlsSelect">
       			<ControlLabel>How long are you planning to stay where you are?</ControlLabel>
-			<FormControl componentClass="text" placeholder="How long">
+			<FormControl type="text" placeholder="How long" value={this.state.value} onChange={this.handleDurationChange}>
 			</FormControl>
 		      </FormGroup>
 		      
 		      <FormGroup controlId="formControlsSelect">
       			<ControlLabel>What is your career aspirtation?</ControlLabel>
-			<FormControl componentClass="text" placeholder="Career goals">
+			<FormControl type="text" placeholder="Career goals" value={this.state.value} onChange={this.handleAspirationChange}>
 			</FormControl>
 		      </FormGroup>
 		      
 		      <FormGroup controlId="formControlsSelect">
       			<ControlLabel>How many hours per week can you commit to doing research?</ControlLabel>
-			<FormControl componentClass="text" placeholder="">
+			<FormControl type="text" placeholder="" value={this.state.value} onChange={this.handleCommitmentChange}>
 			</FormControl>
 		      </FormGroup>
 
