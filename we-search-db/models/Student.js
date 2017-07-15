@@ -52,7 +52,7 @@ module.exports = function(sequelize, DataTypes) {
 	    allowNull: false
 	},
 	professor: {
-	    type: DatatTypes.BOOLEAN,
+	    type: DataTypes.BOOLEAN,
 	    defaultValue: false
 	}
     }, {      

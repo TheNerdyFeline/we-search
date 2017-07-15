@@ -6,12 +6,15 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "concurrently \"npm run server\" \"npm run client\"",
+    "start-api": "nodemon server.js",
+    "start-ui": "npm run client",
     "server": "node server.js",
     "client": "node start-app.js"
   },
   "author": "Jackie Wellons, Jared Neutel",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.16.2",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.17.2",
     "express": "^4.15.3",

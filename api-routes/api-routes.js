@@ -2,6 +2,10 @@ var db  = require('../we-search-db/models');
 var express = require('express');
 var router  = express.Router();
 
+
+router.get('/api/test', function(req, res){
+	res.json('it works');
+})
 // register a new student
 router.post("/api/studentsignup", function(req,res) {
     db.User.findOne({
@@ -102,3 +106,5 @@ router.post("/api/professform", function(req,res) {
         res.json(err);
 	});
 });
+
+module.exports = router;
