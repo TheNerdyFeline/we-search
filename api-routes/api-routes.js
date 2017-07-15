@@ -119,3 +119,6 @@ router.post("/api/professorform", isAuthenticated, function(req,res) {
         res.json(err);
 	});
 });
+
+
+module.exports = router;
