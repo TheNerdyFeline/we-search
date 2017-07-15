@@ -1,5 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
- var StudentForm = sequelize.define("StudentForm", {
+ var ProfForm = sequelize.define("ProfForm", {
 	id: {
             type: DataTypes.INTEGER,
             autoIncrement: true,
@@ -65,5 +65,5 @@ module.exports = function(sequelize, DataTypes) {
             }
 	}
     });			     
-    return StudentForm;
+    return ProfForm;
 };

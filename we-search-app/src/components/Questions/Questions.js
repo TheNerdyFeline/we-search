@@ -1,20 +1,45 @@
 import React, { Component } from 'react';
-import { Button, Form, FormGroup, FieldGroup, FormControl, ControlLabel, Checkbox, Col, Grid, Row, Jumbotron, Panel, PageHeader, Radio} from 'react-bootstrap';
+import { Button, ButtonGroup, Form, FormGroup, FieldGroup, FormControl, ControlLabel, Checkbox, Col, Grid, Row, Jumbotron, Panel, PageHeader, Radio} from 'react-bootstrap';
 import NavbarComponent from '../Nav/NavbarComponent';
 
 export default class Questions extends Component {
-    constructor(props) {
-	super(props);	
-	this.state = {student_form: {gpa: "", research_interest: "", live: "", move: "", achieve: "", stay_here: "", career: "", time_week: "", resume:"", cover_letter: "", uuid: ""}};
 
-    }
+	constructor(props) {
+	    super(props);
+	    this.state = {
 
-    componentDidUpdate(prevProps, prevState){
-	if (prevState.search != this.state.search){
-	    // once all fields complete save to db
-	    //add routes
-	}
-    }
+	    	name: '',
+	    	gpa: '',
+	    	q1: '',
+	    	q2: '',
+	    	q3: '',
+	    	q4: '',
+	    	q5: '',
+	    	q6: '',
+	    	q7: '',
+	    	q8: '',
+	    	q9: '',
+	    	q10: ''
+		};
+
+	    this.handleNameChange = this.handleNameChange.bind(this);
+	    this.handleGPAChange = this.handleGPAChange.bind(this);
+	    this.handleSubmit = this.handleSubmit.bind(this);
+  	}
+
+  	handleGPAChange(event) {
+    	this.setState({gpa: event.target.value});
+  	}
+
+  	handleNameChange(event) {
+  		this.setState({name: event.target.value});
+  	}
+
+  	handleSubmit(event) {
+    	alert('A name was submitted: ' + this.state.gpa + ' ' + this.state.name + " " + this.state.q1);
+    	event.preventDefault();
+  	}
+
     render() {
 	return (
 	    <div>
@@ -37,10 +62,11 @@ export default class Questions extends Component {
 		</Row>
 		<Row>
 		  <Col lg={12}>
-		    <form>
+		    <form onSubmit={this.handleSubmit}>
 		      <FormGroup controlId='formControlsText'>
 			<ControlLabel>GPA</ControlLabel>
 			<FormControl type='text' placeholder="Enter GPA ( Ex: 3.54 )">
+
 			</FormControl>
 		      </FormGroup>
 		      
@@ -59,7 +85,7 @@ export default class Questions extends Component {
 		      <FormGroup controlId="formControlsSelect">
       			<ControlLabel>Are you willing to move?</ControlLabel>
 			<br/>
-			  <Radio active>Yes</Radio>
+			  <Radio>Yes</Radio>
 			  <Radio>No</Radio>
 			  <Radio>Maybe</Radio>
 		      </FormGroup>

@@ -13,11 +13,11 @@ app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 
 
 // Import routes and give the server access to them.
-//var routes = require("./controllers/routes.js");
+var routes = require("./api-routes/api-routes.js");
 
-//app.use('/', routes);
+//app.use("/api", routes);
 
-db.sequelize.sync().then(function() {
+db.sequelize.sync({force: true}).then(function() {
   app.listen(PORT, function() {
     console.log("App listening on PORT " + PORT);
   });
