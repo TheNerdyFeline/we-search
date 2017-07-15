@@ -3,6 +3,8 @@ var bodyParser = require("body-parser");
 var PORT = process.env.PORT || 3001;
 var app = express();
 var db = require("./we-search-db/models");
+var session = require("express-session");
+var passport = require("./config/passport.js");
 
 // Serve static content for the app from the "public" directory in the application directory.
 //app.use(express.static(process.cwd() + "/public"));
@@ -11,6 +13,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.text());
 app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 
+// We need to use sessions to keep track of our user's login status
+app.use(session({ secret: "keyboard cat", resave: true, saveUninitialized: true }));
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Import routes and give the server access to them.
 var routes = require("./api-routes/api-routes.js");
