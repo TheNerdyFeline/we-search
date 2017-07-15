@@ -50,6 +50,10 @@ module.exports = function(sequelize, DataTypes) {
 	major: {
 	    type: DataTypes.STRING,
 	    allowNull: false
+	},
+	professor: {
+	    type: DatatTypes.BOOLEAN,
+	    defaultValue: false
 	}
     }, {      
 	classMethods: {

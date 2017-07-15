@@ -1,11 +1,11 @@
 module.exports = function(sequelize, DataTypes) {
- var ProfForm = sequelize.define("ProfForm", {
+    var ProfForm = sequelize.define("ProfForm", {
 	id: {
             type: DataTypes.INTEGER,
             autoIncrement: true,
             primaryKey: true
 	},
-	gpa: {
+	min_gpa: {
 	    type: DataTypes.INTEGER,
 	    allowNull: false,
 	    validate: {
@@ -26,15 +26,11 @@ module.exports = function(sequelize, DataTypes) {
 		len:[3]
 	    }
 	},
-	move: {
+	student_achieve: {
 	    type: DataTypes.STRING,
 	    allowNull: false
 	},
-	achieve: {
-	    type: DataTypes.STRING,
-	    allowNull: false
-	},
-	stay_here: {
+	long_distance: {
 	    type: DataTypes.STRING,
 	    allowNull: false 
 	},
@@ -42,19 +38,24 @@ module.exports = function(sequelize, DataTypes) {
 	    type: DataTypes.STRING,
 	    allowNull: false
 	},
-	time_week: {
+	look_student: {
+	    type: DataTypes.STRING,
+	    allowNull: false
+	},
+	hours_week: {
 	    type: DataTypes.INTEGER,
 	    allowNull: false
 	},
-	resume: {
+	available: {
+	    type: DataTypes.BOOLEAN,
+	    allowNull: false,
+	    defaultValue: true
+	},
+	cv: {
 	    type: DataTypes.BLOB('long'),
 	    allowNull: false
 	},
-	cover_letter: {
-	    type: DataTypes.BLOB('long'),
-	    allowNull: false
-	}, 
-	uuid: {
+     	uuid: {
 	    type: DataTypes.INTEGER
 	}
     }, {      
