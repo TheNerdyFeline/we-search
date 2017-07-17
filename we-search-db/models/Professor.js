@@ -38,13 +38,13 @@ module.exports = function(sequelize, DataTypes) {
 	    type: DataTypes.STRING,
 	    allowNull: false
 	},
-	tenure: {
-	    type: DataTypes.BOOLEAN,
+	duration: {
+	    type: DataTypes.STRING,
 	    allowNull: false
 	},
 	field: {
 	    type: DataTypes.STRING,
-	    allowNull: false
+	    allowNull: false   
 	},
 	professor: {
 	    type: DataTypes.BOOLEAN,
