@@ -66,9 +66,8 @@ module.exports = function(sequelize, DataTypes) {
 	},
 	// encrypts password before it is saved to db
 	hooks: {
-	    beforeCreate: function(user, options, cb) {
+	    beforeCreate: function(user, options) {
 		user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync(10), null);
-		cb(null, options);
 	    }
 	}
     });			     

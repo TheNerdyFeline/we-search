@@ -71,6 +71,8 @@ router.post("/api/professorsignup", function(req,res) {
 	    //res.send(userId);
 	    res.send('new professor added');
 	}).catch(function(err) {
+	    console.log("Some error happened");
+	    console.log(err);
 	    res.json(err);
 	});
 });
