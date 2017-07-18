@@ -13,7 +13,7 @@ router.get('/api/test', function(req, res){
 // login authenticate
 router.post("/login", passport.authenticate("local"), function(req, res) {
     userId = (req.user.id);
-    //res.send('ok');
+    res.send('ok');
 });
 
 // user signout

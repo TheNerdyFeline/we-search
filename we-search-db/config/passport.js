@@ -7,11 +7,14 @@ var db = require("../models");
 passport.use(new LocalStrategy(
   // Our user will sign in using an email
   {
-    usernameField: "email"
+    usernameField: "email",
+    passwordField: "password"
   },
   function(email, password, done) {
+    console.log(email);
+    console.log(password);
     // When a user tries to sign in this code runs
-    db.User.findOne({
+    db.Prof.findOne({
       where: {
         email: email
       }

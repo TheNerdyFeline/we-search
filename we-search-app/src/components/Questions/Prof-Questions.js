@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Button, Form, FormGroup, FieldGroup, FormControl, ControlLabel, Checkbox, Col, Grid, Row, Jumbotron, Panel, PageHeader, Radio} from 'react-bootstrap';
+import { Button, Form, FormGroup, FieldGroup, FormControl, ControlLabel, Checkbox, Col, Grid, Row, Jumbotron, Panel, PageHeader, Radio, select} from 'react-bootstrap';
 import NavbarComponent from '../Nav/NavbarComponent';
+import axios from 'axios';
 
 export default class Questions extends Component {
     constructor(props) {
@@ -27,7 +28,6 @@ export default class Questions extends Component {
 	this.handleStayChange = this.handleStayChange.bind(this);
 	this.handleCareerChange = this.handleCareerChange.bind(this);
 	this.handleTimeChange = this.handleTimeChange.bind(this);
-	this.handleUUIDChange = this.handleUUIDChange.bind(this);
 	this.handleAvailableChange = this.handleAvailableChange.bind(this);
 	this.handleCVChange = this.handleCVChange.bind(this);
 
@@ -74,6 +74,19 @@ export default class Questions extends Component {
   		this.setState({cv: event.target.value});
   	}
 
+  	submitForm(event) {
+
+  		axios.post('/login', { 
+        email: this.state.email, 
+        password: this.state.password, 
+      }).then(response => {
+          console.log(response);
+	  console.log("this is not the error");
+      }).catch(function (error) {
+          console.log(error);
+      });
+  	}
+
     componentDidUpdate(prevProps, prevState){
 	if (prevState.search != this.state.search){
 	    // once all fields complete save to db
@@ -102,7 +115,7 @@ export default class Questions extends Component {
 		</Row>
 		<Row>
 		  <Col lg={12}>
-		    <form>
+		    <form onSubmit={this.submitForm}>
 		      <FormGroup controlId='formControlsText'>
 			<ControlLabel>What is the minium GPA you are look for?</ControlLabel>
 			<FormControl type='text' placeholder="Enter GPA ( Ex: 3.54 )" value={this.state.value} onChange={this.handleGPAChange}>
@@ -111,7 +124,7 @@ export default class Questions extends Component {
 		      
 		      <FormGroup controlId='formControlsText'>
 			<ControlLabel>Research Interests</ControlLabel>
-			<FormControl type='text' placeholder="Research Ineterests" value={this.state.value} onChange={this.handleResearchChange}>
+			<FormControl type='text' placeholder="Research Interests" value={this.state.value} onChange={this.handleResearchChange}>
 			</FormControl>
 		      </FormGroup>
 		      
@@ -148,10 +161,10 @@ export default class Questions extends Component {
 		      <FormGroup controlId="formControlsSelect">
       			<ControlLabel>Do you have any openings in you research department?</ControlLabel>
 			<br/>
-			  <Select value={this.state.value} onChange={this.handleAvailableChange}>
+			  <select value={this.state.value} onChange={this.handleAvailableChange}>
 			  	<option>Yes</option>
 			  	<option>No</option>
-		  	  </Select>
+		  	  </select>
 		      </FormGroup>
 
 		      <FormGroup controlId='formControlsFile'>

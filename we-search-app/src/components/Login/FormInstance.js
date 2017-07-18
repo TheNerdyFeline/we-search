@@ -5,9 +5,45 @@ import {
     Route,
     Link
 } from 'react-router-dom';
+import axios from 'axios';
 //import FormInstanceCss from './FormInstance.css'
 
 class FormInstance extends Component {
+
+	constructor(props) {
+      super(props);
+      this.state = {
+        email: '',
+        password: ''
+    }
+
+      this.handleSetEmailChange = this.handleSetEmailChange.bind(this);
+      this.handleSetPasswordChange = this.handleSetPasswordChange.bind(this);
+      this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+	handleSetEmailChange(event) {
+      this.setState({email: event.target.value});
+    }
+
+    handleSetPasswordChange(event) {
+      this.setState({password: event.target.value});
+    }
+
+	handleSubmit(event) {
+		event.preventDefault();
+
+  		axios.post('/login', { 
+        	email: this.state.email, 
+        	password: this.state.password
+      	}).then(response => {
+          	console.log(response);
+	  	  	console.log("this is not the error");
+      	}).catch(function (error) {
+          	console.log(error);
+          	console.log("login error");
+      });
+  	}
     
     render() {
 
@@ -28,7 +64,7 @@ class FormInstance extends Component {
 			    Email
 			  </Col>
 			  <Col sm={10}>
-			    <FormControl type="email" placeholder="Email" />
+			    <FormControl type="email" placeholder="Email" value={this.state.value} onChange={this.handleSetEmailChange} />
 			  </Col>
 			</FormGroup>
 
@@ -37,7 +73,7 @@ class FormInstance extends Component {
 			    Password
 			  </Col>
 			  <Col sm={10}>
-			    <FormControl type="password" placeholder="Password" />
+			    <FormControl type="password" placeholder="Password" value={this.state.value} onChange={this.handleSetPasswordChange} />
 			  </Col>
 			</FormGroup>
 
@@ -49,8 +85,8 @@ class FormInstance extends Component {
 
 			<FormGroup>
 			  <Col smOffset={2} sm={10}>
-			    <Button type="submit">
-			      Sign in
+			    <Button type="submit" onClick={this.handleSubmit}>Sign in
+			      {/*<Link to='/profquestions'>Sign in</Link>*/}
 			    </Button>
 			  </Col>
 			  <Col smOffset={2} sm={10}>
