@@ -103,13 +103,12 @@ router.post("/api/studentform", isAuthenticated, function(req,res) {
 // save professor form
 router.post("/api/professorform", isAuthenticated, function(req,res) {
     db.ProfForm.create({
-        min_gpa: req.body.min_gpa,
+        min_gpa: req.body.gpa,
 	research_interest: req.body.reasearch_interest,
         live: req.body.live,
 	student_achieve: req.body.student_achieve,
-	long_distance: req.body.long_distance,
+	long_distance: req.body.stay_here,
 	career: req.body.career,
-	look_student: req.body.look_student,
 	hours_week: req.body.hours_week,
 	available: req.body.available,
 	cv: req.body.cv,

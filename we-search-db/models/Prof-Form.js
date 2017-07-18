@@ -38,10 +38,6 @@ module.exports = function(sequelize, DataTypes) {
 	    type: DataTypes.STRING,
 	    allowNull: false
 	},
-	look_student: {
-	    type: DataTypes.STRING,
-	    allowNull: false
-	},
 	hours_week: {
 	    type: DataTypes.INTEGER,
 	    allowNull: false
