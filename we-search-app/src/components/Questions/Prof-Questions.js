@@ -5,10 +5,74 @@ import NavbarComponent from '../Nav/NavbarComponent';
 export default class Questions extends Component {
     constructor(props) {
 	super(props);	
-	this.state = {prof_form: {gpa: "", research_interest: "", live: "", move: "", achieve: "", stay_here: "", career: "", time_week: "", resume:"", cover_letter: "", uuid: ""}};
+	this.state = {
+	
+			gpa: "", 
+			research_interest: "", 
+			live: "", 
+			move: "", 
+			achieve: "", 
+			stay_here: "", 
+			career: "",
+			time_week: "",
+			available: "",
+			cv:""
+
+		};
+	this.handleGPAChange = this.handleGPAChange.bind(this);
+	this.handleResearchChange = this.handleResearchChange.bind(this);
+	this.handleLiveChange = this.handleLiveChange.bind(this);
+	this.handleMoveChange = this.handleMoveChange.bind(this);
+	this.handleAchieveChange = this.handleAchieveChange.bind(this);
+	this.handleStayChange = this.handleStayChange.bind(this);
+	this.handleCareerChange = this.handleCareerChange.bind(this);
+	this.handleTimeChange = this.handleTimeChange.bind(this);
+	this.handleUUIDChange = this.handleUUIDChange.bind(this);
+	this.handleAvailableChange = this.handleAvailableChange.bind(this);
+	this.handleCVChange = this.handleCVChange.bind(this);
 
 	this.submitForm = this.submitForm.bind(this);
     }
+
+    handleGPAChange(event) {
+    	this.setState({gpa: event.target.value});
+  	}
+
+  	handleResearchChange(event) {
+  		this.setState({research_interest: event.target.value});
+  	}
+
+  	handleLiveChange(event) {
+  		this.setState({live: event.target.value});
+  	}
+
+  	handleMoveChange(event) {
+  		this.setState({move: event.target.value});
+  	}
+
+  	handleAchieveChange(event) {
+  		this.setState({achieve: event.target.value});
+  	}
+
+  	handleStayChange(event) {
+  		this.setState({stay_here: event.target.value});
+  	}
+
+  	handleCareerChange(event) {
+  		this.setState({career: event.target.value});
+  	}
+
+  	handleTimeChange(event) {
+  		this.setState({time_week: event.target.value});
+  	}
+
+  	handleAvailableChange(event) {
+  		this.setState({available: event.target.value});
+  	}
+
+  	handleCVChange(event) {
+  		this.setState({cv: event.target.value});
+  	}
 
     componentDidUpdate(prevProps, prevState){
 	if (prevState.search != this.state.search){
@@ -41,51 +105,53 @@ export default class Questions extends Component {
 		    <form>
 		      <FormGroup controlId='formControlsText'>
 			<ControlLabel>What is the minium GPA you are look for?</ControlLabel>
-			<FormControl type='text' placeholder="Enter GPA ( Ex: 3.54 )">
+			<FormControl type='text' placeholder="Enter GPA ( Ex: 3.54 )" value={this.state.value} onChange={this.handleGPAChange}>
 			</FormControl>
 		      </FormGroup>
 		      
 		      <FormGroup controlId='formControlsText'>
 			<ControlLabel>Research Interests</ControlLabel>
-			<FormControl type='text' placeholder="Research Ineterests">
+			<FormControl type='text' placeholder="Research Ineterests" value={this.state.value} onChange={this.handleResearchChange}>
 			</FormControl>
 		      </FormGroup>
 		      
 		      <FormGroup controlId="formControlsSelect">
       			<ControlLabel>Where do you live?</ControlLabel>
-			<FormControl componentClass="text" placeholder="City, ST">
+			<FormControl placeholder="City, ST" value={this.state.value} onChange={this.handleLiveChange}>
 			</FormControl>
 		      </FormGroup>
 		      
 		      <FormGroup controlId="formControlsSelect">
       			<ControlLabel>What do you want your students to achieve?</ControlLabel>
-			<FormControl componentClass="text" placeholder="Achieve">
+			<FormControl placeholder="Achieve" value={this.state.value} onChange={this.handleAchieveChange}>
 			</FormControl>
 		      </FormGroup>
 		      
 		      <FormGroup controlId="formControlsSelect">
       			<ControlLabel>How long are you will to work long distance?</ControlLabel>
-			<FormControl componentClass="text" placeholder="How long">
+			<FormControl placeholder="How long" value={this.state.value} onChange={this.handleStayChange}>
 			</FormControl>
 		      </FormGroup>
 		      
 		      <FormGroup controlId="formControlsSelect">
       			<ControlLabel>What are you looking for in a student?</ControlLabel>
-			<FormControl componentClass="text" placeholder="Career goals">
+			<FormControl placeholder="Career goals" value={this.state.value} onChange={this.handleCareerChange}>
 			</FormControl>
 		      </FormGroup>
 		      
 		      <FormGroup controlId="formControlsSelect">
       			<ControlLabel>How many hours per week can you commit to doing research?</ControlLabel>
-			<FormControl componentClass="text" placeholder="">
+			<FormControl placeholder="" value={this.state.value} onChange={this.handleTimeChange}>
 			</FormControl>
 		      </FormGroup>
 
 		      <FormGroup controlId="formControlsSelect">
       			<ControlLabel>Do you have any openings in you research department?</ControlLabel>
 			<br/>
-			  <Radio active>Yes</Radio>
-			  <Radio>No</Radio>
+			  <Select value={this.state.value} onChange={this.handleAvailableChange}>
+			  	<option>Yes</option>
+			  	<option>No</option>
+		  	  </Select>
 		      </FormGroup>
 
 		      <FormGroup controlId='formControlsFile'>

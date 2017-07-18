@@ -9,6 +9,7 @@ import Studentsignup from './components/Studentsignup/Studentsignup';
 import Professorsignup from './components/Professorsignup/Professorsignup';
 import Results from './components/Results/Result';
 import NavbarComponent from './components/Nav/NavbarComponent';
+import ProfQuestions from './components/Questions/Prof-Questions';
 import './App.css';
 import axios from 'axios';
 
@@ -26,6 +27,7 @@ const App = () => (
       <Switch>
       <Route exact path="/" component={Login} />
       <Route path="/questions" component={Questions} />
+      <Route path="/profquestions" component={ProfQuestions} />
       <Route path="/studentsignup" component={Studentsignup} />
       <Route path="/professorsignup" component={Professorsignup} />
       <Route path="/results" component={Results} />
