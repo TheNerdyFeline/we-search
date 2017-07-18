@@ -73,8 +73,8 @@ export default class Professorsignup extends Component {
         duration: this.state.duration, 
         field: this.state.field
       }).then(response => {
-        console.log(response.data);
-
+          console.log(response);
+	  console.log("this is not the error");
       }).catch(function (error) {
           console.log(error);
       });

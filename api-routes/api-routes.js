@@ -8,8 +8,8 @@ var userId;
 
 
 router.get('/api/test', function(req, res){
-	res.json('it works');
-})
+    res.json('it works');
+});
 // login authenticate
 router.post("/login", passport.authenticate("local"), function(req, res) {
     userId = (req.user.id);
@@ -27,57 +27,56 @@ router.post("/api/studentsignup", function(req,res) {
     db.Student.findOne({
 	where: {email: req.body.email}
     }).then(function(results) {
-    if (results !== null) {
-      res.json({
-        duplicateUser: true
-      });
-    } else {
-	db.Student.create({
-            first_name: req.body.firstname,
-	    last_name: req.body.lastname,
-            email: req.body.email,
-            password: req.body.password,
-	    univsersity: req.body.university,
-	    university_switch: req.body.university_switch,
-	    year: req.body.year,
-	    major: req.body.major
-	}).then(function(newStudent) {
-	    //userId = (newStudent.dataValues.id).toString();
-	    //res.send(userId);
-	}).catch(function(err) {
-            res.json(err);
-	});
-    }
-  });
+	if (results !== null) {
+	    res.json({
+		duplicateUser: true
+	    });
+	} else {
+	    db.Student.create({
+		first_name: req.body.first_name,
+		last_name: req.body.last_name,
+		email: req.body.email,
+		password: req.body.password,
+		univsersity: req.body.university,
+		university_switch: req.body.university_switch,
+		year: req.body.year,
+		major: req.body.major
+	    }).then(function(newStudent) {
+		//userId = (newStudent.dataValues.id).toString();
+		//res.send(userId);
+	    }).catch(function(err) {
+		res.json(err);
+	    });
+	}
+    });
 });
 
 
 // register new professor
 router.post("/api/professorsignup", function(req,res) {
-	db.Prof.findOne({
-	where: {email: req.body.email}
-    }).then(function(results) {
-    if (results !== null) {
-      res.json({
-        duplicateUser: true
-      });
-    } else {
-	db.Prof.create({
-        first_name: req.body.firstname,
-	    last_name: req.body.lastname,
-        email: req.body.email,
-        password: req.body.password,
-	    univsersity: req.body.university,
-	    tenure: req.body.tenure,
+    console.log("create new prof: ", req.body);
+    db.Prof.findOrCreate({
+	where: {email: req.body.email}, defaults:
+	{
+	    first_name: req.body.first_name,
+	    last_name: req.body.last_name,
+	    password: req.body.password,
+	    university: req.body.university,
+	    duration: req.body.duration,
 	    field: req.body.field
+	}
 	}).then(function(newProf) {
+	    console.log("new professor added");
 	    //userId = (newProf.dataValues.id).toString();
 	    //res.send(userId);
-	    res.send('this worked');
+	    res.send('new professor added');
 	}).catch(function(err) {
-            res.json(err);
+	    console.log("Some error happened");
+	    console.log(err);
+	    res.json(err);
 	});
-    });
+});
+
 
 // save student form
 router.post("/api/studentform", isAuthenticated, function(req,res) {
@@ -98,7 +97,7 @@ router.post("/api/studentform", isAuthenticated, function(req,res) {
 	//res.send(userId);
     }).catch(function(err) {
         res.json(err);
-	});
+    });
 });
 
 // save professor form
@@ -120,7 +119,7 @@ router.post("/api/professorform", isAuthenticated, function(req,res) {
 	//res.send(userId);
     }).catch(function(err) {
         res.json(err);
-	});
+    });
 });
 
 module.exports = router;
