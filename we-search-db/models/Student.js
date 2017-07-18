@@ -55,26 +55,17 @@ module.exports = function(sequelize, DataTypes) {
 	    type: DataTypes.BOOLEAN,
 	    defaultValue: false
 	}
-    }, {      
-	classMethods: {
-            associate: function(model) {
-		Student.hasOne(model.Form, {
-		    onDelete: "cascade"
-		});
-            }
-	}, 
+    },
 	// validates password
-	instanceMethods: {
-	    validPassword: function(password) {
+	{
+		hooks: {
+			beforeCreate: function(user, options) {
+				user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync(10), null);
+			}
+		}
+	});
+	Prof.prototype.validPassword = function(password) {
 		return bcrypt.compareSync(password, this.password);
-	    }
-	},
-	// encrypts password before it is saved to db
-	hooks: {
-	    beforeCreate: function(user, options) {
-		user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync(10), null);
-	    }
-	}
-    });			     
+	}     
     return Student;
 };
