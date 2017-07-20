@@ -1,70 +1,96 @@
 import React, { Component } from 'react';
 import { Button, ButtonGroup, Form, FormGroup, FieldGroup, FormControl, ControlLabel, Checkbox, Col, Grid, Row, Jumbotron, Panel, PageHeader, Radio} from 'react-bootstrap';
 import NavbarComponent from '../Nav/NavbarComponent';
+import axios from "axios";
 
 export default class Questions extends Component {
 
-	constructor(props) {
-	    super(props);
-	    this.state = {
+    constructor(props) {
+	super(props);
+	this.state = {
 
-	    	gpa: '',
-	    	interest: '',
-	    	location: '',
-	    	willingMover: '',
-	    	achieve: '',
-	    	duration: '',
-	    	aspirtation: '',
-	    	commitment: ''
-		};
+	    gpa: '',
+	    interest: '',
+	    location: '',
+	    willingMover: '',
+	    achieve: '',
+	    duration: '',
+	    aspirtation: '',
+	    commitment: '',
+	    resume: '',
+	    cover_letter: ''
+	};
 
-	    this.handleGPAChange = this.handleGPAChange.bind(this);
-	    this.handleInterestChange = this.handleInterestChange.bind(this);
-	    this.handleLocationChange = this.handleLocationChange.bind(this);
-	    this.handleWillingMoverChange = this.handleWillingMoverChange.bind(this);
-	    this.handleAchieveChange = this.handleAchieveChange.bind(this);
-	    this.handleDurationChange = this.handleDurationChange.bind(this);
-	    this.handleAspirationChange = this.handleAspirationChange.bind(this);
-	    this.handleCommitmentChange = this.handleCommitmentChange.bind(this);
-	    this.handleSubmit = this.handleSubmit.bind(this);
-  	}
+	this.handleGPAChange = this.handleGPAChange.bind(this);
+	this.handleInterestChange = this.handleInterestChange.bind(this);
+	this.handleLocationChange = this.handleLocationChange.bind(this);
+	this.handleWillingMoverChange = this.handleWillingMoverChange.bind(this);
+	this.handleAchieveChange = this.handleAchieveChange.bind(this);
+	this.handleDurationChange = this.handleDurationChange.bind(this);
+	this.handleAspirationChange = this.handleAspirationChange.bind(this);
+	this.handleCommitmentChange = this.handleCommitmentChange.bind(this);
+	this.handleResumeChange = this.handleResumeChange.bind(this);
+	this.handleCoverLetterChange = this.handleCoverLetterChange.bind(this);
+	this.handleSubmit = this.handleSubmit.bind(this);
+    }
 
-  	handleGPAChange(event) {
+    handleGPAChange(event) {
     	this.setState({gpa: event.target.value});
-  	}
+    }
 
-  	handleInterestChange(event) {
-  		this.setState({interest: event.target.value});
-  	}
+    handleInterestChange(event) {
+  	this.setState({interest: event.target.value});
+    }
 
-  	handleLocationChange(event) {
-  		this.setState({location: event.target.value});
-  	}
+    handleLocationChange(event) {
+  	this.setState({location: event.target.value});
+    }
 
-  	handleWillingMoverChange(event) {
-  		this.setState({willingMover: event.target.value});
-  	}
+    handleWillingMoverChange(event) {
+  	this.setState({willingMover: event.target.value});
+    }
 
-  	handleAchieveChange(event) {
-  		this.setState({achieve: event.target.value});
-  	}
+    handleAchieveChange(event) {
+  	this.setState({achieve: event.target.value});
+    }
 
-  	handleDurationChange(event) {
-  		this.setState({duration: event.target.value});
-  	}
+    handleDurationChange(event) {
+  	this.setState({duration: event.target.value});
+    }
 
-  	handleAspirationChange(event) {
-  		this.setState({aspirtation: event.target.value});
-  	}
+    handleAspirationChange(event) {
+  	this.setState({aspirtation: event.target.value});
+    }
 
-  	handleCommitmentChange(event) {
-  		this.setState({commitment: event.target.value});
-  	}
+    handleCommitmentChange(event) {
+  	this.setState({commitment: event.target.value});
+    }
+    handleResumeChange(event) {
+  	this.setState({resume: event.target.value});
+    }
+    handleCoverLetterChange(event) {
+  	this.setState({cover_letter: event.target.value});
+    }
 
-  	handleSubmit(event) {
-    	alert('A name was submitted: ' + this.state.gpa + " "+ this.state.interest + " " + this.state.location + " " + this.state.willingMover + " " + this.state.achieve + " " + this.state.duration + " " + this.state.aspirtation + " " + this.state.commitment);
-    	event.preventDefault();
-  	}
+    handleSubmit(event) {
+    	axios.post('/api/professorsignup', {
+            gpa: this.state.gpa, 
+            interest: this.state.interest, 
+            location: this.state.location, 
+            willingMover: this.state.willingMover, 
+            achieve: this.state.achieve, 
+            duration: this.state.duration, 
+            aspirtation: this.state.aspiration,
+	    commitment: this.state.commitment,
+	    resume: this.state.resume,
+	    cover_letter: this.state.cover_letter
+      }).then(response => {
+          console.log(response);
+	  console.log("this is not the error");
+      }).catch(function (error) {
+          console.log(error);
+      });
+    }
 
     render() {
 	return (
@@ -107,16 +133,16 @@ export default class Questions extends Component {
 			<FormControl type="text" placeholder="City, ST" value={this.state.value} onChange={this.handleLocationChange}>
 			</FormControl>
 		      </FormGroup>
-			
+		      
 		      <FormGroup controlId="formControlsSelect">
       			<ControlLabel>Are you willing to move?</ControlLabel>
-				<br/>
-			  	<select value={this.state.value} onChange={this.handleWillingMoverChange}>
-			  		<option>Select</option>
-			  		<option>Yes</option>
-			  		<option>Maybe</option>
-			  		<option>No</option>
-		  		</select>
+			<br/>
+			<select value={this.state.value} onChange={this.handleWillingMoverChange}>
+			  <option>Select</option>
+			  <option>Yes</option>
+			  <option>Maybe</option>
+			  <option>No</option>
+			</select>
 		      </FormGroup>
 		      
 		      <FormGroup controlId="formControlsSelect">
@@ -143,12 +169,12 @@ export default class Questions extends Component {
 			</FormControl>
 		      </FormGroup>
 
-		      <FormGroup controlId='formControlsFile'>
+		<FormGroup controlId='formControlsFile' value={this.state.value} onChange={this.handleResumeChange}>
 			<ControlLabel>Resume Upload</ControlLabel>
 			<FormControl type='file' />
    		      </FormGroup>
 		      
-		      <FormGroup controlId='formControlsFile'>
+		<FormGroup controlId='formControlsFile' value={this.state.value} onChange={this.handleCoverLetterChange}>
 			<ControlLabel>Cover Letter Upload</ControlLabel>
 			<FormControl type='file' />
    		      </FormGroup>

@@ -75,16 +75,22 @@ export default class Questions extends Component {
   	}
 
   	submitForm(event) {
-
-  		axios.post('/login', { 
-        email: this.state.email, 
-        password: this.state.password, 
-      }).then(response => {
-          console.log(response);
-	  console.log("this is not the error");
-      }).catch(function (error) {
-          console.log(error);
-      });
+  	    axios.post('/login', { 
+		gpa: this.state.gpa, 
+		interest: this.state.interest, 
+		location: this.state.location, 
+		willingMover: this.state.willingMover, 
+		achieve: this.state.achieve, 
+		duration: this.state.duration, 
+		aspirtation: this.state.aspiration,
+		commitment: this.state.commitment,
+		cv: this.state.cv
+	    }).then(response => {
+		console.log(response);
+		console.log("this is not the error");
+	    }).catch(function (error) {
+		console.log(error);
+	    });
   	}
 
     componentDidUpdate(prevProps, prevState){
@@ -117,7 +123,7 @@ export default class Questions extends Component {
 		  <Col lg={12}>
 		    <form onSubmit={this.submitForm}>
 		      <FormGroup controlId='formControlsText'>
-			<ControlLabel>What is the minium GPA you are look for?</ControlLabel>
+			<ControlLabel>What is the minium GPA you are looking for?</ControlLabel>
 			<FormControl type='text' placeholder="Enter GPA ( Ex: 3.54 )" value={this.state.value} onChange={this.handleGPAChange}>
 			</FormControl>
 		      </FormGroup>
@@ -141,7 +147,7 @@ export default class Questions extends Component {
 		      </FormGroup>
 		      
 		      <FormGroup controlId="formControlsSelect">
-      			<ControlLabel>How long are you will to work long distance?</ControlLabel>
+      			<ControlLabel>How long are you willing to work long distance?</ControlLabel>
 			<FormControl placeholder="How long" value={this.state.value} onChange={this.handleStayChange}>
 			</FormControl>
 		      </FormGroup>

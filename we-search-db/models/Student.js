@@ -56,16 +56,16 @@ module.exports = function(sequelize, DataTypes) {
 	    defaultValue: false
 	}
     },
-	// validates password
-	{
-		hooks: {
-			beforeCreate: function(user, options) {
-				user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync(10), null);
-			}
-		}
-	});
-	Prof.prototype.validPassword = function(password) {
-		return bcrypt.compareSync(password, this.password);
-	}     
+				   // validates password
+				   {
+				       hooks: {
+					   beforeCreate: function(user, options) {
+					       user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync(10), null);
+					   }
+				       }
+				   });
+    Student.prototype.validPassword = function(password) {
+	return bcrypt.compareSync(password, this.password);
+    };     
     return Student;
 };
