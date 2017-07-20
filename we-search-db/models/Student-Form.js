@@ -19,7 +19,7 @@ module.exports = function(sequelize, DataTypes) {
 		len: [5]
 	    }
 	},
-	live:  {
+	location:  {
 	    type: DataTypes.STRING,
 	    allowNull: false,
 	    validate: {
@@ -34,7 +34,7 @@ module.exports = function(sequelize, DataTypes) {
 	    type: DataTypes.STRING,
 	    allowNull: false
 	},
-	stay_here: {
+	duration: {
 	    type: DataTypes.STRING,
 	    allowNull: false 
 	},
@@ -42,7 +42,7 @@ module.exports = function(sequelize, DataTypes) {
 	    type: DataTypes.STRING,
 	    allowNull: false
 	},
-	time_week: {
+	hours_week: {
 	    type: DataTypes.INTEGER,
 	    allowNull: false
 	},

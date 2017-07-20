@@ -19,7 +19,7 @@ module.exports = function(sequelize, DataTypes) {
 		len: [5]
 	    }
 	},
-	live:  {
+	location:  {
 	    type: DataTypes.STRING,
 	    allowNull: false,
 	    validate: {
@@ -38,10 +38,6 @@ module.exports = function(sequelize, DataTypes) {
 	    type: DataTypes.STRING,
 	    allowNull: false
 	},
-	look_student: {
-	    type: DataTypes.STRING,
-	    allowNull: false
-	},
 	hours_week: {
 	    type: DataTypes.INTEGER,
 	    allowNull: false
@@ -51,18 +47,18 @@ module.exports = function(sequelize, DataTypes) {
 	    allowNull: false,
 	    defaultValue: true
 	},
-		university: {
-		    type: DataTypes.STRING,
-		    allowNull: false
-		},
-		duration: {
-		    type: DataTypes.STRING,
-		    allowNull: false
-		},
-		field: {
-		    type: DataTypes.STRING,
-		    allowNull: false   
-		},
+	university: {
+	    type: DataTypes.STRING,
+	    allowNull: false
+	},
+	duration: {
+	    type: DataTypes.STRING,
+	    allowNull: false
+	},
+	field: {
+	    type: DataTypes.STRING,
+	    allowNull: false   
+	},
 	cv: {
 	    type: DataTypes.BLOB('long'),
 	    allowNull: false

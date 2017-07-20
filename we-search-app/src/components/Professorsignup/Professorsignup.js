@@ -48,7 +48,6 @@ export default class Professorsignup extends Component {
    
 
     handleSubmit(event) {
-
       axios.post('/api/professorsignup', {
         first_name: this.state.firstname, 
         last_name: this.state.lastname, 
