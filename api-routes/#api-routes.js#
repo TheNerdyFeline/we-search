@@ -94,6 +94,6 @@ router.post("/api/professorform", isAuthenticated, function(req,res) {
     });
 });
 
-router.get("/api/student/:id")
+router.get("/api/student")
 
 module.exports = router;

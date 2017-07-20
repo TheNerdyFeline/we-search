@@ -9,41 +9,40 @@ import axios from 'axios';
 //import FormInstanceCss from './FormInstance.css'
 
 class FormInstance extends Component {
+    constructor(props) {
+	super(props);
+	this.state = {
+            email: '',
+            password: '',
+	    isAuthenticated: false
+	};
 
-	constructor(props) {
-      super(props);
-      this.state = {
-        email: '',
-        password: ''
+	this.handleSetEmailChange = this.handleSetEmailChange.bind(this);
+	this.handleSetPasswordChange = this.handleSetPasswordChange.bind(this);
+	this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-      this.handleSetEmailChange = this.handleSetEmailChange.bind(this);
-      this.handleSetPasswordChange = this.handleSetPasswordChange.bind(this);
-      this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-	handleSetEmailChange(event) {
-      this.setState({email: event.target.value});
+    handleSetEmailChange(event) {
+	this.setState({email: event.target.value});
     }
 
     handleSetPasswordChange(event) {
-      this.setState({password: event.target.value});
+	this.setState({password: event.target.value});
     }
 
-	handleSubmit(event) {
-		event.preventDefault();
-
-  		axios.post('/login', { 
-        	email: this.state.email, 
-        	password: this.state.password
+    handleSubmit(event) {
+	event.preventDefault();
+  	axios.post('/login', { 
+            email: this.state.email, 
+            password: this.state.password
       	}).then(response => {
-          	console.log(response);
-	  	  	console.log("this is not the error");
+	    this.setState({isAuthenticated: true});
+            console.log(response);
       	}).catch(function (error) {
-          	console.log(error);
-          	console.log("login error");
-      });
-  	}
+            console.log(error);
+            console.log("login error");
+	});
+    }
     
     render() {
 
@@ -98,7 +97,6 @@ class FormInstance extends Component {
 			    </Button>
 			  </Col>
 			</FormGroup>
-
 		      </Form>
 	  	    </Jumbotron>
 
