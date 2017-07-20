@@ -9,6 +9,7 @@ import Signup from './components/Signup/Signup';
 import Results from './components/Results/Result';
 import NavbarComponent from './components/Nav/NavbarComponent';
 import ProfQuestions from './components/Questions/Prof-Questions';
+import Dashboard from './components/Dashboard/Dashboard';
 import './App.css';
 import axios from 'axios';
 
@@ -29,6 +30,7 @@ const App = () => (
       <Route path="/profquestions" component={ProfQuestions} />
       <Route path="/signup" component={Signup} />
       <Route path="/results" component={Results} />
+      <Route path="/dashboard" component={Dashboard} />
       <Route path="/login" />
     </Switch>
   </Router>
