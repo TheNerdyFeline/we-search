@@ -6,6 +6,10 @@ import {
   Link
 } from 'react-router-dom';
 
+const title2 = (
+  <h3>Edit Question Answers</h3>
+);
+
 class ProfessorEditQuestions extends Component {
       
     render() {
@@ -14,63 +18,121 @@ class ProfessorEditQuestions extends Component {
 
       		<div>
 
-      			<Grid>
-		        	<Row>
-			        	<Col xs={1}></Col>
-			        	<Col xs={10}>
-				        	
-          				<Panel header={title2} bsStyle="info">
-     						 <Table striped bordered condensed hover>
-							    <tbody>
-							      <tr>
-							        
-							        <th>What is the minium GPA you are look for?</th>
-							        <td>
-							        	<form>
-							        		<FormGroup>
-      											<FormControl type="text" />
-    										</FormGroup>
-    									</form>
-									</td>
+      		
+	        	
+					 <Table striped bordered condensed hover>
+				    <tbody>
+				      <tr>
+				        
+				        <th>What is the minium GPA you are look for?</th>
+				        <td>
+				        	<form>
+				        		<FormGroup>
+										<FormControl type="text" />
+								</FormGroup>
+							</form>
+						</td>
 
-							      </tr>
-							    
-							    
-							      <tr>
-							        
-							        <th>Research Interests</th>
-							        <td>
-							        	<form>
-							        		<FormGroup>
-      											<FormControl type="text" />
-    										</FormGroup>
-    									</form>
-							        </td>
+				      </tr>
+				    
+				    
+				      <tr>
+				        
+				        <th>Research Interests</th>
+				        <td>
+				        	<form>
+				        		<FormGroup>
+										<FormControl type="text" />
+								</FormGroup>
+							</form>
+				        </td>
 
-							      </tr>
+				      </tr>
 
-							      <tr>
-							        
-							        <th>Where do you live?</th>
-							        <td>
-							        	<form>
-							        		<FormGroup>
-      											<FormControl type="text" />
-    										</FormGroup>
-    									</form>
-							        </td>
+				      <tr>
+				        
+				        <th>Where do you live?</th>
+				        <td>
+				        	<form>
+				        		<FormGroup>
+										<FormControl type="text" />
+								</FormGroup>
+							</form>
+				        </td>
 
-							      </tr>
-							      
-							    </tbody>
-							  </Table>
+				      </tr>
 
-							  <Button>Update</Button>
-    					</Panel>
-				  		</Col>
-				  		<Col xs={1}></Col>
-			  		</Row>
-		  		</Grid>
+				      <tr>
+				        
+				        <th>What do you want your students to achieve?</th>
+				        <td>
+				        	<form>
+				        		<FormGroup>
+										<FormControl type="text" />
+								</FormGroup>
+							</form>
+				        </td>
+
+				      </tr>
+
+				      <tr>
+				        
+				        <th>How long are you will to work long distance?</th>
+				        <td>
+				        	<form>
+				        		<FormGroup>
+										<FormControl type="text" />
+								</FormGroup>
+							</form>
+				        </td>
+
+				      </tr>
+
+				      <tr>
+				        
+				        <th>What are you looking for in a student?</th>
+				        <td>
+				        	<form>
+				        		<FormGroup>
+										<FormControl type="text" />
+								</FormGroup>
+							</form>
+				        </td>
+
+				      </tr>
+
+				       <tr>
+				        
+				        <th>How many hours per week can you commit to doing research?</th>
+				        <td>
+				        	<form>
+				        		<FormGroup>
+										<FormControl type="text" />
+								</FormGroup>
+							</form>
+				        </td>
+
+				      </tr>
+
+				      <tr>
+				        
+				        <th>Do you have any openings in you research department?</th>
+				        <td>
+				        	<form>
+				        		<FormGroup>
+										<FormControl type="text" />
+								</FormGroup>
+							</form>
+				        </td>
+
+				      </tr>
+				      
+				    </tbody>
+				  </Table>
+
+				  <Button>Update</Button>
+			
+
 
 
       		</div>

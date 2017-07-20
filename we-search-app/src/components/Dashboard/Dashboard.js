@@ -5,6 +5,8 @@ import {
   Route,
   Link
 } from 'react-router-dom';
+import ProfessorEditQuestions from './EditQuestions/ProfessorEditQuestions';
+import StudentEditQuestions from './EditQuestions/StudentEditQuestions';
 
 const title1 = (
   <h3>Best Matches</h3>
@@ -40,14 +42,18 @@ class Dashboard extends Component {
 	  		</Row>
           	<Row>
           		<Col xs={1}></Col>
-          		<Col className='text-center' xs={5}>
+          		<Col className='text-center' xs={10}>
           			
           				<Panel header={title1} bsStyle="info">
      						<Button>Find Best Matches</Button>
     					</Panel>
-          			
+          		
           		</Col>
-          		<Col className='text-center' xs={5}>
+          		<Col xs={1}></Col>
+          	</Row>
+          	<Row>
+          		<Col xs={1}></Col>
+          		<Col className='text-center' xs={10}>
     
           				<Panel header={title2} bsStyle="info">
      						 <Table striped bordered condensed hover>
@@ -108,6 +114,7 @@ class Dashboard extends Component {
     
           				<Panel header={title4} bsStyle="info">
      						{/* insert correct component here based on state */}
+     						<StudentEditQuestions />
     					</Panel>
           			
           		</Col>
