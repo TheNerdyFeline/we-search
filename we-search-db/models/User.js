@@ -2,7 +2,7 @@
 var bcrypt = require("bcryptjs");
 
 module.exports = function(sequelize, DataTypes) {
-// create new professor in table
+// create new user in table
 	var User = sequelize.define("User", {
 		id: {
 	        type: DataTypes.INTEGER,
