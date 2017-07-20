@@ -17,6 +17,10 @@ export default class Questions extends Component {
 			career: "",
 			time_week: "",
 			available: "",
+			university: '',
+	        duration: '',
+	        field: '',
+	        commitment: '',
 			cv:""
 
 		};
@@ -29,6 +33,9 @@ export default class Questions extends Component {
 	this.handleCareerChange = this.handleCareerChange.bind(this);
 	this.handleTimeChange = this.handleTimeChange.bind(this);
 	this.handleAvailableChange = this.handleAvailableChange.bind(this);
+	this.handleUniversityChange = this.handleUniversityChange.bind(this);
+  	this.handleDurationChange = this.handleDurationChange.bind(this);
+  	this.handleFieldChange = this.handleFieldChange.bind(this);
 	this.handleCVChange = this.handleCVChange.bind(this);
 
 	this.submitForm = this.submitForm.bind(this);
@@ -70,6 +77,18 @@ export default class Questions extends Component {
   		this.setState({available: event.target.value});
   	}
 
+  	 handleUniversityChange(event) {
+      this.setState({university: event.target.value});
+    }
+
+    handleDurationChange(event) {
+      this.setState({duration: event.target.value});
+    }
+
+    handleFieldChange(event) {
+      this.setState({field: event.target.value});
+    }
+
   	handleCVChange(event) {
   		this.setState({cv: event.target.value});
   	}
@@ -78,7 +97,10 @@ export default class Questions extends Component {
 
   		axios.post('/login', { 
         email: this.state.email, 
-        password: this.state.password, 
+        password: this.state.password,
+        university: this.state.university, 
+        duration: this.state.duration, 
+        field: this.state.field 
       }).then(response => {
           console.log(response);
 	  console.log("this is not the error");
@@ -166,6 +188,38 @@ export default class Questions extends Component {
 			  	<option>No</option>
 		  	  </select>
 		      </FormGroup>
+
+
+		       <FormGroup controlId="formControlsSelect">
+                        <ControlLabel>Which univeristy are you affiliated with?</ControlLabel>
+                          <br/>
+                          <select value={this.state.value} onChange={this.handleUniversityChange}>
+                            <option value="select">Select</option>
+                            <option value="UCLA">UCLA</option>
+                            <option value="USC">USC</option>
+                          </select>
+                        
+                      </FormGroup>
+                      
+                      <FormGroup controlId="formControlsSelect">
+                        <ControlLabel>How long have you been doing research in this discipline?</ControlLabel>
+                           <FormControl type='number' placeholder="0" value={this.state.value} onChange={this.handleDurationChange}/>
+                          
+                      </FormGroup>
+
+                      <FormGroup controlId="formControlsSelect">
+                        <ControlLabel>What field do you work in?</ControlLabel>
+                        <br/>
+                          <select value={this.state.value} onChange={this.handleFieldChange}>
+                            <option value="select">Select</option>
+                            <option value="Medical">Medical/Pre-med</option>
+                            <option value="Theatre">Theatre</option>
+                          </select>
+                      
+
+                      </FormGroup>
+                      
+		      
 
 		      <FormGroup controlId='formControlsFile'>
 			<ControlLabel>CV Upload</ControlLabel>

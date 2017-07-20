@@ -23,59 +23,27 @@ router.get("/sign-out", function(req,res) {
 });
 
 // register a new student
-router.post("/api/studentsignup", function(req,res) {
-    db.Student.findOne({
-	where: {email: req.body.email}
-    }).then(function(results) {
-	if (results !== null) {
-	    res.json({
-		duplicateUser: true
-	    });
-	} else {
-	    db.Student.create({
+router.post("/signup", function(req,res) {
+	console.log("creating new user", req.body);
+    db.User.findOrCreate({
+	where: {email: req.body.email}, defaults:
+	{
 		first_name: req.body.first_name,
 		last_name: req.body.last_name,
 		email: req.body.email,
 		password: req.body.password,
-		univsersity: req.body.university,
-		university_switch: req.body.university_switch,
-		year: req.body.year,
-		major: req.body.major
+		studentOrProf: req.body.studentOrProf
+		
+	}
 	    }).then(function(newStudent) {
+	    	console.log("new user created");
 		//userId = (newStudent.dataValues.id).toString();
 		//res.send(userId);
 	    }).catch(function(err) {
+	    	console.log(err);
 		res.json(err);
 	    });
-	}
-    });
-});
-
-
-// register new professor
-router.post("/api/professorsignup", function(req,res) {
-    console.log("create new prof: ", req.body);
-    db.Prof.findOrCreate({
-	where: {email: req.body.email}, defaults:
-	{
-	    first_name: req.body.first_name,
-	    last_name: req.body.last_name,
-	    password: req.body.password,
-	    university: req.body.university,
-	    duration: req.body.duration,
-	    field: req.body.field
-	}
-	}).then(function(newProf) {
-	    console.log("new professor added");
-	    //userId = (newProf.dataValues.id).toString();
-	    //res.send(userId);
-	    res.send('new professor added');
-	}).catch(function(err) {
-	    console.log("Some error happened");
-	    console.log(err);
-	    res.json(err);
 	});
-});
 
 
 // save student form
@@ -89,6 +57,10 @@ router.post("/api/studentform", isAuthenticated, function(req,res) {
 	stay_here: req.body.stay_here,
 	career: req.body.career,
 	time_week: req.body.time_week,
+	university: req.body.university,
+		university_switch: req.body.university_switch,
+		year: req.body.year,
+		major: req.body.major,
 	resume: req.body.resume,
 	cover_letter: req.body.cover_letter,
 	uuid: req.body.uuid
@@ -112,6 +84,9 @@ router.post("/api/professorform", isAuthenticated, function(req,res) {
 	look_student: req.body.look_student,
 	hours_week: req.body.hours_week,
 	available: req.body.available,
+	university: req.body.university,
+	    duration: req.body.duration,
+	    field: req.body.field,
 	cv: req.body.cv,
 	uuid: req.body.uuid
     }).then(function(newProfForm) {

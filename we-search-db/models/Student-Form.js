@@ -46,6 +46,23 @@ module.exports = function(sequelize, DataTypes) {
 	    type: DataTypes.INTEGER,
 	    allowNull: false
 	},
+	university: {
+	    type: DataTypes.STRING,
+	    allowNull: false
+	},
+
+	university_switch: {
+	    type: DataTypes.STRING,
+	    allowNull: false
+	},
+	year: {
+	    type: DataTypes.STRING,
+	    allowNull: false 
+	},
+	major: {
+	    type: DataTypes.STRING,
+	    allowNull: false
+	},
 	resume: {
 	    type: DataTypes.BLOB('long'),
 	    allowNull: false

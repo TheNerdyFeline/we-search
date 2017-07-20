@@ -94,12 +94,7 @@ class FormInstance extends Component {
 			  </Col>
 			  <Col smOffset={2} sm={10}>
 			    <Button type="submit">
-			      <Link to='/studentsignup'>Create Account as Student</Link>
-			    </Button>
-			  </Col>
-			  <Col smOffset={2} sm={10}>
-			    <Button type="submit" className='spacing'>
-			      <Link to='/professorsignup'>Create Account as Professor</Link>
+			      <Link to='/signup'>Create Account</Link>
 			    </Button>
 			  </Col>
 			</FormGroup>

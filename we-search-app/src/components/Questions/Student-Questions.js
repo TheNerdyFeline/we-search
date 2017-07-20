@@ -15,7 +15,11 @@ export default class Questions extends Component {
 	    	achieve: '',
 	    	duration: '',
 	    	aspirtation: '',
-	    	commitment: ''
+	    	commitment: '',
+	    	university: '',
+        	university_switch: '',
+        	year: '',
+        	major: ''
 		};
 
 	    this.handleGPAChange = this.handleGPAChange.bind(this);
@@ -26,6 +30,10 @@ export default class Questions extends Component {
 	    this.handleDurationChange = this.handleDurationChange.bind(this);
 	    this.handleAspirationChange = this.handleAspirationChange.bind(this);
 	    this.handleCommitmentChange = this.handleCommitmentChange.bind(this);
+	    this.handleUniversityChange = this.handleUniversityChange.bind(this);
+      	this.handleSwitchChange = this.handleSwitchChange.bind(this);
+      	this.handleYearChange = this.handleYearChange.bind(this);
+      	this.handleMajorChange = this.handleMajorChange.bind(this);
 	    this.handleSubmit = this.handleSubmit.bind(this);
   	}
 
@@ -61,8 +69,30 @@ export default class Questions extends Component {
   		this.setState({commitment: event.target.value});
   	}
 
+  	handleUniversityChange(event) {
+        this.setState({university: event.target.value});
+      }
+
+      handleSwitchChange(event) {
+        this.setState({university_switch: event.target.value});
+      }
+
+      handleYearChange(event) {
+        this.setState({year: event.target.value});
+      }
+
+      handleMajorChange(event) {
+        this.setState({major: event.target.value});
+      }
+
   	handleSubmit(event) {
-    	alert('A name was submitted: ' + this.state.gpa + " "+ this.state.interest + " " + this.state.location + " " + this.state.willingMover + " " + this.state.achieve + " " + this.state.duration + " " + this.state.aspirtation + " " + this.state.commitment);
+
+  		// university: this.state.university, 
+    //     university_switch: this.state.university_switch, 
+    //     year: this.state.year, 
+    //     major: this.state.major
+
+    	//alert('A name was submitted: ' + this.state.gpa + " "+ this.state.interest + " " + this.state.location + " " + this.state.willingMover + " " + this.state.achieve + " " + this.state.duration + " " + this.state.aspirtation + " " + this.state.commitment);
     	event.preventDefault();
   	}
 
@@ -142,6 +172,50 @@ export default class Questions extends Component {
 			<FormControl type="text" placeholder="" value={this.state.value} onChange={this.handleCommitmentChange}>
 			</FormControl>
 		      </FormGroup>
+
+		      <FormGroup controlId="formControlsSelect">
+                        <ControlLabel>Which univeristy do you attend?</ControlLabel>
+                          <br/>
+                          <select value={this.state.value} onChange={this.handleUniversityChange}>
+                            <option value="select">Select</option>
+                            <option value="UCLA">UCLA</option>
+                            <option value="USC">USC</option>
+                          </select>
+                      </FormGroup>
+                      
+                      <FormGroup controlId="formControlsSelect">
+                        <ControlLabel>What year are you?</ControlLabel>
+                         <select value={this.state.value} onChange={this.handleYearChange}>
+                          <option value="select">Select</option>
+                          <option value="high">High School</option>
+                          <option value="first">First Year</option>
+                          <option value="second">Second Year</option>
+                          <option value="third">Third Year</option>
+                          <option value="fourth">Fourth Year</option>
+                          <option value="fifth">Fifth Year or More</option>
+                          </select>
+              
+                      </FormGroup>
+
+                      <FormGroup controlId="formControlsSelect">
+                        <ControlLabel>What university do you plan to work at?</ControlLabel>
+                          <br/>
+                          <select value={this.state.value} onChange={this.handleSwitchChange}>
+                            <option value="select">Select</option>
+                            <option value="UCLA">UCLA</option>
+                            <option value="USC">USC</option>
+                          </select>
+                      </FormGroup>
+
+                      <FormGroup controlId="formControlsSelect">
+                        <ControlLabel>What major are you?</ControlLabel>
+                          <select value={this.state.value} onChange={this.handleMajorChange}>
+                          <option value="select">Select</option>
+                          <option value="select">Biology/Pre-med</option>
+                          <option value="select">Theatre Technology</option>
+                        </select>
+                      </FormGroup>
+
 
 		      <FormGroup controlId='formControlsFile'>
 			<ControlLabel>Resume Upload</ControlLabel>
