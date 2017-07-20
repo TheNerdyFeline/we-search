@@ -4,7 +4,6 @@ import NavbarComponent from '../Nav/NavbarComponent';
 import axios from "axios";
 
 export default class Questions extends Component {
-
     constructor(props) {
 	super(props);
 	this.state = {
@@ -15,10 +14,15 @@ export default class Questions extends Component {
 	    willingMover: '',
 	    achieve: '',
 	    duration: '',
-	    aspirtation: '',
+	    career: '',
 	    commitment: '',
+	    university: '',
+            university_switch: '',
+            year: '',
+            major: '',
 	    resume: '',
-	    cover_letter: ''
+	    cover_letter: '',
+	    uuid: ''
 	};
 
 	this.handleGPAChange = this.handleGPAChange.bind(this);
@@ -27,14 +31,19 @@ export default class Questions extends Component {
 	this.handleWillingMoverChange = this.handleWillingMoverChange.bind(this);
 	this.handleAchieveChange = this.handleAchieveChange.bind(this);
 	this.handleDurationChange = this.handleDurationChange.bind(this);
-	this.handleAspirationChange = this.handleAspirationChange.bind(this);
+	this.handleCareerChange = this.handleAspirationChange.bind(this);
 	this.handleCommitmentChange = this.handleCommitmentChange.bind(this);
+	this.handleUniversityChange = this.handleUniversityChange.bind(this);
+      	this.handleSwitchChange = this.handleSwitchChange.bind(this);
+      	this.handleYearChange = this.handleYearChange.bind(this);
+      	this.handleMajorChange = this.handleMajorChange.bind(this);
 	this.handleResumeChange = this.handleResumeChange.bind(this);
 	this.handleCoverLetterChange = this.handleCoverLetterChange.bind(this);
 	this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleGPAChange(event) {
+
     	this.setState({gpa: event.target.value});
     }
 
@@ -72,6 +81,22 @@ export default class Questions extends Component {
   	this.setState({cover_letter: event.target.value});
     }
 
+    handleUniversityChange(event) {
+        this.setState({university: event.target.value});
+    }
+
+    handleSwitchChange(event) {
+        this.setState({university_switch: event.target.value});
+    }
+
+    handleYearChange(event) {
+        this.setState({year: event.target.value});
+    }
+
+    handleMajorChange(event) {
+        this.setState({major: event.target.value});
+    }
+
     handleSubmit(event) {
     	axios.post('/api/professorsignup', {
             gpa: this.state.gpa, 
@@ -80,16 +105,21 @@ export default class Questions extends Component {
             willingMover: this.state.willingMover, 
             achieve: this.state.achieve, 
             duration: this.state.duration, 
-            aspirtation: this.state.aspiration,
-	    commitment: this.state.commitment,
+            career: this.state.career,
+	    hours_week: this.state.commitment,
+	    university: this.state.university,
+	    university_switch: this.state.university_switch,
+	    year: this.state.year,
+	    major: this.state.major,
 	    resume: this.state.resume,
-	    cover_letter: this.state.cover_letter
-      }).then(response => {
-          console.log(response);
-	  console.log("this is not the error");
-      }).catch(function (error) {
-          console.log(error);
-      });
+	    cover_letter: this.state.cover_letter,
+	    uuid: this.state.uuid
+	}).then(response => {
+            console.log(response);
+	    console.log("this is not the error");
+	}).catch(function (error) {
+            console.log(error);
+	});
     }
 
     render() {
@@ -168,13 +198,56 @@ export default class Questions extends Component {
 			<FormControl type="text" placeholder="" value={this.state.value} onChange={this.handleCommitmentChange}>
 			</FormControl>
 		      </FormGroup>
+		      
+		      <FormGroup controlId="formControlsSelect">
+			<ControlLabel>Which univeristy do you attend?</ControlLabel>
+			<br/>
+			<select value={this.state.value} onChange={this.handleUniversityChange}>
+			  <option value="select">Select</option>
+			  <option value="UCLA">UCLA</option>
+			  <option value="USC">USC</option>
+			</select>
+		      </FormGroup>
+		      
+		      <FormGroup controlId="formControlsSelect">
+			<ControlLabel>What year are you?</ControlLabel>
+			<select value={this.state.value} onChange={this.handleYearChange}>
+			  <option value="select">Select</option>
+			  <option value="high">High School</option>
+			  <option value="first">First Year</option>
+			  <option value="second">Second Year</option>
+			  <option value="third">Third Year</option>
+			  <option value="fourth">Fourth Year</option>
+			  <option value="fifth">Fifth Year or More</option>
+			</select>
+			
+		      </FormGroup>
 
-		<FormGroup controlId='formControlsFile' value={this.state.value} onChange={this.handleResumeChange}>
+		      <FormGroup controlId="formControlsSelect">
+			<ControlLabel>What university do you plan to work at?</ControlLabel>
+			<br/>
+			<select value={this.state.value} onChange={this.handleSwitchChange}>
+			  <option value="select">Select</option>
+			  <option value="UCLA">UCLA</option>
+			  <option value="USC">USC</option>
+			</select>
+		      </FormGroup>
+
+		      <FormGroup controlId="formControlsSelect">
+			<ControlLabel>What major are you?</ControlLabel>
+			<select value={this.state.value} onChange={this.handleMajorChange}>
+			  <option value="select">Select</option>
+			  <option value="select">Biology/Pre-med</option>
+			  <option value="select">Theatre Technology</option>
+			</select>
+		      </FormGroup>
+
+		      <FormGroup controlId='formControlsFile' value={this.state.value} onChange={this.handleResumeChange}>
 			<ControlLabel>Resume Upload</ControlLabel>
 			<FormControl type='file' />
    		      </FormGroup>
 		      
-		<FormGroup controlId='formControlsFile' value={this.state.value} onChange={this.handleCoverLetterChange}>
+		      <FormGroup controlId='formControlsFile' value={this.state.value} onChange={this.handleCoverLetterChange}>
 			<ControlLabel>Cover Letter Upload</ControlLabel>
 			<FormControl type='file' />
    		      </FormGroup>

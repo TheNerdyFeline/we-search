@@ -14,7 +14,7 @@ passport.use(new LocalStrategy(
     console.log(email);
     console.log(password);
     // When a user tries to sign in this code runs
-    db.Prof.findOne({
+    db.User.findOne({
       where: {
         email: email
       }

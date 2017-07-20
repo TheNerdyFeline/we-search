@@ -2,8 +2,8 @@
 var bcrypt = require("bcryptjs");
 
 module.exports = function(sequelize, DataTypes) {
-// create new professor in table
-	var Prof = sequelize.define("Prof", { 
+// create new user in table
+	var User = sequelize.define("User", {
 		id: {
 	        type: DataTypes.INTEGER,
 	        autoIncrement: true,
@@ -34,32 +34,20 @@ module.exports = function(sequelize, DataTypes) {
 		    type: DataTypes.STRING,
 		    allowNull: false
 		},
-		university: {
-		    type: DataTypes.STRING, 
-		    allowNull: false
-		},
-		duration: {
+		studentOrProf: {
 		    type: DataTypes.STRING,
 		    allowNull: false
-		},
-		field: {
-		    type: DataTypes.STRING,
-		    allowNull: false   
-		},
-		professor: {
-		    type: DataTypes.BOOLEAN,
-		    defaultValue: true
 	    }
 	},
-				    {
-					hooks: {
-					    beforeCreate: function(user, options) {
-						user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync(10), null);
-					    }
-					}
-				    });
-    Prof.prototype.validPassword = function(password) {
-	return bcrypt.compareSync(password, this.password);
-    }
-    return Prof;
+	{
+		hooks: {
+			beforeCreate: function(user, options) {
+				user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync(10), null);
+			}
+		}
+	});
+	User.prototype.validPassword = function(password) {
+		return bcrypt.compareSync(password, this.password);
+	}
+	return User;
 };			     

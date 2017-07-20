@@ -19,7 +19,7 @@ module.exports = function(sequelize, DataTypes) {
 		len: [5]
 	    }
 	},
-	live:  {
+	location:  {
 	    type: DataTypes.STRING,
 	    allowNull: false,
 	    validate: {
@@ -46,6 +46,18 @@ module.exports = function(sequelize, DataTypes) {
 	    type: DataTypes.BOOLEAN,
 	    allowNull: false,
 	    defaultValue: true
+	},
+	university: {
+	    type: DataTypes.STRING,
+	    allowNull: false
+	},
+	duration: {
+	    type: DataTypes.STRING,
+	    allowNull: false
+	},
+	field: {
+	    type: DataTypes.STRING,
+	    allowNull: false   
 	},
 	cv: {
 	    type: DataTypes.BLOB('long'),
