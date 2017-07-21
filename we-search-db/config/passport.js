@@ -11,8 +11,6 @@ passport.use(new LocalStrategy(
     passwordField: "password"
   },
   function(email, password, done) {
-    console.log(email);
-    console.log(password);
     // When a user tries to sign in this code runs
     db.User.findOne({
       where: {
@@ -31,7 +29,8 @@ passport.use(new LocalStrategy(
           message: "Incorrect password."
         });
       }
-      // If none of the above, return the user
+	// If none of the above, return the user
+	//console.log('dbUser: ', dbUser);
       return done(null, dbUser);
     });
   }

@@ -4,6 +4,15 @@ import NavbarComponent from '../Nav/NavbarComponent';
 import axios from "axios";
 
 export default class Questions extends Component {
+    /*componentDidMount() {
+	axios.get("/api/student", {
+	}).then(response => {
+	    console.log(response);
+	}).catch(function (error) {
+            console.log(error);
+	});
+    }*/
+
     constructor(props) {
 	super(props);
 	this.state = {
@@ -22,7 +31,7 @@ export default class Questions extends Component {
             major: '',
 	    resume: '',
 	    cover_letter: '',
-	    uuid: ''
+	    uuid: userId
 	};
 
 	this.handleGPAChange = this.handleGPAChange.bind(this);

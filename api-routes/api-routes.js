@@ -4,7 +4,7 @@ var router  = express.Router();
 var session = require("express-session");
 var passport = require("../we-search-db/config/passport");
 var isAuthenticated = require("../we-search-db/config/middleware/isAuthenticated");
-var userId;
+var userId, studProf;
 
 
 router.get('/api/test', function(req, res){
@@ -12,19 +12,23 @@ router.get('/api/test', function(req, res){
 });
 // login authenticate
 router.post("/login", passport.authenticate("local"), function(req, res) {
-    userId = (req.user.id);
-    res.send('ok');
+    userId = (req.user.id).toString();
+    studProf = (req.user.studentOrProf);
+    console.log('this is userId: ' + userId);
+    console.log('this is studProf: ' + studProf);
+    res.json({
+	userId: userId,
+	studProf: studProf
+    });
 });
 
 // user signout
 router.get("/sign-out", function(req,res) {
     req.logout();
-    res.redirect("/");
 });
 
-// register a new student
+// register a new user
 router.post("/signup", function(req,res) {
-    console.log("creating new user", req.body);
     db.User.findOrCreate({
 	where: {email: req.body.email}, defaults:
 	{
@@ -32,16 +36,21 @@ router.post("/signup", function(req,res) {
 	    last_name: req.body.last_name,
 	    email: req.body.email,
 	    password: req.body.password,
-	    studentOrProf: req.body.studentOrProf
-	    
+	    studentOrProf: req.body.studentOrProf   
 	}
-    }).then(function(newStudent) {
-	console.log("new user created");
-	//userId = (newStudent.dataValues.id).toString();
-	//res.send(userId);
+    }).then(function(newUser) {
+	userId = (newUser[0].id).toString();
+	studProf = (newUser[0].studentOrProf);
+	//console.log('this is userId: ' + userId);
+	//console.log('this is studProf: ' + studProf);
+	res.json({
+	    userId: userId,
+	    studProf: studProf
+	});
+	// res.send('ok');
     }).catch(function(err) {
 	console.log(err);
-	res.json(err);
+	res.send(err);
     });
 });
 
@@ -50,13 +59,13 @@ router.post("/signup", function(req,res) {
 router.post("/api/studentform", isAuthenticated, function(req,res) {
     db.StudentForm.create({
         gpa: req.body.gpa,
-	research_interest: req.body.reasearch_interest,
-        live: req.body.live,
-        move: req.body.move,
+	research_interest: req.body.interest,
+        location: req.body.location,
+        move: req.body.willingMover,
 	achieve: req.body.achieve,
-	stay_here: req.body.stay_here,
+	duration: req.body.stay_here,
 	career: req.body.career,
-	hours_week: req.body.hours_week,
+	hours_week: req.body.commitment,
 	university: req.body.university,
 	university_switch: req.body.university_switch,
 	year: req.body.year,
@@ -93,6 +102,20 @@ router.post("/api/professorform", isAuthenticated, function(req,res) {
 	//res.send(userId);
     }).catch(function(err) {
         res.json(err);
+    });
+});
+
+router.get("/api/student", isAuthenticated, function(req, res) {
+    db.Student.findOne({
+	where: {email: req.body.email} 
+    }).then(function(user) {
+	console.log(user);
+	//userId = (newUser.dataValues.id).toString();
+	res.send(user);
+	//res.send('ok');
+    }).catch(function(err) {
+	console.log(err);
+	res.send(err);
     });
 });
 

@@ -3,50 +3,50 @@ import { Button, ButtonGroup, Form, FormGroup, FieldGroup, FormControl, ControlL
 import {
     BrowserRouter as Router,
     Route,
-    Link
+    Link, Redirect
 } from 'react-router-dom';
 import axios from 'axios';
 //import FormInstanceCss from './FormInstance.css'
+//fireRedirect if = 0 init state, 1 true, 2 false
 
 class FormInstance extends Component {
+    constructor(props) {
+	super(props);
+	this.state = {
+            email: '',
+            password: '',
+	    fireRedirect: 0
+	};
 
-	constructor(props) {
-      super(props);
-      this.state = {
-        email: '',
-        password: ''
+	this.handleSetEmailChange = this.handleSetEmailChange.bind(this);
+	this.handleSetPasswordChange = this.handleSetPasswordChange.bind(this);
+	this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-      this.handleSetEmailChange = this.handleSetEmailChange.bind(this);
-      this.handleSetPasswordChange = this.handleSetPasswordChange.bind(this);
-      this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-	handleSetEmailChange(event) {
-      this.setState({email: event.target.value});
+    handleSetEmailChange(event) {
+	this.setState({email: event.target.value});
     }
 
     handleSetPasswordChange(event) {
-      this.setState({password: event.target.value});
+	this.setState({password: event.target.value});
     }
 
-	handleSubmit(event) {
-		event.preventDefault();
-
-  		axios.post('/login', { 
-        	email: this.state.email, 
-        	password: this.state.password
+    handleSubmit(event) {
+	event.preventDefault();
+  	axios.post('/login', { 
+            email: this.state.email, 
+            password: this.state.password
       	}).then(response => {
-          	console.log(response);
-	  	  	console.log("this is not the error");
+	    this.setState({fireRedirect: 1});
+	    console.log('redirect', this.state.fireRedirect);
+            console.log(response);
       	}).catch(function (error) {
-          	console.log(error);
-          	console.log("login error");
-      });
-  	}
+            console.log(error);
+            console.log("login error");
+	});
+    }
     
-    render() {
-
+    render() {	
         return (
             
 	    <div>
@@ -57,7 +57,7 @@ class FormInstance extends Component {
           	  <Col xs={8}>
 
           	    <Jumbotron className="jumbotron">
-          	      <h2 className="text-center welcome">Welcome to <span className='we-search'>We-Search</span></h2>
+          	      <h2 className="text-center welcome">Welcome to <span className='we-search'>We-Search</span></h2> 
 		      <Form horizontal>
 			<FormGroup controlId="formHorizontalEmail">
 			  <Col className="labels" componentClass={ControlLabel} sm={2}>
@@ -88,9 +88,11 @@ class FormInstance extends Component {
 			    <Button type="submit" onClick={this.handleSubmit}>Sign in
 			      {/*<Link to='/profquestions'>Sign in</Link>*/}
 			    </Button>
-			  </Col>
-			  <Col smOffset={2} sm={10}>
-			    <h5 className='account'>Don't have an account already?</h5>
+			    {/*{fireRedirect && (<Redirect to={from || '/dashboard'}/>)}*/}
+	    {(this.state.fireRedirect == 1 && this.state.fireRedirect != 0) ? <Redirect to='/dashboard'/> : null }
+	    </Col>
+		<Col smOffset={2} sm={10}>
+		<h5 className='account'>Don't have an account already?</h5>
 			  </Col>
 			  <Col smOffset={2} sm={10}>
 			    <Button type="submit">
@@ -98,7 +100,6 @@ class FormInstance extends Component {
 			    </Button>
 			  </Col>
 			</FormGroup>
-
 		      </Form>
 	  	    </Jumbotron>
 
