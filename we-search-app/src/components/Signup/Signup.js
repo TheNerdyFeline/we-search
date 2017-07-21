@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom';
 import axios from "axios";
 //import './FormInstance.css';
+// if fireRedirect =, 0 = no user signed up, 1 = student, 2 = Prof
 
 class Signup extends Component {
    
@@ -18,7 +19,7 @@ class Signup extends Component {
             email: '',
             password: '',
             studentOrProf: '',
-	    fireRedirect: false
+	    fireRedirect: 0
 	    
 	};
 
@@ -59,21 +60,24 @@ class Signup extends Component {
             password: this.state.password,
             studentOrProf: this.state.studentOrProf
 	}).then(response => {
-	    if(response.data === 'ok') {
-		this.setState({fireRedirect: true});
-		console.log("created new user");
+	    console.log(response);
+	    if(response.data.studProf === 'Student') {
+		this.setState({fireRedirect: 1});
+		console.log("created new student");
+	    } else if(response.data.studProf === 'Professor') {
+		this.setState({fireRedirect: 2});
+		console.log("created new Professor");
 	    } else {
 		console.log("could not create new user");
 	    }
+	    
 	}).catch(function (error) {
             console.log(error);
 	});
-	//alert('A name was submitted: ' + this.state.firstname + " "+ this.state.lastname + " " + this.state.email + " " + this.state.password + " " + this.state.university + " " + this.state.duration + " " + this.state.field);
-	
     }
 
     render() {
-	{/*this sets up redirect in component, from current page fireRedirect to root page*/}
+	{/*this sets up redirect in component, from current page fireRedirect to root*/}
 	const { from } = this.props.location.state || '/signup';
 	const { fireRedirect } = this.state;
 	
@@ -137,7 +141,10 @@ class Signup extends Component {
 			    
 			    <Button type="submit">Submit</Button>
 			  </form>
-			  {fireRedirect && (<Redirect to={from || '/'}/>)}
+			  {(this.state.fireRedirect == 1 && this.state.fireRedirect != 0) ?
+			      (<Redirect to='/studentquestions'/>) :
+			   (this.state.fireRedirect == 2 && this.state.fireRedirect != 0) ?
+			   <Redirect to='/profquestions'/> : null }
 			</Col>
                       </Row>
 
