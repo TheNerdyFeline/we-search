@@ -24,16 +24,6 @@ const title4 = (
 );
 
 class Dashboard extends Component {
-    componentWillMount() {
-	axios.get("/api/user", {
-	}).then(response => {
-	    let userId = response.userId;
-	    console.log(response);
-	    console.log(userId);
-	}).catch(function (error) {
-            console.log(error);
-	});
-    }
     render() {
 
         return (

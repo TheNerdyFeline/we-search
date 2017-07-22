@@ -64,7 +64,8 @@ class Signup extends Component {
 		this.setState({
 		    userId: response.data.userId,
 		    studProf: "Student",
-		    fireRedirect: 1});
+		    fireRedirect: 1
+		});
 		console.log("created new student");
 	    } else if(response.data.studProf === 'Professor') {
 		this.setState({
