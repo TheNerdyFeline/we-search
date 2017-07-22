@@ -24,18 +24,46 @@ const title4 = (
 );
 
 class Dashboard extends Component {
-    render() {
+    constructor(props) {
+	super(props);
+	this.state = {
+	    first_name: this.props.location.state3,
+	    last_name: this.props.location.state4,
+	    email: this.props.location.state5,
+	    gpa: '',
+	    interest: '',
+	    location: '',
+	    willingMover: '',
+	    achieve: '',
+	    duration: '',
+	    career: '',
+	    commitment: '',
+	    university: '',
+            university_switch: '',
+            year: '',
+            major: '',
+	    resume: '',
+	    cover_letter: '',
+	    fireRedirect: 0,
+	    uuid: this.props.location.state1,
+	    studProf: this.props.location.state2
+	};
+    }
 
+
+    
+    render() {
+	const studProf = this.state.studProf;
         return (
-            
+	    
 	    <div>
 	      
 	      <Grid>
         	<Row>
         	  <Col xs={1}></Col>
         	  <Col xs={10}>
-	            <Jumbotron className="jumbotron">
-	              <h2 className="text-center">Dashboard</h2>
+		    <Jumbotron className="jumbotron">
+		      <h2 className="text-center">Dashboard</h2>
 		      
 		    </Jumbotron>
 	  	  </Col>
@@ -65,7 +93,7 @@ class Dashboard extends Component {
 			    <td>
 			      <form>
 				<FormGroup>
-      				  <FormControl type="text" />
+      				  <FormControl type="text" defaultValue={this.state.first_name}/>
     				</FormGroup>
     			      </form>
 			    </td>
@@ -79,7 +107,7 @@ class Dashboard extends Component {
 			    <td>
 			      <form>
 				<FormGroup>
-      				  <FormControl type="text" />
+      				  <FormControl type="text" defaultValue={this.state.last_name}/>
     				</FormGroup>
     			      </form>
 			    </td>
@@ -92,7 +120,7 @@ class Dashboard extends Component {
 			    <td>
 			      <form>
 				<FormGroup>
-      				  <FormControl type="text" />
+      				  <FormControl type="text" defaultValue={this.state.email}/>
     				</FormGroup>
     			      </form>
 			    </td>
@@ -115,7 +143,10 @@ class Dashboard extends Component {
 		    
           	    <Panel header={title4} bsStyle="info">
      		      {/* insert correct component here based on state */}
-     		      <StudentEditQuestions />
+		      {studProf === "Student" ? (
+			  <StudentEditQuestions />
+		      ) : (<ProfessorEditQuestions />
+			  )}
     		    </Panel>
           	    
 		  </Col>
@@ -123,7 +154,7 @@ class Dashboard extends Component {
   		</Row>
 	      </Grid>
 
-            </div>
+	    </div>
 
         );
 

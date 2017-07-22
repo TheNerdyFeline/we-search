@@ -14,9 +14,11 @@ router.get('/api/test', function(req, res){
 router.post("/login", passport.authenticate("local"), function(req, res) {
     userId = (req.user.id).toString();
     studProf = (req.user.studentOrProf);
-    console.log('this is userId: ' + userId);
-    console.log('this is studProf: ' + studProf);
+    first_name = (req.user.first_name);
+    last_name = (req.user.last_name);
     res.json({
+	first_name: first_name,
+	last_name: last_name,
 	userId: userId,
 	studProf: studProf
     });
@@ -134,9 +136,9 @@ router.get("/api/user", isAuthenticated, function(req, res) {
 
 
 router.get("/api/studentform", isAuthenticated, function(req, res) {
-    console.log('user req: ',req.body);
+    console.log('user req: ',req.user.id);
     db.StudentForm.findOne({
-	where: {uuid: req.body.id}
+	where: {uuid: req.user.id}
     }).then(function(studForm) {
 	console.log('found student form');
 	console.log(studForm);
@@ -150,9 +152,9 @@ router.get("/api/studentform", isAuthenticated, function(req, res) {
 });
 
 router.get("/api/professorform", isAuthenticated, function(req, res) {
-    console.log('user req: ',req.body);
+    console.log('user req: ',req.user.id);
     db.ProfForm.findOne({
-	where: {uuid: req.body.id}
+	where: {uuid: req.user.id}
     }).then(function(profForm) {
 	console.log('found prof form');
 	console.log(profForm);

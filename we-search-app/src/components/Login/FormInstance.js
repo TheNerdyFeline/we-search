@@ -13,6 +13,8 @@ class FormInstance extends Component {
     constructor(props) {
 	super(props);
 	this.state = {
+	    first_name: '',
+	    last_name: '',
             email: '',
             password: '',
 	    fireRedirect: 0,
@@ -42,8 +44,10 @@ class FormInstance extends Component {
 	    console.log(response);
 	    if(response.status === 200) {
 		this.setState({
+		    first_name: response.data.first_name,
+		    last_name: response.data.last_name,
 		    userId: response.data.userId,
-		    studProf: response.data.stufProf,
+		    studProf: response.data.studProf,
 		    fireRedirect: 1
 		});
 	    } else {
@@ -103,7 +107,7 @@ class FormInstance extends Component {
 			    </Button>
 			    {/*{fireRedirect && (<Redirect to={from || '/dashboard'}/>)}*/}
 	    {(this.state.fireRedirect == 1 && this.state.fireRedirect != 0) ?
-	     (<Redirect to={{pathname: '/dashboard', state1: this.state.userId, state2: this.state.studProf}}/>) : null}
+	     (<Redirect to={{pathname: '/dashboard', state1: this.state.userId, state2: this.state.studProf, state3: this.state.first_name, state4: this.state.last_name, state5: this.state.email}}/>) : null}
 	    </Col>
 		<Col smOffset={2} sm={10}>
 		<h5 className='account'>Don't have an account already?</h5>
