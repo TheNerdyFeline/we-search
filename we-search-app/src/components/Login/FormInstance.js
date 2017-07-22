@@ -15,7 +15,9 @@ class FormInstance extends Component {
 	this.state = {
             email: '',
             password: '',
-	    fireRedirect: 0
+	    fireRedirect: 0,
+	    uuid: '',
+	    studProf: ''
 	};
 
 	this.handleSetEmailChange = this.handleSetEmailChange.bind(this);
@@ -37,16 +39,27 @@ class FormInstance extends Component {
             email: this.state.email, 
             password: this.state.password
       	}).then(response => {
-	    this.setState({fireRedirect: 1});
-	    console.log('redirect', this.state.fireRedirect);
-            console.log(response);
+	    console.log(response);
+	    if(response.status === 200) {
+		this.setState({
+		    userId: response.data.userId,
+		    studProf: response.data.stufProf,
+		    fireRedirect: 1
+		});
+	    } else {
+		console.log("could not login");
+	    }
       	}).catch(function (error) {
             console.log(error);
             console.log("login error");
 	});
     }
     
-    render() {	
+    render() {
+	{/*this sets up redirect in component, from current page fireRedirect to root*/}
+	const { from } = this.props.user || '/signup';
+	const { fireRedirect } = this.state;
+	
         return (
             
 	    <div>
@@ -89,7 +102,8 @@ class FormInstance extends Component {
 			      {/*<Link to='/profquestions'>Sign in</Link>*/}
 			    </Button>
 			    {/*{fireRedirect && (<Redirect to={from || '/dashboard'}/>)}*/}
-	    {(this.state.fireRedirect == 1 && this.state.fireRedirect != 0) ? <Redirect to='/dashboard'/> : null }
+	    {(this.state.fireRedirect == 1 && this.state.fireRedirect != 0) ?
+	     (<Redirect to={{pathname: '/dashboard', state1: this.state.userId, state2: this.state.studProf}}/>) : null}
 	    </Col>
 		<Col smOffset={2} sm={10}>
 		<h5 className='account'>Don't have an account already?</h5>

@@ -56,16 +56,17 @@ router.post("/signup", function(req,res) {
 
 
 // save student form
-router.post("/api/studentform", isAuthenticated, function(req,res) {
+router.post("/api/newstudentform", function(req,res) {
+    console.log("adding new form");
     db.StudentForm.create({
         gpa: req.body.gpa,
 	research_interest: req.body.interest,
         location: req.body.location,
         move: req.body.willingMover,
 	achieve: req.body.achieve,
-	duration: req.body.stay_here,
+	duration: req.body.duration,
 	career: req.body.career,
-	hours_week: req.body.commitment,
+	hours_week: req.body.hours_week,
 	university: req.body.university,
 	university_switch: req.body.university_switch,
 	year: req.body.year,
@@ -74,15 +75,24 @@ router.post("/api/studentform", isAuthenticated, function(req,res) {
 	cover_letter: req.body.cover_letter,
 	uuid: req.body.uuid
     }).then(function(newStudentForm) {
-	//userId = (new.dataValues.id).toString();
-	//res.send(userId);
+	console.log("new form created");
+	//userId = (newStudentForm[0]).toString();
+	//studProf = (newStudentForm[0].studentOrProf);
+	//console.log('this is userId: ' + userId);
+	//console.log('this is studProf: ' + studProf);
+	//res.json({
+	  //  userId: userId,
+	    //studProf: studProf
+	//});
+	res.send('ok');
     }).catch(function(err) {
+	console.log(err);
         res.json(err);
     });
 });
 
 // save professor form
-router.post("/api/professorform", isAuthenticated, function(req,res) {
+router.post("/api/newprofessorform", function(req,res) {
     db.ProfForm.create({
         min_gpa: req.body.gpa,
 	research_interest: req.body.interest,
@@ -98,21 +108,57 @@ router.post("/api/professorform", isAuthenticated, function(req,res) {
 	cv: req.body.cv,
 	uuid: req.body.uuid
     }).then(function(newProfForm) {
+	console.log("new form created");
 	//userId = (newProf.dataValues.id).toString();
-	//res.send(userId);
+	res.send('ok');
     }).catch(function(err) {
+	console.log(err);
         res.json(err);
     });
 });
 
-router.get("/api/student", isAuthenticated, function(req, res) {
-    db.Student.findOne({
+router.get("/api/user", isAuthenticated, function(req, res) {
+    console.log(req.body);
+    db.User.findOne({
 	where: {email: req.body.email} 
     }).then(function(user) {
 	console.log(user);
 	//userId = (newUser.dataValues.id).toString();
 	res.send(user);
 	//res.send('ok');
+    }).catch(function(err) {
+	console.log(err);
+	res.send(err);
+    });
+});
+
+
+router.get("/api/studentform", isAuthenticated, function(req, res) {
+    console.log('user req: ',req.body);
+    db.StudentForm.findOne({
+	where: {uuid: req.body.id}
+    }).then(function(studForm) {
+	console.log('found student form');
+	console.log(studForm);
+	//userId = (user[0].id).toString();
+	//res.json({userId: userId});
+	res.json(studForm);
+    }).catch(function(err) {
+	console.log(err);
+	res.send(err);
+    });
+});
+
+router.get("/api/professorform", isAuthenticated, function(req, res) {
+    console.log('user req: ',req.body);
+    db.ProfForm.findOne({
+	where: {uuid: req.body.id}
+    }).then(function(profForm) {
+	console.log('found prof form');
+	console.log(profForm);
+	//userId = (user[0].id).toString();
+	//res.json({userId: userId});
+	res.json(profForm);
     }).catch(function(err) {
 	console.log(err);
 	res.send(err);

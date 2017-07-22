@@ -1,15 +1,19 @@
 import React, { Component } from 'react';
 import { Button, Form, FormGroup, FieldGroup, FormControl, ControlLabel, Checkbox, Col, Grid, Row, Jumbotron, Panel, PageHeader, Radio, select} from 'react-bootstrap';
-import NavbarComponent from '../Nav/NavbarComponent';
+//import NavbarComponent from '../Nav/NavbarComponent';
 import axios from 'axios';
+import {Redirect} from "react-router-dom";
 
 export default class Questions extends Component {
+    componentDidMount() {
+	console.log(this.state.studProf);
+    }
+    
     constructor(props) {
 	super(props);	
 	this.state = {
-	    
 	    gpa: "", 
-	    research_interest: "", 
+	    interest: "", 
 	    location: "", 
 	    achieve: "", 
 	    long_distance: "", 
@@ -21,9 +25,11 @@ export default class Questions extends Component {
 	    field: '',
 	    commitment: '',
 	    cv:"",
-	    uuid: userId
-
+	    fireRedirect: 0,
+	    uuid: this.props.location.state1,
+	    studProf: this.props.location.state2
 	};
+	
 	this.handleGPAChange = this.handleGPAChange.bind(this);
 	this.handleResearchChange = this.handleResearchChange.bind(this);
 	this.handleLiveChange = this.handleLiveChange.bind(this);
@@ -69,7 +75,7 @@ export default class Questions extends Component {
     }
 
     handleTimeChange(event) {
-  	this.setState({time_week: event.target.value});
+  	this.setState({hours_week: event.target.value});
     }
 
     handleAvailableChange(event) {
@@ -93,14 +99,15 @@ export default class Questions extends Component {
     }
 
     submitForm(event) {
-  	axios.post('/api/professorform', { 
+	event.preventDefault();
+  	axios.post('/api/newprofessorform', { 
 	    gpa: this.state.gpa, 
 	    interest: this.state.interest, 
-	    live: this.state.location, 
+	    location: this.state.location, 
 	    achieve: this.state.achieve, 
 	    duration: this.state.duration,
 	    career: this.state.career,
-	    time_week: this.state.time_week,
+	    hours_week: this.state.hours_week,
 	    available: this.state.available,
 	    university: this.state.university,
 	    duration: this.state.duration,
@@ -109,23 +116,19 @@ export default class Questions extends Component {
 	    cv: this.state.cv,
 	    uuid: this.state.uuid
 	}).then(response => {
-	    console.log(response);
-	    console.log("this is not the error");
+	     this.setState({fireRedirect: 1});
 	}).catch(function (error) {
 	    console.log(error);
 	});
     }
 
-    componentDidUpdate(prevProps, prevState){
-	if (prevState.search != this.state.search){
-	    // once all fields complete save to db
-	    //add routes
-	}
-    }
     render() {
+	{/*this sets up redirect in component, from current page fireRedirect to root*/}
+	const { from } = this.props.location.state || '/professorquestions';
+	const { fireRedirect } = this.state;
 	return (
 	    <div>
-	      <NavbarComponent/>
+	      
 	      <Grid>
 		<Jumbotron className='text-center'>  
 		  <Row>
@@ -204,14 +207,12 @@ export default class Questions extends Component {
                           <option value="select">Select</option>
                           <option value="UCLA">UCLA</option>
                           <option value="USC">USC</option>
-                        </select>
-                        
+                        </select>                        
                       </FormGroup>
                       
                       <FormGroup controlId="formControlsSelect">
                         <ControlLabel>How long have you been doing research in this discipline?</ControlLabel>
                         <FormControl type='number' placeholder="0" value={this.state.value} onChange={this.handleDurationChange}/>
-                        
                       </FormGroup>
 
                       <FormGroup controlId="formControlsSelect">
@@ -222,22 +223,19 @@ export default class Questions extends Component {
                           <option value="Medical">Medical/Pre-med</option>
                           <option value="Theatre">Theatre</option>
                         </select>
-			
-
                       </FormGroup>
                       
-		      
-
 		      <FormGroup controlId='formControlsFile'>
 			<ControlLabel>CV Upload</ControlLabel>
 			<FormControl type='file' />
    		      </FormGroup>
-		      
-		      
+		 
 		      <Button type="submit">
 			Submit
 		      </Button>
 		    </form>
+		    {(this.state.fireRedirect == 1) ?
+		    (<Redirect to='/'/>) : null}
 		  </Col>
 		</Row>
 

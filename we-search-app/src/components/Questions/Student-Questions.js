@@ -1,22 +1,18 @@
 import React, { Component } from 'react';
 import { Button, ButtonGroup, Form, FormGroup, FieldGroup, FormControl, ControlLabel, Checkbox, Col, Grid, Row, Jumbotron, Panel, PageHeader, Radio} from 'react-bootstrap';
-import NavbarComponent from '../Nav/NavbarComponent';
+//import NavbarComponent from '../Nav/NavbarComponent';
 import axios from "axios";
+import {Redirect} from "react-router-dom";
+
 
 export default class Questions extends Component {
-    /*componentDidMount() {
-	axios.get("/api/student", {
-	}).then(response => {
-	    console.log(response);
-	}).catch(function (error) {
-            console.log(error);
-	});
-    }*/
+    componentDidMount() {
+	console.log(this.state.studProf);
+    }
 
     constructor(props) {
 	super(props);
 	this.state = {
-
 	    gpa: '',
 	    interest: '',
 	    location: '',
@@ -31,7 +27,9 @@ export default class Questions extends Component {
             major: '',
 	    resume: '',
 	    cover_letter: '',
-	    uuid: userId
+	    fireRedirect: 0,
+	    uuid: this.props.location.state1,
+	    studProf: this.props.location.state2
 	};
 
 	this.handleGPAChange = this.handleGPAChange.bind(this);
@@ -40,7 +38,7 @@ export default class Questions extends Component {
 	this.handleWillingMoverChange = this.handleWillingMoverChange.bind(this);
 	this.handleAchieveChange = this.handleAchieveChange.bind(this);
 	this.handleDurationChange = this.handleDurationChange.bind(this);
-	this.handleCareerChange = this.handleAspirationChange.bind(this);
+	this.handleCareerChange = this.handleCareerChange.bind(this);
 	this.handleCommitmentChange = this.handleCommitmentChange.bind(this);
 	this.handleUniversityChange = this.handleUniversityChange.bind(this);
       	this.handleSwitchChange = this.handleSwitchChange.bind(this);
@@ -76,8 +74,8 @@ export default class Questions extends Component {
   	this.setState({duration: event.target.value});
     }
 
-    handleAspirationChange(event) {
-  	this.setState({aspirtation: event.target.value});
+    handleCareerChange(event) {
+  	this.setState({career: event.target.value});
     }
 
     handleCommitmentChange(event) {
@@ -107,7 +105,8 @@ export default class Questions extends Component {
     }
 
     handleSubmit(event) {
-    	axios.post('/api/professorsignup', {
+	event.preventDefault();
+    	axios.post('/api/newstudentform', {
             gpa: this.state.gpa, 
             interest: this.state.interest, 
             location: this.state.location, 
@@ -124,17 +123,19 @@ export default class Questions extends Component {
 	    cover_letter: this.state.cover_letter,
 	    uuid: this.state.uuid
 	}).then(response => {
-            console.log(response);
-	    console.log("this is not the error");
+	    this.setState({fireRedirect: 1});
 	}).catch(function (error) {
             console.log(error);
 	});
     }
 
     render() {
+	{/*this sets up redirect in component, from current page fireRedirect to root*/}
+	const { from } = this.props.location.state || '/';
+	const { fireRedirect } = this.state;
 	return (
 	    <div>
-	      <NavbarComponent/>
+	      
 	      <Grid>
 		<Jumbotron className='text-center'>  
 		  <Row>
@@ -198,7 +199,7 @@ export default class Questions extends Component {
 		      
 		      <FormGroup controlId="formControlsSelect">
       			<ControlLabel>What is your career aspirtation?</ControlLabel>
-			<FormControl type="text" placeholder="Career goals" value={this.state.value} onChange={this.handleAspirationChange}>
+			<FormControl type="text" placeholder="Career goals" value={this.state.value} onChange={this.handleCareerChange}>
 			</FormControl>
 		      </FormGroup>
 		      
@@ -265,6 +266,8 @@ export default class Questions extends Component {
 			Submit
 		      </Button>
 		    </form>
+		    {(this.state.fireRedirect == 1) ?
+		    (<Redirect to='/'/>) : null}
 		  </Col>
 		</Row>
 
