@@ -15,16 +15,10 @@ module.exports = function(sequelize, DataTypes) {
 	research_interest: {
 	    type: DataTypes.STRING,
 	    allowNull: false,
-	    validate: {
-		len: [5]
-	    }
 	},
 	location:  {
 	    type: DataTypes.STRING,
 	    allowNull: false,
-	    validate: {
-		len:[3]
-	    }
 	},
 	student_achieve: {
 	    type: DataTypes.STRING,

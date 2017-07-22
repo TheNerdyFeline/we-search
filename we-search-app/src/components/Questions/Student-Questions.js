@@ -122,12 +122,8 @@ export default class Questions extends Component {
 	    cover_letter: this.state.cover_letter,
 	    uuid: this.state.uuid
 	}).then(response => {
-	    console.log("load dashboard");
-            if(this.state.studProf === "Student") {
-		this.setState({fireRedirect: 1});
-	    } else if(response.data.studProf === 'Professor') {
-		this.setState({fireRedirect: 2});
-	    }
+	    console.log("load root");
+	    this.setState({fireRedirect: 1});
 	}).catch(function (error) {
             console.log(error);
 	});
@@ -135,7 +131,7 @@ export default class Questions extends Component {
 
     render() {
 	{/*this sets up redirect in component, from current page fireRedirect to root*/}
-	const { from } = this.props.user || '/signup';
+	const { from } = this.props.location.state || '/studentquestions';
 	const { fireRedirect } = this.state;
 	return (
 	    <div>
@@ -271,9 +267,7 @@ export default class Questions extends Component {
 		      </Button>
 		    </form>
 		    {(this.state.fireRedirect == 1 && this.state.fireRedirect != 0) ?
-			      (<Redirect to={{pathname: '/dashboard', state1: this.state.userId, state2: this.state.studProf}}/>) :
-		 (this.state.fireRedirect == 2 && this.state.fireRedirect != 0) ?
-		 <Redirect to={{pathname:'/dashboard', state1: this.state.userId, state2: this.state.studProf}}/> : null }
+			<Redirect to='/'/> : null}
 		  </Col>
 		</Row>
 

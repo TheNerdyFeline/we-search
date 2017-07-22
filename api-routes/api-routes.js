@@ -92,7 +92,7 @@ router.post("/api/newstudentform", function(req,res) {
 });
 
 // save professor form
-router.post("/api/newprofessorform", isAuthenticated, function(req,res) {
+router.post("/api/newprofessorform", function(req,res) {
     db.ProfForm.create({
         min_gpa: req.body.gpa,
 	research_interest: req.body.interest,
@@ -108,9 +108,11 @@ router.post("/api/newprofessorform", isAuthenticated, function(req,res) {
 	cv: req.body.cv,
 	uuid: req.body.uuid
     }).then(function(newProfForm) {
+	console.log("new form created");
 	//userId = (newProf.dataValues.id).toString();
-	//res.send(userId);
+	res.send('ok');
     }).catch(function(err) {
+	console.log(err);
         res.json(err);
     });
 });
