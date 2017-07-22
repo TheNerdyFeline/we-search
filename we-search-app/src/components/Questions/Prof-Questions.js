@@ -1,9 +1,21 @@
 import React, { Component } from 'react';
 import { Button, Form, FormGroup, FieldGroup, FormControl, ControlLabel, Checkbox, Col, Grid, Row, Jumbotron, Panel, PageHeader, Radio, select} from 'react-bootstrap';
-import NavbarComponent from '../Nav/NavbarComponent';
+//import NavbarComponent from '../Nav/NavbarComponent';
 import axios from 'axios';
+let userId;
 
 export default class Questions extends Component {
+    componentDidMount() {
+	axios.get("/api/user", {
+	}).then(response => {
+	    userId = response.userId;
+	    console.log(response);
+	    console.log(userId);
+	}).catch(function (error) {
+            console.log(error);
+	});
+    }
+    
     constructor(props) {
 	super(props);	
 	this.state = {
@@ -125,7 +137,7 @@ export default class Questions extends Component {
     render() {
 	return (
 	    <div>
-	      <NavbarComponent/>
+	      
 	      <Grid>
 		<Jumbotron className='text-center'>  
 		  <Row>

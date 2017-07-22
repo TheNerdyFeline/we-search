@@ -7,10 +7,9 @@ import {
 } from 'react-router-dom';
 import axios from "axios";
 //import './FormInstance.css';
-// if fireRedirect =, 0 = no user signed up, 1 = student, 2 = Prof
 
-class Signup extends Component {
-   
+
+class Signup extends Component {  
     constructor(props) {
 	super(props);
 	this.state = {
@@ -19,8 +18,9 @@ class Signup extends Component {
             email: '',
             password: '',
             studentOrProf: '',
-	    fireRedirect: 0
-	    
+	    fireRedirect: 0,
+	    userId: '',
+	    studProf: ''
 	};
 
 	this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
@@ -60,17 +60,21 @@ class Signup extends Component {
             password: this.state.password,
             studentOrProf: this.state.studentOrProf
 	}).then(response => {
-	    console.log(response);
 	    if(response.data.studProf === 'Student') {
-		this.setState({fireRedirect: 1});
+		this.setState({
+		    userId: response.data.userId,
+		    studProf: "Student",
+		    fireRedirect: 1});
 		console.log("created new student");
 	    } else if(response.data.studProf === 'Professor') {
-		this.setState({fireRedirect: 2});
+		this.setState({
+		    userId: response.data.userId,
+		    stufProf: "Professor",
+		    fireRedirect: 2});
 		console.log("created new Professor");
 	    } else {
 		console.log("could not create new user");
 	    }
-	    
 	}).catch(function (error) {
             console.log(error);
 	});
@@ -78,7 +82,7 @@ class Signup extends Component {
 
     render() {
 	{/*this sets up redirect in component, from current page fireRedirect to root*/}
-	const { from } = this.props.location.state || '/signup';
+	const { from } = this.props.user || '/signup';
 	const { fireRedirect } = this.state;
 	
         return (
@@ -141,10 +145,10 @@ class Signup extends Component {
 			    
 			    <Button type="submit">Submit</Button>
 			  </form>
-			  {(this.state.fireRedirect == 1 && this.state.fireRedirect != 0) ?
-			      (<Redirect to='/studentquestions'/>) :
-			   (this.state.fireRedirect == 2 && this.state.fireRedirect != 0) ?
-			   <Redirect to='/profquestions'/> : null }
+		{(this.state.fireRedirect == 1 && this.state.fireRedirect != 0) ?
+			      (<Redirect to={{pathname: '/studentquestions', state1: this.state.userId, state2: this.state.studProf}}/>) :
+		 (this.state.fireRedirect == 2 && this.state.fireRedirect != 0) ?
+		 <Redirect to={{pathname:'/profquestions', state1: this.state.userId, state2: this.state.studProf}}/> : null }
 			</Col>
                       </Row>
 

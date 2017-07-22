@@ -9,14 +9,14 @@ module.exports = function(sequelize, DataTypes) {
 	    type: DataTypes.INTEGER,
 	    allowNull: false,
 	    validate: {
-		len: [4]
+		len: [2]
 	    }
 	},
 	research_interest: {
 	    type: DataTypes.STRING,
 	    allowNull: false,
 	    validate: {
-		len: [5]
+		len: [1]
 	    }
 	},
 	location:  {
