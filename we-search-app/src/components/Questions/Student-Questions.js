@@ -105,6 +105,7 @@ export default class Questions extends Component {
     }
 
     handleSubmit(event) {
+	event.preventDefault();
     	axios.post('/api/newstudentform', {
             gpa: this.state.gpa, 
             interest: this.state.interest, 
@@ -122,7 +123,6 @@ export default class Questions extends Component {
 	    cover_letter: this.state.cover_letter,
 	    uuid: this.state.uuid
 	}).then(response => {
-	    console.log("load root");
 	    this.setState({fireRedirect: 1});
 	}).catch(function (error) {
             console.log(error);
@@ -131,7 +131,7 @@ export default class Questions extends Component {
 
     render() {
 	{/*this sets up redirect in component, from current page fireRedirect to root*/}
-	const { from } = this.props.location.state || '/studentquestions';
+	const { from } = this.props.location.state || '/';
 	const { fireRedirect } = this.state;
 	return (
 	    <div>
@@ -266,8 +266,8 @@ export default class Questions extends Component {
 			Submit
 		      </Button>
 		    </form>
-		    {(this.state.fireRedirect == 1 && this.state.fireRedirect != 0) ?
-			<Redirect to='/'/> : null}
+		    {(this.state.fireRedirect == 1) ?
+		    (<Redirect to='/'/>) : null}
 		  </Col>
 		</Row>
 

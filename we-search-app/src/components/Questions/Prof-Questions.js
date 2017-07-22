@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Button, Form, FormGroup, FieldGroup, FormControl, ControlLabel, Checkbox, Col, Grid, Row, Jumbotron, Panel, PageHeader, Radio, select} from 'react-bootstrap';
 //import NavbarComponent from '../Nav/NavbarComponent';
 import axios from 'axios';
+import {Redirect} from "react-router-dom";
 
 export default class Questions extends Component {
     componentDidMount() {
@@ -98,6 +99,7 @@ export default class Questions extends Component {
     }
 
     submitForm(event) {
+	event.preventDefault();
   	axios.post('/api/newprofessorform', { 
 	    gpa: this.state.gpa, 
 	    interest: this.state.interest, 
@@ -114,8 +116,7 @@ export default class Questions extends Component {
 	    cv: this.state.cv,
 	    uuid: this.state.uuid
 	}).then(response => {
-	    console.log(response);
-	    console.log("this is not the error");
+	     this.setState({fireRedirect: 1});
 	}).catch(function (error) {
 	    console.log(error);
 	});
@@ -206,14 +207,12 @@ export default class Questions extends Component {
                           <option value="select">Select</option>
                           <option value="UCLA">UCLA</option>
                           <option value="USC">USC</option>
-                        </select>
-                        
+                        </select>                        
                       </FormGroup>
                       
                       <FormGroup controlId="formControlsSelect">
                         <ControlLabel>How long have you been doing research in this discipline?</ControlLabel>
                         <FormControl type='number' placeholder="0" value={this.state.value} onChange={this.handleDurationChange}/>
-                        
                       </FormGroup>
 
                       <FormGroup controlId="formControlsSelect">
@@ -224,22 +223,19 @@ export default class Questions extends Component {
                           <option value="Medical">Medical/Pre-med</option>
                           <option value="Theatre">Theatre</option>
                         </select>
-			
-
                       </FormGroup>
                       
-		      
-
 		      <FormGroup controlId='formControlsFile'>
 			<ControlLabel>CV Upload</ControlLabel>
 			<FormControl type='file' />
    		      </FormGroup>
-		      
-		      
+		 
 		      <Button type="submit">
 			Submit
 		      </Button>
 		    </form>
+		    {(this.state.fireRedirect == 1) ?
+		    (<Redirect to='/'/>) : null}
 		  </Col>
 		</Row>
 
