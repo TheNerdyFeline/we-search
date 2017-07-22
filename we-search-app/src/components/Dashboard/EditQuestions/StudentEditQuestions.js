@@ -5,44 +5,97 @@ import {
     Route,
     Link
 } from 'react-router-dom';
+import axios from "axios";
 
 const title2 = (
     <h3>Edit Question Answers</h3>
 );
 
 class StudentEditQuestions extends Component {
+     constructor(props) {
+	super(props);
+	this.state = {
+	    gpa: '',
+	    interest: '',
+	    location: '',
+	    willingMover: '',
+	    achieve: '',
+	    duration: '',
+	    career: '',
+	    commitment: '',
+	    university: '',
+            university_switch: '',
+            year: '',
+            major: '',
+	    resume: '',
+	    cover_letter: '',
+	    uuid: ''
+	};
+    }
+    
+    componentWillMount() {
+	console.log("user", this.user);
+	console.log(this.props);
+	axios.get("/api/studentform", {
+	}).then(response => {
+	    console.log(response);
+	    this.setState({
+		gpa: response.data.gpa,
+		interest: response.data.research_interest,
+		location: response.data.location,
+		willingMover: response.data.move,
+		achieve: response.data.achieve,
+		duration: response.data.duration,
+		career: response.data.career,
+		commitment: response.data.hours_week,
+		university: response.data.university,
+		university_switch: response.data.university_switch,
+		year: response.data.year,
+		major: response.data.major,
+		resume: response.data.resume,
+		cover_letter: response.data.cover_letter
+	    });
+	    console.log("got student form");
+	    console.log(this.state);	    
+	    this.forceUpdate(function(){
+		console.log('re-render');
+	    });
+	}).catch(function (error) {
+	    console.log(error);
+	});
+    }
+
+    componentDidUpdate(prevProps, prevState){
+	if (prevState != this.state){
+	    console.log('state has changed, inside Update');
+	}
+    }
     
     render() {
-
+	console.log('RENDERING AGAIN');
       	return(
 
       	    <div>
-
-      	      
-	      
 	      <Table striped bordered condensed hover>
 		<tbody>
-		  <tr>
-		    
+		  <tr>		    
 		    <th>GPA?</th>
 		    <td>
 		      <form>
 			<FormGroup>
-			  <FormControl type="text" />
+			  <FormControl type="text" value={this.state.gpa}/>
 			</FormGroup>
 		      </form>
 		    </td>
-
 		  </tr>
-		  
-		  
+
 		  <tr>
 		    
 		    <th>Research Interests</th>
 		    <td>
 		      <form>
 			<FormGroup>
-			  <FormControl type="text" />
+			  <FormControl type="text" value={this.state.interest}/>
 			</FormGroup>
 		      </form>
 		    </td>
@@ -55,7 +108,7 @@ class StudentEditQuestions extends Component {
 		    <td>
 		      <form>
 			<FormGroup>
-			  <FormControl type="text" />
+			  <FormControl type="text" value={this.state.location}/>
 			</FormGroup>
 		      </form>
 		    </td>
@@ -68,7 +121,7 @@ class StudentEditQuestions extends Component {
 		    <td>
 		      <form>
 			<FormGroup>
-			  <FormControl type="text" />
+			  <FormControl type="text" value={this.state.willingMover}/>
 			</FormGroup>
 		      </form>
 		    </td>
@@ -81,7 +134,7 @@ class StudentEditQuestions extends Component {
 		    <td>
 		      <form>
 			<FormGroup>
-			  <FormControl type="text" />
+			  <FormControl type="text" value={this.state.achieve}/>
 			</FormGroup>
 		      </form>
 		    </td>
@@ -94,7 +147,7 @@ class StudentEditQuestions extends Component {
 		    <td>
 		      <form>
 			<FormGroup>
-			  <FormControl type="text" />
+			  <FormControl type="text" value={this.state.duration}/>
 			</FormGroup>
 		      </form>
 		    </td>
@@ -107,7 +160,7 @@ class StudentEditQuestions extends Component {
 		    <td>
 		      <form>
 			<FormGroup>
-			  <FormControl type="text" />
+			  <FormControl type="text" value={this.state.career}/>
 			</FormGroup>
 		      </form>
 		    </td>
@@ -120,7 +173,7 @@ class StudentEditQuestions extends Component {
 		    <td>
 		      <form>
 			<FormGroup>
-			  <FormControl type="text" />
+			  <FormControl type="text" value={this.state.commitment}/>
 			</FormGroup>
 		      </form>
 		    </td>
@@ -133,7 +186,7 @@ class StudentEditQuestions extends Component {
 		    <td>
 		      <form>
 			<FormGroup>
-			  <FormControl type="text" />
+			  <FormControl type="text" value={this.state.university}/>
 			</FormGroup>
 		      </form>
 		    </td>
@@ -146,7 +199,7 @@ class StudentEditQuestions extends Component {
 		    <td>
 		      <form>
 			<FormGroup>
-			  <FormControl type="text" />
+			  <FormControl type="text" value={this.state.year}/>
 			</FormGroup>
 		      </form>
 		    </td>
@@ -159,7 +212,7 @@ class StudentEditQuestions extends Component {
 		    <td>
 		      <form>
 			<FormGroup>
-			  <FormControl type="text" />
+			  <FormControl type="text" value={this.state.university_switch}/>
 			</FormGroup>
 		      </form>
 		    </td>
@@ -172,7 +225,7 @@ class StudentEditQuestions extends Component {
 		    <td>
 		      <form>
 			<FormGroup>
-			  <FormControl type="text" />
+			  <FormControl type="text" value={this.state.major}/>
 			</FormGroup>
 		      </form>
 		    </td>
