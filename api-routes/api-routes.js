@@ -4,7 +4,7 @@ var router  = express.Router();
 var session = require("express-session");
 var passport = require("../we-search-db/config/passport");
 var isAuthenticated = require("../we-search-db/config/middleware/isAuthenticated");
-var userId, studProf;
+var userId, studProf, first_name, last_name;
 
 
 router.get('/api/test', function(req, res){
@@ -25,7 +25,8 @@ router.post("/login", passport.authenticate("local"), function(req, res) {
 });
 
 // user signout
-router.get("/sign-out", function(req,res) {
+router.get("/signout", function(req,res) {
+    console.log("signing out");
     req.logout();
 });
 
@@ -59,7 +60,6 @@ router.post("/signup", function(req,res) {
 
 // save student form
 router.post("/api/newstudentform", function(req,res) {
-    console.log("adding new form");
     db.StudentForm.create({
         gpa: req.body.gpa,
 	research_interest: req.body.interest,
@@ -77,15 +77,6 @@ router.post("/api/newstudentform", function(req,res) {
 	cover_letter: req.body.cover_letter,
 	uuid: req.body.uuid
     }).then(function(newStudentForm) {
-	console.log("new form created");
-	//userId = (newStudentForm[0]).toString();
-	//studProf = (newStudentForm[0].studentOrProf);
-	//console.log('this is userId: ' + userId);
-	//console.log('this is studProf: ' + studProf);
-	//res.json({
-	  //  userId: userId,
-	    //studProf: studProf
-	//});
 	res.send('ok');
     }).catch(function(err) {
 	console.log(err);
@@ -110,8 +101,6 @@ router.post("/api/newprofessorform", function(req,res) {
 	cv: req.body.cv,
 	uuid: req.body.uuid
     }).then(function(newProfForm) {
-	console.log("new form created");
-	//userId = (newProf.dataValues.id).toString();
 	res.send('ok');
     }).catch(function(err) {
 	console.log(err);

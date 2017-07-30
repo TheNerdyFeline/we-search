@@ -116,7 +116,9 @@ export default class Questions extends Component {
 	    cv: this.state.cv,
 	    uuid: this.state.uuid
 	}).then(response => {
-	     this.setState({fireRedirect: 1});
+	    if(response.data === "ok") {
+		this.setState({fireRedirect: 1});
+	    }
 	}).catch(function (error) {
 	    console.log(error);
 	});

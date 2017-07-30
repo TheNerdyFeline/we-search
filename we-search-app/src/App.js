@@ -13,27 +13,19 @@ import Dashboard from './components/Dashboard/Dashboard';
 import './App.css';
 import axios from 'axios';
 
-function testGet(){
-	axios.get('/api/test').then(response => {
-		console.log(response.data)
-	})
-}
-
-testGet();
-
-
 const App = () => (
     <Router>
       <Switch>
-      <Route exact path="/" component={Login} />
-      <Route path="/studentquestions" component={StudentQuestions} />
-      <Route path="/profquestions" component={ProfQuestions} />
-      <Route path="/signup" component={Signup} />
-      <Route path="/results" component={Results} />
-      <Route path="/dashboard" component={Dashboard} />
-      <Route path="/login" />
-    </Switch>
-  </Router>
+	<Route exact path="/" component={Login} />
+	<Route path="/studentquestions" component={StudentQuestions} />
+	<Route path="/profquestions" component={ProfQuestions} />
+	<Route path="/signup" component={Signup} />
+	<Route path="/results" component={Results} />
+	<Route path="/dashboard" component={Dashboard} />
+	<Route path="/login" />
+	<Route path="/signout" />
+      </Switch>
+    </Router>
 );
 
 export default App;

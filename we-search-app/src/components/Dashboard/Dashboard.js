@@ -5,6 +5,7 @@ import {
     Route,
     Link
 } from 'react-router-dom';
+import Nav from '../Nav/NavbarComponent';
 import ProfessorEditQuestions from './EditQuestions/ProfessorEditQuestions';
 import StudentEditQuestions from './EditQuestions/StudentEditQuestions';
 
@@ -57,7 +58,7 @@ class Dashboard extends Component {
         return (
 	    
 	    <div>
-	      
+	      <Nav />
 	      <Grid>
         	<Row>
         	  <Col xs={1}></Col>
