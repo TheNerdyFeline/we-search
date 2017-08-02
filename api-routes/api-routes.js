@@ -37,13 +37,13 @@ router.get("/signout", function(req,res) {
 // register a new user
 router.post("/signup", function(req,res) {
     db.User.findOrCreate({
-	where: {email: req.body.email}, defaults:
+	where: {email: req.body.user.email}, defaults:
 	{
-	    first_name: req.body.first_name,
-	    last_name: req.body.last_name,
-	    email: req.body.email,
-	    password: req.body.password,
-	    studentOrProf: req.body.studentOrProf   
+	    first_name: req.body.user.first_name,
+	    last_name: req.body.user.last_name,
+	    email: req.body.user.email,
+	    password: req.body.user.password,
+	    studentOrProf: req.body.user.studProf   
 	}
     }).then(function(newUser) {
 	userId = (newUser[0].id).toString();

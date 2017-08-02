@@ -56,7 +56,6 @@ class ProfessorEditQuestions extends Component {
     componentWillMount() {
 	axios.get("/api/professorform", {
 	}).then(response => {
-	    console.log(response);
 	    this.setState({
 		profForm: {
 		    gpa: response.data.min_gpa,
@@ -88,7 +87,6 @@ class ProfessorEditQuestions extends Component {
 	      <Table striped bordered condensed hover>
 		<tbody>
 		  <tr>
-		    
 		    <th>What is the minium GPA you are look for?</th>
 		    <td>
 		      <form>
@@ -199,7 +197,7 @@ class ProfessorEditQuestions extends Component {
 		    <th>How long have you been doing research in this discipline?</th>
 		    <td>
 		      <form>
-			<FormGroup controlId="formControlsSelect">
+			<FormGroup>
 			  <FormControl type='text' value={profForm.duration} onChange={this.handleChange.bind(this, "duration")}/>
 			</FormGroup>
 		      </form>

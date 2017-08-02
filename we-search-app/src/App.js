@@ -1,17 +1,14 @@
-import React, { Component } from 'react';
-import ReactDOM, {render} from 'react-dom';
-import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
+import React from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 //import components to render
 import Login from './components/Login/Login';
 import StudentQuestions from './components/Questions/Student-Questions';
 import Signup from './components/Signup/Signup';
 import Results from './components/Results/Result';
-import NavbarComponent from './components/Nav/NavbarComponent';
 import ProfQuestions from './components/Questions/Prof-Questions';
 import Dashboard from './components/Dashboard/Dashboard';
 import './App.css';
-import axios from 'axios';
 
 const App = () => (
     <Router>

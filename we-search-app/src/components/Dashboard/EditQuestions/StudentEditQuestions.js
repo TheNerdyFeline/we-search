@@ -82,10 +82,6 @@ class StudentEditQuestions extends Component {
 	});
     }
 
-    componentDidUpdate(prevProps, prevState){
-	if (prevState != this.state){
-	}
-    }
     
     render() {
 	const studentForm = this.state.studentForm;
