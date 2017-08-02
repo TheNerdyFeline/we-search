@@ -13,41 +13,44 @@ class FormInstance extends Component {
     constructor(props) {
 	super(props);
 	this.state = {
-	    first_name: '',
-	    last_name: '',
-            email: '',
-            password: '',
-	    fireRedirect: 0,
-	    uuid: '',
-	    studProf: ''
+	    user: {
+		first_name: '',
+		last_name: '',
+		email: '',
+		password: '',
+		userId: '',
+		studProf: ''
+	    },
+	    fireRedirect: 0
+	    
 	};
 
-	this.handleSetEmailChange = this.handleSetEmailChange.bind(this);
-	this.handleSetPasswordChange = this.handleSetPasswordChange.bind(this);
+	this.handleChange = this.handleChange.bind(this);
 	this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleSetEmailChange(event) {
-	this.setState({email: event.target.value});
-    }
-
-    handleSetPasswordChange(event) {
-	this.setState({password: event.target.value});
+    handleChange(property, e) {
+	const user = this.state.user;
+	user[property] = e.target.value;
+	this.setState({user: user});
     }
 
     handleSubmit(event) {
 	event.preventDefault();
-  	axios.post('/login', { 
-            email: this.state.email, 
-            password: this.state.password
+  	axios.post('/login', {
+            email: this.state.user.email, 
+            password: this.state.user.password
       	}).then(response => {
 	    console.log(response);
 	    if(response.status === 200) {
 		this.setState({
-		    first_name: response.data.first_name,
-		    last_name: response.data.last_name,
-		    userId: response.data.userId,
-		    studProf: response.data.studProf,
+		    user: {
+			first_name: response.data.user.first_name,
+			last_name: response.data.user.last_name,
+			email: this.state.user.email,
+			userId: response.data.user.userId,
+			studProf: response.data.user.studProf
+		    },
 		    fireRedirect: 1
 		});
 	    } else {
@@ -60,9 +63,10 @@ class FormInstance extends Component {
     }
     
     render() {
-	{/*this sets up redirect in component, from current page fireRedirect to root*/}
-	const { from } = this.props.user || '/signup';
+	{/*this sets up redirect in component, from current page fireRedirect to dashboard*/}
+	const { from } = this.props.user || '/';
 	const { fireRedirect } = this.state;
+	const user = this.state.user;
 	
         return (
             
@@ -81,7 +85,7 @@ class FormInstance extends Component {
 			    Email
 			  </Col>
 			  <Col sm={10}>
-			    <FormControl type="email" placeholder="Email" value={this.state.value} onChange={this.handleSetEmailChange} />
+			    <FormControl type="email" placeholder="Email" value={this.state.value} onChange={this.handleChange.bind(this, "email")} />
 			  </Col>
 			</FormGroup>
 
@@ -90,7 +94,7 @@ class FormInstance extends Component {
 			    Password
 			  </Col>
 			  <Col sm={10}>
-			    <FormControl type="password" placeholder="Password" value={this.state.value} onChange={this.handleSetPasswordChange} />
+			    <FormControl type="password" placeholder="Password" value={this.state.value} onChange={this.handleChange.bind(this, "password")} />
 			  </Col>
 			</FormGroup>
 
@@ -107,7 +111,7 @@ class FormInstance extends Component {
 			    </Button>
 			    {/*{fireRedirect && (<Redirect to={from || '/dashboard'}/>)}*/}
 	    {(this.state.fireRedirect == 1 && this.state.fireRedirect != 0) ?
-	     (<Redirect to={{pathname: '/dashboard', state1: this.state.userId, state2: this.state.studProf, state3: this.state.first_name, state4: this.state.last_name, state5: this.state.email}}/>) : null}
+	     (<Redirect to={{pathname: '/dashboard', userId: user.userId, studProf: user.studProf, firstName: user.first_name, lastName: user.last_name, email: user.email}}/>) : null}
 	    </Col>
 		<Col smOffset={2} sm={10}>
 		<h5 className='account'>Don't have an account already?</h5>

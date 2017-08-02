@@ -12,115 +12,41 @@ export default class Questions extends Component {
     constructor(props) {
 	super(props);
 	this.state = {
-	    gpa: '',
-	    interest: '',
-	    location: '',
-	    willingMover: '',
-	    achieve: '',
-	    duration: '',
-	    career: '',
-	    commitment: '',
-	    university: '',
-            university_switch: '',
-            year: '',
-            major: '',
-	    resume: '',
-	    cover_letter: '',
+	    studentForm: {
+		gpa: '',
+		interest: '',
+		location: '',
+		willingMover: '',
+		achieve: '',
+		duration: '',
+		career: '',
+		commitment: '',
+		university: '',
+		university_switch: '',
+		year: '',
+		major: '',
+		resume: '',
+		cover_letter: '',
+		uuid: this.props.location.state1
+	    },
 	    fireRedirect: 0,
-	    uuid: this.props.location.state1,
 	    studProf: this.props.location.state2
 	};
 
-	this.handleGPAChange = this.handleGPAChange.bind(this);
-	this.handleInterestChange = this.handleInterestChange.bind(this);
-	this.handleLocationChange = this.handleLocationChange.bind(this);
-	this.handleWillingMoverChange = this.handleWillingMoverChange.bind(this);
-	this.handleAchieveChange = this.handleAchieveChange.bind(this);
-	this.handleDurationChange = this.handleDurationChange.bind(this);
-	this.handleCareerChange = this.handleCareerChange.bind(this);
-	this.handleCommitmentChange = this.handleCommitmentChange.bind(this);
-	this.handleUniversityChange = this.handleUniversityChange.bind(this);
-      	this.handleSwitchChange = this.handleSwitchChange.bind(this);
-      	this.handleYearChange = this.handleYearChange.bind(this);
-      	this.handleMajorChange = this.handleMajorChange.bind(this);
-	this.handleResumeChange = this.handleResumeChange.bind(this);
-	this.handleCoverLetterChange = this.handleCoverLetterChange.bind(this);
+	this.handleChange = this.handleChange.bind(this);
 	this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleGPAChange(event) {
-
-    	this.setState({gpa: event.target.value});
-    }
-
-    handleInterestChange(event) {
-  	this.setState({interest: event.target.value});
-    }
-
-    handleLocationChange(event) {
-  	this.setState({location: event.target.value});
-    }
-
-    handleWillingMoverChange(event) {
-  	this.setState({willingMover: event.target.value});
-    }
-
-    handleAchieveChange(event) {
-  	this.setState({achieve: event.target.value});
-    }
-
-    handleDurationChange(event) {
-  	this.setState({duration: event.target.value});
-    }
-
-    handleCareerChange(event) {
-  	this.setState({career: event.target.value});
-    }
-
-    handleCommitmentChange(event) {
-  	this.setState({commitment: event.target.value});
-    }
-    handleResumeChange(event) {
-  	this.setState({resume: event.target.value});
-    }
-    handleCoverLetterChange(event) {
-  	this.setState({cover_letter: event.target.value});
-    }
-
-    handleUniversityChange(event) {
-        this.setState({university: event.target.value});
-    }
-
-    handleSwitchChange(event) {
-        this.setState({university_switch: event.target.value});
-    }
-
-    handleYearChange(event) {
-        this.setState({year: event.target.value});
-    }
-
-    handleMajorChange(event) {
-        this.setState({major: event.target.value});
+    handleChange(property, e) {	
+	const studentForm = this.state.studentForm;
+	studentForm[property] = e.target.value;
+	this.setState({ studentForm: studentForm});
     }
 
     handleSubmit(event) {
 	event.preventDefault();
     	axios.post('/api/newstudentform', {
-            gpa: this.state.gpa, 
-            interest: this.state.interest, 
-            location: this.state.location, 
-            willingMover: this.state.willingMover, 
-            achieve: this.state.achieve, 
-            duration: this.state.duration, 
-            career: this.state.career,
-	    hours_week: this.state.commitment,
-	    university: this.state.university,
-	    university_switch: this.state.university_switch,
-	    year: this.state.year,
-	    major: this.state.major,
-	    resume: this.state.resume,
-	    cover_letter: this.state.cover_letter,
-	    uuid: this.state.uuid
+            studentForm: this.state.studentForm
 	}).then(response => {
 	    if(response.data === "ok") {
 		this.setState({fireRedirect: 1});
@@ -134,6 +60,7 @@ export default class Questions extends Component {
 	{/*this sets up redirect in component, from current page fireRedirect to root*/}
 	const { from } = this.props.location.state || '/';
 	const { fireRedirect } = this.state;
+	const studentForm = this.state.studentForm;
 	return (
 	    <div>
 	      
@@ -158,27 +85,27 @@ export default class Questions extends Component {
 		    <form onSubmit={this.handleSubmit}>
 		      <FormGroup controlId='formControlsText'>
 			<ControlLabel>GPA</ControlLabel>
-			<FormControl type='text' placeholder="Enter GPA ( Ex: 3.54 )" value={this.state.value} onChange={this.handleGPAChange}>
+			<FormControl type='text' placeholder="Enter GPA ( Ex: 3.54 )" value={studentForm.gpa} onChange={this.handleChange.bind(this, "gpa")}>
 
 			</FormControl>
 		      </FormGroup>
 		      
 		      <FormGroup controlId='formControlsText'>
 			<ControlLabel>Research Interests</ControlLabel>
-			<FormControl type='text' placeholder="Research Interests" value={this.state.value} onChange={this.handleInterestChange}>
+			<FormControl type='text' placeholder="Research Interests" value={studentForm.interest} onChange={this.handleChange.bind(this, "interest")}>
 			</FormControl>
 		      </FormGroup>
 		      
 		      <FormGroup controlId="formControlsSelect">
       			<ControlLabel>Where do you live?</ControlLabel>
-			<FormControl type="text" placeholder="City, ST" value={this.state.value} onChange={this.handleLocationChange}>
+			<FormControl type="text" placeholder="City, ST" value={studentForm.location} onChange={this.handleChange.bind(this, "location")}>
 			</FormControl>
 		      </FormGroup>
 		      
 		      <FormGroup controlId="formControlsSelect">
       			<ControlLabel>Are you willing to move?</ControlLabel>
 			<br/>
-			<select value={this.state.value} onChange={this.handleWillingMoverChange}>
+			<select value={studentForm.willingMover} onChange={this.handleChange.bind(this, "willingMover")}>
 			  <option>Select</option>
 			  <option>Yes</option>
 			  <option>Maybe</option>
@@ -188,48 +115,48 @@ export default class Questions extends Component {
 		      
 		      <FormGroup controlId="formControlsSelect">
       			<ControlLabel>What do you want to Achieve?</ControlLabel>
-			<FormControl type="text" placeholder="Achieve" value={this.state.value} onChange={this.handleAchieveChange}>
+			<FormControl type="text" placeholder="Achieve" value={studentForm.achieve} onChange={this.handleChange.bind(this, "achieve")}>
 			</FormControl>
 		      </FormGroup>
 		      
 		      <FormGroup controlId="formControlsSelect">
       			<ControlLabel>How long are you planning to stay where you are?</ControlLabel>
-			<FormControl type="text" placeholder="How long" value={this.state.value} onChange={this.handleDurationChange}>
+			<FormControl type="text" placeholder="How long" value={studentForm.duration} onChange={this.handleChange.bind(this, "duration")}>
 			</FormControl>
 		      </FormGroup>
 		      
 		      <FormGroup controlId="formControlsSelect">
       			<ControlLabel>What is your career aspirtation?</ControlLabel>
-			<FormControl type="text" placeholder="Career goals" value={this.state.value} onChange={this.handleCareerChange}>
+			<FormControl type="text" placeholder="Career goals" value={studentForm.career} onChange={this.handleChange.bind(this, "career")}>
 			</FormControl>
 		      </FormGroup>
 		      
 		      <FormGroup controlId="formControlsSelect">
       			<ControlLabel>How many hours per week can you commit to doing research?</ControlLabel>
-			<FormControl type="text" placeholder="" value={this.state.value} onChange={this.handleCommitmentChange}>
+			<FormControl type="text" placeholder="" value={studentForm.commitment} onChange={this.handleChange.bind(this, "commitment")}>
 			</FormControl>
 		      </FormGroup>
 		      
 		      <FormGroup controlId="formControlsSelect">
 			<ControlLabel>Which univeristy do you attend?</ControlLabel>
 			<br/>
-			<select value={this.state.value} onChange={this.handleUniversityChange}>
-			  <option value="select">Select</option>
-			  <option value="UCLA">UCLA</option>
-			  <option value="USC">USC</option>
+			<select value={studentForm.university} onChange={this.handleChange.bind(this, "university")}>
+			  <option>Select</option>
+			  <option>UCLA</option>
+			  <option>USC</option>
 			</select>
 		      </FormGroup>
 		      
 		      <FormGroup controlId="formControlsSelect">
 			<ControlLabel>What year are you?</ControlLabel>
-			<select value={this.state.value} onChange={this.handleYearChange}>
-			  <option value="select">Select</option>
-			  <option value="high">High School</option>
-			  <option value="first">First Year</option>
-			  <option value="second">Second Year</option>
-			  <option value="third">Third Year</option>
-			  <option value="fourth">Fourth Year</option>
-			  <option value="fifth">Fifth Year or More</option>
+			<select value={studentForm.year} onChange={this.handleChange.bind(this, "year")}>
+			  <option>Select</option>
+			  <option>High School</option>
+			  <option>First Year</option>
+			  <option>Second Year</option>
+			  <option>Third Year</option>
+			  <option>Fourth Year</option>
+			  <option>Fifth Year or More</option>
 			</select>
 			
 		      </FormGroup>
@@ -237,28 +164,28 @@ export default class Questions extends Component {
 		      <FormGroup controlId="formControlsSelect">
 			<ControlLabel>What university do you plan to work at?</ControlLabel>
 			<br/>
-			<select value={this.state.value} onChange={this.handleSwitchChange}>
-			  <option value="select">Select</option>
-			  <option value="UCLA">UCLA</option>
-			  <option value="USC">USC</option>
+			<select value={studentForm.university_switch} onChange={this.handleChange.bind(this, "university_switch")}>
+			  <option>Select</option>
+			  <option>UCLA</option>
+			  <option>USC</option>
 			</select>
-		      </FormGroup>
+		      </FormGroup>                                                                                 
 
 		      <FormGroup controlId="formControlsSelect">
 			<ControlLabel>What major are you?</ControlLabel>
-			<select value={this.state.value} onChange={this.handleMajorChange}>
-			  <option value="select">Select</option>
-			  <option value="Biology/Pre-Med">Biology/Pre-Med</option>
-			  <option value="Theatre Technology">Theatre Technology</option>
+			<select value={studentForm.major} onChange={this.handleChange.bind(this, "major")}>
+			  <option>Select</option>
+			  <option>Biology/Pre-Med</option>
+			  <option>Theatre Technology</option>
 			</select>
 		      </FormGroup>
 
-		      <FormGroup controlId='formControlsFile' value={this.state.value} onChange={this.handleResumeChange}>
+		      <FormGroup controlId='formControlsFile' value={studentForm.resume} onChange={this.handleChange.bind(this, "resume")}>
 			<ControlLabel>Resume Upload</ControlLabel>
 			<FormControl type='file' />
    		      </FormGroup>
 		      
-		      <FormGroup controlId='formControlsFile' value={this.state.value} onChange={this.handleCoverLetterChange}>
+		      <FormGroup controlId='formControlsFile' value={studentForm.cover_letter} onChange={this.handleChange.bind(this, "cover_letter")}>
 			<ControlLabel>Cover Letter Upload</ControlLabel>
 			<FormControl type='file' />
    		      </FormGroup>
@@ -269,12 +196,12 @@ export default class Questions extends Component {
 		    </form>
 		    {(this.state.fireRedirect == 1) ?
 		    (<Redirect to='/'/>) : null}
-		  </Col>
+	    </Col>
 		</Row>
 
 
-	      </Grid>
-	    </div>
+	    </Grid>
+		</div>
 	);
     }
 }

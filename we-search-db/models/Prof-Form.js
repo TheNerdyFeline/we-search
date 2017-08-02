@@ -8,9 +8,6 @@ module.exports = function(sequelize, DataTypes) {
 	min_gpa: {
 	    type: DataTypes.INTEGER,
 	    allowNull: false,
-	    validate: {
-		len: [4]
-	    }
 	},
 	research_interest: {
 	    type: DataTypes.STRING,
@@ -37,9 +34,8 @@ module.exports = function(sequelize, DataTypes) {
 	    allowNull: false
 	},
 	available: {
-	    type: DataTypes.BOOLEAN,
+	    type: DataTypes.STRING,
 	    allowNull: false,
-	    defaultValue: true
 	},
 	university: {
 	    type: DataTypes.STRING,

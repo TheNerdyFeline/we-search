@@ -28,33 +28,46 @@ class Dashboard extends Component {
     constructor(props) {
 	super(props);
 	this.state = {
-	    first_name: this.props.location.state3,
-	    last_name: this.props.location.state4,
-	    email: this.props.location.state5,
-	    gpa: '',
-	    interest: '',
-	    location: '',
-	    willingMover: '',
-	    achieve: '',
-	    duration: '',
-	    career: '',
-	    commitment: '',
-	    university: '',
-            university_switch: '',
-            year: '',
-            major: '',
-	    resume: '',
-	    cover_letter: '',
-	    fireRedirect: 0,
-	    uuid: this.props.location.state1,
-	    studProf: this.props.location.state2
+	    user: {
+		first_name: this.props.location.firstName,
+		last_name: this.props.location.lastName,
+		email: this.props.location.email,
+		uuid: this.props.location.userId,
+		studProf: this.props.location.studProf
+	    }
 	};
+
+	this.handleChange = this.handleChange.bind(this);
+	this.handleUpdate = this.handleUpdate.bind(this);
     }
 
+    componentDidUpdate(prevProps, prevState) {
+	if(prevProps.user === this.state.user) {
+	    this.setState({user: this.state.user});
+	}
+    }
 
+    handleChange(property, e) {
+	const user = this.state.user;
+	user[property] = e.target.value;
+	this.setState({ user: user});
+    } 
+
+    handleUpdate(e) {
+	e.preventDefault();
+	console.log("update user with:", this.state.user);
+	axios.put('/api/updateuser', {
+	    user: this.state.user
+	}).then(response => {
+		console.log(response);	
+	    }).catch(err => {
+		console.log(err);
+	    });
+    };
     
     render() {
-	const studProf = this.state.studProf;
+	const studProf = this.state.user.studProf;
+	const user = this.state.user;
         return (
 	    
 	    <div>
@@ -64,98 +77,81 @@ class Dashboard extends Component {
         	  <Col xs={1}></Col>
         	  <Col xs={10}>
 		    <Jumbotron className="jumbotron">
-		      <h2 className="text-center">Dashboard</h2>
-		      
+		      <h2 className="text-center">Dashboard</h2>		      
 		    </Jumbotron>
 	  	  </Col>
 	  	  <Col xs={1}></Col>
 	  	</Row>
           	<Row>
           	  <Col xs={1}></Col>
-          	  <Col className='text-center' xs={10}>
-          	    
+          	  <Col className='text-center' xs={10}>	    
           	    <Panel header={title1} bsStyle="info">
      		      <Button>Find Best Matches</Button>
     		    </Panel>
-          	    
 		  </Col>
           	  <Col xs={1}></Col>
           	</Row>
           	<Row>
           	  <Col xs={1}></Col>
-          	  <Col className='text-center' xs={10}>
-		    
+          	  <Col className='text-center' xs={10}>		    
           	    <Panel header={title2} bsStyle="info">
      		      <Table striped bordered condensed hover>
 			<tbody>
-			  <tr>
-			    
+			  <tr>			    
 			    <th>First Name:</th>
 			    <td>
 			      <form>
 				<FormGroup>
-      				  <FormControl type="text" defaultValue={this.state.first_name}/>
+      				  <FormControl type="text" value={user.first_name} onChange={this.handleChange.bind(this, "first_name")} />
     				</FormGroup>
     			      </form>
 			    </td>
-
 			  </tr>
 			  
-			  
-			  <tr>
-			    
+			  <tr>			    
 			    <th>Last Name:</th>
 			    <td>
 			      <form>
 				<FormGroup>
-      				  <FormControl type="text" defaultValue={this.state.last_name}/>
+      				  <FormControl type="text" value={user.last_name} onChange={this.handleChange.bind(this, "last_name")} />
     				</FormGroup>
     			      </form>
 			    </td>
-
 			  </tr>
 
-			  <tr>
-			    
+			  <tr>			    
 			    <th>Email:</th>
 			    <td>
 			      <form>
 				<FormGroup>
-      				  <FormControl type="text" defaultValue={this.state.email}/>
+      				  <FormControl type="text" value={user.email} onChange={this.handleChange.bind(this, "email")} />
     				</FormGroup>
     			      </form>
 			    </td>
-
-			  </tr>
-			  
+			  </tr>			  
 			</tbody>
 		      </Table>
-
-		      <Button>Update</Button>
+		      <Button onClick={this.handleUpdate}>Update</Button>
     		    </Panel>
-          	    
+         	    
 		  </Col>
   		  <Col xs={1}></Col>
   		</Row>
   		<Row>
           	  <Col xs={1}></Col>
-		  
-          	  <Col className='text-center' xs={10}>
-		    
+          	  <Col className='text-center' xs={10}>  
           	    <Panel header={title4} bsStyle="info">
      		      {/* insert correct component here based on state */}
 		      {studProf === "Student" ? (
-			  <StudentEditQuestions />
-		      ) : (<ProfessorEditQuestions />
+			  <StudentEditQuestions setState={this.props.uuid}/>
+		      ) : (<ProfessorEditQuestions setState={this.props.uuid}/>
 			  )}
-    		    </Panel>
-          	    
-		  </Col>
-  		  <Col xs={1}></Col>
+    	    </Panel>	
+		</Col>
+  		<Col xs={1}></Col>
   		</Row>
-	      </Grid>
-
-	    </div>
+		</Grid>
+		</div>
 
         );
 

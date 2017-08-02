@@ -12,110 +12,42 @@ export default class Questions extends Component {
     constructor(props) {
 	super(props);	
 	this.state = {
-	    gpa: "", 
-	    interest: "", 
-	    location: "", 
-	    achieve: "", 
-	    long_distance: "", 
-	    career: "",
-	    hours_week: "",
-	    available: "",
-	    university: '',
-	    duration: '',
-	    field: '',
-	    commitment: '',
-	    cv:"",
+	    profForm: {
+		gpa: "", 
+		interest: "", 
+		location: "", 
+		achieve: "", 
+		long_dist: "", 
+		career: "",
+		hours_week: "",
+		available: "",
+		university: '',
+		duration: '',
+		field: '',
+		commitment: '',
+		cv:"",
+		uuid: this.props.location.state1
+	    },
 	    fireRedirect: 0,
-	    uuid: this.props.location.state1,
 	    studProf: this.props.location.state2
 	};
 	
-	this.handleGPAChange = this.handleGPAChange.bind(this);
-	this.handleResearchChange = this.handleResearchChange.bind(this);
-	this.handleLiveChange = this.handleLiveChange.bind(this);
-	this.handleAchieveChange = this.handleAchieveChange.bind(this);
-	this.handleStayChange = this.handleStayChange.bind(this);
-	this.handleCareerChange = this.handleCareerChange.bind(this);
-	this.handleTimeChange = this.handleTimeChange.bind(this);
-	this.handleAvailableChange = this.handleAvailableChange.bind(this);
-	this.handleUniversityChange = this.handleUniversityChange.bind(this);
-  	this.handleDurationChange = this.handleDurationChange.bind(this);
-  	this.handleFieldChange = this.handleFieldChange.bind(this);
-	this.handleCVChange = this.handleCVChange.bind(this);
-
+	this.handleChange = this.handleChange.bind(this);
 	this.submitForm = this.submitForm.bind(this);
     }
 
-    handleGPAChange(event) {
-    	this.setState({gpa: event.target.value});
-    }
-
-    handleResearchChange(event) {
-  	this.setState({research_interest: event.target.value});
-    }
-
-    handleLiveChange(event) {
-  	this.setState({live: event.target.value});
-    }
-
-    handleMoveChange(event) {
-  	this.setState({move: event.target.value});
-    }
-
-    handleAchieveChange(event) {
-  	this.setState({achieve: event.target.value});
-    }
-
-    handleStayChange(event) {
-  	this.setState({stay_here: event.target.value});
-    }
-
-    handleCareerChange(event) {
-  	this.setState({career: event.target.value});
-    }
-
-    handleTimeChange(event) {
-  	this.setState({hours_week: event.target.value});
-    }
-
-    handleAvailableChange(event) {
-  	this.setState({available: event.target.value});
-    }
-
-    handleUniversityChange(event) {
-	this.setState({university: event.target.value});
-    }
-
-    handleDurationChange(event) {
-	this.setState({duration: event.target.value});
-    }
-
-    handleFieldChange(event) {
-	this.setState({field: event.target.value});
-    }
-
-    handleCVChange(event) {
-  	this.setState({cv: event.target.value});
+    handleChange(property, e) {
+    	const profForm = this.state.profForm;
+	profForm[property] = e.target.value;
+	this.setState({ profForm: profForm});
     }
 
     submitForm(event) {
 	event.preventDefault();
   	axios.post('/api/newprofessorform', { 
-	    gpa: this.state.gpa, 
-	    interest: this.state.interest, 
-	    location: this.state.location, 
-	    achieve: this.state.achieve, 
-	    duration: this.state.duration,
-	    career: this.state.career,
-	    hours_week: this.state.hours_week,
-	    available: this.state.available,
-	    university: this.state.university,
-	    duration: this.state.duration,
-	    field: this.state.field,
-	    commitment: this.state.commitment,
-	    cv: this.state.cv,
-	    uuid: this.state.uuid
+	    profForm: this.state.profForm
 	}).then(response => {
+	    console.log(response.data);
 	    if(response.data === "ok") {
 		this.setState({fireRedirect: 1});
 	    }
@@ -128,6 +60,7 @@ export default class Questions extends Component {
 	{/*this sets up redirect in component, from current page fireRedirect to root*/}
 	const { from } = this.props.location.state || '/professorquestions';
 	const { fireRedirect } = this.state;
+	const profForm = this.state.profForm;
 	return (
 	    <div>
 	      
@@ -152,50 +85,50 @@ export default class Questions extends Component {
 		    <form onSubmit={this.submitForm}>
 		      <FormGroup controlId='formControlsText'>
 			<ControlLabel>What is the minium GPA you are looking for?</ControlLabel>
-			<FormControl type='text' placeholder="Enter GPA ( Ex: 3.54 )" value={this.state.value} onChange={this.handleGPAChange}>
+			<FormControl type='text' placeholder="Enter GPA ( Ex: 3.54 )" value={profForm.gpa} onChange={this.handleChange.bind(this, "gpa")}>
 			</FormControl>
 		      </FormGroup>
 		      
 		      <FormGroup controlId='formControlsText'>
 			<ControlLabel>Research Interests</ControlLabel>
-			<FormControl type='text' placeholder="Research Interests" value={this.state.value} onChange={this.handleResearchChange}>
+			<FormControl type='text' placeholder="Research Interests" value={profForm.interest} onChange={this.handleChange.bind(this, "interest")}>
 			</FormControl>
 		      </FormGroup>
 		      
 		      <FormGroup controlId="formControlsSelect">
       			<ControlLabel>Where do you live?</ControlLabel>
-			<FormControl placeholder="City, ST" value={this.state.value} onChange={this.handleLiveChange}>
+			<FormControl placeholder="City, ST" value={profForm.location} onChange={this.handleChange.bind(this, "location")}>
 			</FormControl>
 		      </FormGroup>
 		      
 		      <FormGroup controlId="formControlsSelect">
       			<ControlLabel>What do you want your students to achieve?</ControlLabel>
-			<FormControl placeholder="Achieve" value={this.state.value} onChange={this.handleAchieveChange}>
+			<FormControl placeholder="Achieve" value={profForm.achieve} onChange={this.handleChange.bind(this, "achieve")}>
 			</FormControl>
 		      </FormGroup>
 		      
 		      <FormGroup controlId="formControlsSelect">
       			<ControlLabel>How long are you willing to work long distance?</ControlLabel>
-			<FormControl placeholder="How long" value={this.state.value} onChange={this.handleStayChange}>
+			<FormControl placeholder="How long" value={profForm.long_dist} onChange={this.handleChange.bind(this, "long_dist")}>
 			</FormControl>
 		      </FormGroup>
 		      
 		      <FormGroup controlId="formControlsSelect">
       			<ControlLabel>What are you looking for in a student?</ControlLabel>
-			<FormControl placeholder="Career goals" value={this.state.value} onChange={this.handleCareerChange}>
+			<FormControl placeholder="Career goals" value={profForm.career} onChange={this.handleChange.bind(this, "career")}>
 			</FormControl>
 		      </FormGroup>
 		      
 		      <FormGroup controlId="formControlsSelect">
       			<ControlLabel>How many hours per week can you commit to doing research?</ControlLabel>
-			<FormControl placeholder="" value={this.state.value} onChange={this.handleTimeChange}>
+			<FormControl placeholder="" value={profForm.hours_week} onChange={this.handleChange.bind(this, "hours_week")}>
 			</FormControl>
 		      </FormGroup>
 
 		      <FormGroup controlId="formControlsSelect">
       			<ControlLabel>Do you have any openings in you research department?</ControlLabel>
 			<br/>
-			<select value={this.state.value} onChange={this.handleAvailableChange}>
+			<select value={profForm.available} onChange={this.handleChange.bind(this, "available")}>
 			  <option>Yes</option>
 			  <option>No</option>
 		  	</select>
@@ -205,45 +138,45 @@ export default class Questions extends Component {
 		      <FormGroup controlId="formControlsSelect">
                         <ControlLabel>Which univeristy are you affiliated with?</ControlLabel>
                         <br/>
-                        <select value={this.state.value} onChange={this.handleUniversityChange}>
-                          <option value="select">Select</option>
-                          <option value="UCLA">UCLA</option>
-                          <option value="USC">USC</option>
+                        <select value={profForm.university} onChange={this.handleChange.bind(this, "university")}>
+                          <option>Select</option>
+                          <option>UCLA</option>
+                          <option>USC</option>
                         </select>                        
                       </FormGroup>
                       
                       <FormGroup controlId="formControlsSelect">
                         <ControlLabel>How long have you been doing research in this discipline?</ControlLabel>
-                        <FormControl type='number' placeholder="0" value={this.state.value} onChange={this.handleDurationChange}/>
+                        <FormControl type='number' placeholder="0" value={profForm.duration} onChange={this.handleChange.bind(this, "duration")}/>
                       </FormGroup>
 
                       <FormGroup controlId="formControlsSelect">
                         <ControlLabel>What field do you work in?</ControlLabel>
                         <br/>
-                        <select value={this.state.value} onChange={this.handleFieldChange}>
-                          <option value="select">Select</option>
-                          <option value="Medical">Medical/Pre-med</option>
-                          <option value="Theatre">Theatre</option>
+                        <select value={profForm.field} onChange={this.handleChange.bind(this, "field")}>
+                          <option>Select</option>
+                          <option>Medical/Pre-med</option>
+                          <option>Theatre</option>
                         </select>
                       </FormGroup>
                       
 		      <FormGroup controlId='formControlsFile'>
 			<ControlLabel>CV Upload</ControlLabel>
-			<FormControl type='file' />
+			<FormControl type='file' value={profForm.cv} onChange={this.handleChange.bind(this, "cv")}/>
    		      </FormGroup>
-		 
+		      
 		      <Button type="submit">
 			Submit
 		      </Button>
 		    </form>
 		    {(this.state.fireRedirect == 1) ?
 		    (<Redirect to='/'/>) : null}
-		  </Col>
+	    </Col>
 		</Row>
 
 
-	      </Grid>
-	    </div>
+	    </Grid>
+		</div>
 	);
     }
 }
