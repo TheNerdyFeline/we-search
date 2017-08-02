@@ -1,15 +1,6 @@
 import React, { Component } from 'react';
-import { Button, ButtonGroup, Form, FormGroup, FieldGroup, FormControl, ControlLabel, Checkbox, Col, Grid, Row, Jumbotron, Panel, PageHeader, Radio, Table } from 'react-bootstrap';
-import {
-    BrowserRouter as Router,
-    Route,
-    Link
-} from 'react-router-dom';
+import { Button, FormGroup, FormControl, ControlLabel, Table } from 'react-bootstrap';
 import axios from "axios";
-
-const title2 = (
-    <h3>Edit Question Answers</h3>
-);
 
 class StudentEditQuestions extends Component {
     constructor(props) {

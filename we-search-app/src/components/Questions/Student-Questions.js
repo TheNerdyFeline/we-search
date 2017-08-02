@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
-import { Button, FormGroup, FieldGroup, FormControl, ControlLabel, Checkbox, Col, Grid, Row, Jumbotron, Panel, PageHeader, Radio} from 'react-bootstrap';
+import { Button, FormGroup, FormControl, ControlLabel, Col, Grid, Row, Jumbotron } from 'react-bootstrap';
 //import NavbarComponent from '../Nav/NavbarComponent';
 import axios from "axios";
 import {Redirect} from "react-router-dom";
 
 
 export default class Questions extends Component {
-    componentDidMount() {
-    }
-
     constructor(props) {
 	super(props);
 	this.state = {
@@ -57,9 +54,6 @@ export default class Questions extends Component {
     }
 
     render() {
-	{/*this sets up redirect in component, from current page fireRedirect to root*/}
-	const { from } = this.props.location.state || '/';
-	const { fireRedirect } = this.state;
 	const studentForm = this.state.studentForm;
 	return (
 	    <div>
@@ -194,7 +188,7 @@ export default class Questions extends Component {
 			Submit
 		      </Button>
 		    </form>
-		    {(this.state.fireRedirect == 1) ?
+		    {(this.state.fireRedirect === 1) ?
 		    (<Redirect to='/'/>) : null}
 	    </Col>
 		</Row>

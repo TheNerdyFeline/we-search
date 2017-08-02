@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Form, FormGroup, FieldGroup, FormControl, ControlLabel, Checkbox, Col, Grid, Row, Jumbotron, Panel, PageHeader, Radio, select} from 'react-bootstrap';
+import { Button, FormGroup, FormControl, ControlLabel, Col, Grid, Row, Jumbotron, select} from 'react-bootstrap';
 //import NavbarComponent from '../Nav/NavbarComponent';
 import axios from 'axios';
 import {Redirect} from "react-router-dom";
@@ -57,9 +57,6 @@ export default class Questions extends Component {
     }
 
     render() {
-	{/*this sets up redirect in component, from current page fireRedirect to root*/}
-	const { from } = this.props.location.state || '/professorquestions';
-	const { fireRedirect } = this.state;
 	const profForm = this.state.profForm;
 	return (
 	    <div>
@@ -169,7 +166,7 @@ export default class Questions extends Component {
 			Submit
 		      </Button>
 		    </form>
-		    {(this.state.fireRedirect == 1) ?
+		    {(this.state.fireRedirect === 1) ?
 		    (<Redirect to='/'/>) : null}
 	    </Col>
 		</Row>

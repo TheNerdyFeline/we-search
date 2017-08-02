@@ -1,10 +1,5 @@
 import React, { Component } from 'react';
-import { Button, ButtonGroup, Form, FormGroup, FieldGroup, FormControl, ControlLabel, Checkbox, Col, Grid, Row, Jumbotron, Panel, PageHeader, Radio, Table } from 'react-bootstrap';
-import {
-    BrowserRouter as Router,
-    Route,
-    Link
-} from 'react-router-dom';
+import { Button, FormGroup, FormControl, Col, Grid, Row, Jumbotron, Panel, Table } from 'react-bootstrap';
 import Nav from '../Nav/NavbarComponent';
 import ProfessorEditQuestions from './EditQuestions/ProfessorEditQuestions';
 import StudentEditQuestions from './EditQuestions/StudentEditQuestions';

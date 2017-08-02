@@ -1,15 +1,10 @@
 import React, { Component } from 'react';
-import { Button, ButtonGroup, Form, FormGroup, FieldGroup, FormControl, ControlLabel, Checkbox, Col, Grid, Row, Jumbotron, Panel, PageHeader, Radio } from 'react-bootstrap';
-import {
-    BrowserRouter as Router,
-    Route,
-    Link, Redirect
-} from 'react-router-dom';
+import { Button, Form, FormGroup, FormControl, ControlLabel, Checkbox, Col, Grid, Row, Jumbotron } from 'react-bootstrap';
+import { BrowserRouter as Link, Redirect } from 'react-router-dom';
 import axios from 'axios';
-//import FormInstanceCss from './FormInstance.css'
-//fireRedirect if = 0 init state, 1 true, 2 false
+import './FormInstance.css';
 
-class FormInstance extends Component {
+export default class FormInstance extends Component {
     constructor(props) {
 	super(props);
 	this.state = {
@@ -21,12 +16,18 @@ class FormInstance extends Component {
 		userId: '',
 		studProf: ''
 	    },
-	    fireRedirect: 0
-	    
+	    fireRedirect: 0   
 	};
 
 	this.handleChange = this.handleChange.bind(this);
 	this.handleSubmit = this.handleSubmit.bind(this);
+	this.handleSignUp = this.handleSignUp.bind(this);
+    }
+
+    handleSignUp(e) {
+	e.preventDefault();
+	this.setState({fireRedirect: 2});
+	console.log("fireRefirect: ", this.state.fireRedirect);
     }
 
     handleChange(property, e) {
@@ -63,20 +64,14 @@ class FormInstance extends Component {
     }
     
     render() {
-	{/*this sets up redirect in component, from current page fireRedirect to dashboard*/}
-	const { from } = this.props.user || '/';
-	const { fireRedirect } = this.state;
 	const user = this.state.user;
 	
         return (
-            
 	    <div>
-
 	      <Grid>
           	<Row>
           	  <Col xs={2}></Col>
           	  <Col xs={8}>
-
           	    <Jumbotron className="jumbotron">
           	      <h2 className="text-center welcome">Welcome to <span className='we-search'>We-Search</span></h2> 
 		      <Form horizontal>
@@ -103,43 +98,33 @@ class FormInstance extends Component {
 			    <Checkbox className="labels">Remember me</Checkbox>
 			  </Col>
 			</FormGroup>
+			
 
 			<FormGroup>
 			  <Col smOffset={2} sm={10}>
 			    <Button type="submit" onClick={this.handleSubmit}>Sign in
-			      {/*<Link to='/profquestions'>Sign in</Link>*/}
 			    </Button>
-			    {/*{fireRedirect && (<Redirect to={from || '/dashboard'}/>)}*/}
-	    {(this.state.fireRedirect == 1 && this.state.fireRedirect != 0) ?
-	     (<Redirect to={{pathname: '/dashboard', userId: user.userId, studProf: user.studProf, firstName: user.first_name, lastName: user.last_name, email: user.email}}/>) : null}
+			    {(this.state.fireRedirect === 1 && this.state.fireRedirect !== 0) ?
+			    (<Redirect to={{pathname: '/dashboard', userId: user.userId, studProf: user.studProf, firstName: user.first_name, lastName: user.last_name, email: user.email}}/>) : null}
 	    </Col>
 		<Col smOffset={2} sm={10}>
 		<h5 className='account'>Don't have an account already?</h5>
 			  </Col>
 			  <Col smOffset={2} sm={10}>
-			    <Button type="submit">
-			      <Link to='/signup'>Create Account</Link>
-			    </Button>
+<button onClick={this.handleSignUp}>Create Account
+                </button>
+{(this.state.fireRedirect === 2 && this.state.fireRedirect !== 0) ? (<Redirect to={{pathname: '/signup'}}/>) : null}
+
 			  </Col>
 			</FormGroup>
 		      </Form>
 	  	    </Jumbotron>
-
   		  </Col>
   		  <Col xs={2}></Col>
   		</Row>
 	      </Grid>
-
             </div>
-
           );
-
-      }
-
-        
-      
-  }
-
-
-export default FormInstance;
+}
+}
 
