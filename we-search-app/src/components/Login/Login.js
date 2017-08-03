@@ -4,9 +4,9 @@ import React, { Component } from 'react';
 import NavbarComponent from '../Nav/NavbarComponent';
 import FormInstance from './FormInstance';
 import Mission from '../Mission/Mission';
-import PubCounter from '../PubCounter/PubCounter';
-import "./FormInstance.css";
-import "../PubCounter/PubCounterCss.css";
+//import PubCounter from '../PubCounter/PubCounter';
+//import "./FormInstance.css";
+//import "../PubCounter/PubCounterCss.css";
 import "../Mission/mission.css";
 
 export default class Login extends Component {
@@ -16,7 +16,6 @@ export default class Login extends Component {
 			  <NavbarComponent/>
 			  <FormInstance />
 			  <Mission />
-			  <PubCounter />
 			</div>
 		);
 	}	

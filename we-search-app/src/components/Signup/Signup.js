@@ -1,76 +1,57 @@
 import React, { Component } from 'react';
-import { Button, Form, FormGroup, FormControl, ControlLabel, Checkbox, Col, Grid, Row, Jumbotron, Radio } from 'react-bootstrap';
+import { Button, FormGroup, FormControl, ControlLabel, Col, Grid, Row, Jumbotron} from 'react-bootstrap';
 import {
-    BrowserRouter as Router,
-    Route,
+    BrowserRouter as
     Link, Redirect
 } from 'react-router-dom';
 import axios from "axios";
-//import './FormInstance.css';
-
 
 class Signup extends Component {  
     constructor(props) {
 	super(props);
 	this.state = {
-            first_name: '',
-            last_name: '',
-            email: '',
-            password: '',
-            studentOrProf: '',
-	    fireRedirect: 0,
+	    user: {
+		first_name: '',
+		last_name: '',
+		email: '',
+		password: '',
+		studProf: ''
+	    },
 	    userId: '',
-	    studProf: ''
+	    fireRedirect: 0
+	    
 	};
 
-	this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
-	this.handleLastNameChange = this.handleLastNameChange.bind(this);
-	this.handleEmailChange = this.handleEmailChange.bind(this);
-	this.handlePasswordChange = this.handlePasswordChange.bind(this);
-	this.handleSOrPChange = this.handleSOrPChange.bind(this);
-	
+	this.handleChange = this.handleChange.bind(this);	
 	this.handleSubmit = this.handleSubmit.bind(this);
     }
-    handleFirstNameChange(event) {
-	this.setState({first_name: event.target.value});
-    }
-
-    handleLastNameChange(event) {
-        this.setState({last_name: event.target.value});
-    }
-
-    handleEmailChange(event) {
-        this.setState({email: event.target.value});
-    }
-
-    handlePasswordChange(event) {
-        this.setState({password: event.target.value});
-    }
-
-    handleSOrPChange(event) {
-        this.setState({studentOrProf: event.target.value});
+    handleChange(property, e) {	
+	const user = this.state.user;
+	user[property] = e.target.value;
+	this.setState({ user: user});
+	
     }
 
     handleSubmit(event) {
 	event.preventDefault();
 	axios.post('/signup', {
-            first_name: this.state.first_name, 
-            last_name: this.state.last_name, 
-            email: this.state.email, 
-            password: this.state.password,
-            studentOrProf: this.state.studentOrProf
+            user: this.state.user
 	}).then(response => {
 	    if(response.data.studProf === 'Student') {
 		this.setState({
+		    user: {
+			studProf: "Student"
+		    },
 		    userId: response.data.userId,
-		    studProf: "Student",
 		    fireRedirect: 1
 		});
 		console.log("created new student");
 	    } else if(response.data.studProf === 'Professor') {
 		this.setState({
+		    user: {
+			stufProf: "Professor"
+		    },
 		    userId: response.data.userId,
-		    stufProf: "Professor",
 		    fireRedirect: 2});
 		console.log("created new Professor");
 	    } else {
@@ -82,9 +63,7 @@ class Signup extends Component {
     }
 
     render() {
-	{/*this sets up redirect in component, from current page fireRedirect to root*/}
-	const { from } = this.props.user || '/signup';
-	const { fireRedirect } = this.state;
+	const user = this.state.user;
 	
         return (
             
@@ -96,7 +75,7 @@ class Signup extends Component {
           	  <Col xs={8}>
 
           	    <Jumbotron className="jumbotron">
-          	      <h2 className="text-center">Student Sign Up</h2>
+          	      <h2 className="text-center">Sign Up</h2>
 		      
 	  	    </Jumbotron>
 
@@ -107,33 +86,33 @@ class Signup extends Component {
 			  <form onSubmit={this.handleSubmit}>
 			    <FormGroup controlId='formControlsText'>
                               <ControlLabel>First Name</ControlLabel>
-                              <FormControl type='text' placeholder="John" value={this.state.value} onChange={this.handleFirstNameChange}>
+                              <FormControl type='text' placeholder="John" value={user.first_name} onChange={this.handleChange.bind(this, "first_name")} >
 
                               </FormControl>
 			    </FormGroup>
 			    
 			    <FormGroup controlId='formControlsText'>
                               <ControlLabel>Last Name</ControlLabel>
-                              <FormControl type='text' placeholder="Smith" value={this.state.value} onChange={this.handleLastNameChange}>
+                              <FormControl type='text' placeholder="Smith" value={user.last_name} onChange={this.handleChange.bind(this, "last_name")}>
                               </FormControl>
 			    </FormGroup>
 			    
 			    <FormGroup controlId="formControlsSelect">
                               <ControlLabel>Email</ControlLabel>
-                              <FormControl  type='email' placeholder="johnsmith@gmail.com" value={this.state.value} onChange={this.handleEmailChange}>
+                              <FormControl  type='email' placeholder="johnsmith@gmail.com" value={user.email} onChange={this.handleChange.bind(this, "email")}>
                               </FormControl>
 			    </FormGroup>
 			    
 			    <FormGroup controlId="formControlsSelect">
                               <ControlLabel>Password</ControlLabel>
-                              <FormControl  type='password' value={this.state.value} onChange={this.handlePasswordChange}>
+                              <FormControl  type='password' value={user.password} onChange={this.handleChange.bind(this, "password")}>
                               </FormControl>
 			    </FormGroup>
 
 			    <FormGroup controlId="formControlsSelect">
                               <ControlLabel>Are you a student or professor?</ControlLabel>
                               <br/>
-                              <select value={this.state.value} onChange={this.handleSOrPChange}>
+                              <select value={user.studProf} onChange={this.handleChange.bind(this, "studProf")}>
 				<option value="select">Select</option>
 				<option value="Student">Student</option>
 				<option value="Professor">Professor</option>
@@ -146,9 +125,9 @@ class Signup extends Component {
 			    
 			    <Button type="submit">Submit</Button>
 			  </form>
-		{(this.state.fireRedirect == 1 && this.state.fireRedirect != 0) ?
+		{(this.state.fireRedirect === 1 && this.state.fireRedirect !== 0) ?
 			      (<Redirect to={{pathname: '/studentquestions', state1: this.state.userId, state2: this.state.studProf}}/>) :
-		 (this.state.fireRedirect == 2 && this.state.fireRedirect != 0) ?
+		 (this.state.fireRedirect === 2 && this.state.fireRedirect !== 0) ?
 		 <Redirect to={{pathname:'/profquestions', state1: this.state.userId, state2: this.state.studProf}}/> : null }
 			</Col>
                       </Row>

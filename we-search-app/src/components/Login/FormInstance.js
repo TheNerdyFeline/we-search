@@ -1,53 +1,57 @@
 import React, { Component } from 'react';
-import { Button, ButtonGroup, Form, FormGroup, FieldGroup, FormControl, ControlLabel, Checkbox, Col, Grid, Row, Jumbotron, Panel, PageHeader, Radio } from 'react-bootstrap';
-import {
-    BrowserRouter as Router,
-    Route,
-    Link, Redirect
-} from 'react-router-dom';
+import { Button, Form, FormGroup, FormControl, ControlLabel, Checkbox, Col, Grid, Row, Jumbotron } from 'react-bootstrap';
+import { BrowserRouter as Link, Redirect } from 'react-router-dom';
 import axios from 'axios';
-//import FormInstanceCss from './FormInstance.css'
-//fireRedirect if = 0 init state, 1 true, 2 false
+import './FormInstance.css';
 
-class FormInstance extends Component {
+export default class FormInstance extends Component {
     constructor(props) {
 	super(props);
 	this.state = {
-	    first_name: '',
-	    last_name: '',
-            email: '',
-            password: '',
-	    fireRedirect: 0,
-	    uuid: '',
-	    studProf: ''
+	    user: {
+		first_name: '',
+		last_name: '',
+		email: '',
+		password: '',
+		userId: '',
+		studProf: ''
+	    },
+	    fireRedirect: 0   
 	};
 
-	this.handleSetEmailChange = this.handleSetEmailChange.bind(this);
-	this.handleSetPasswordChange = this.handleSetPasswordChange.bind(this);
+	this.handleChange = this.handleChange.bind(this);
 	this.handleSubmit = this.handleSubmit.bind(this);
+	this.handleSignUp = this.handleSignUp.bind(this);
     }
 
-    handleSetEmailChange(event) {
-	this.setState({email: event.target.value});
+    handleSignUp(e) {
+	e.preventDefault();
+	this.setState({fireRedirect: 2});
+	console.log("fireRefirect: ", this.state.fireRedirect);
     }
 
-    handleSetPasswordChange(event) {
-	this.setState({password: event.target.value});
+    handleChange(property, e) {
+	const user = this.state.user;
+	user[property] = e.target.value;
+	this.setState({user: user});
     }
 
     handleSubmit(event) {
 	event.preventDefault();
-  	axios.post('/login', { 
-            email: this.state.email, 
-            password: this.state.password
+  	axios.post('/login', {
+            email: this.state.user.email, 
+            password: this.state.user.password
       	}).then(response => {
 	    console.log(response);
 	    if(response.status === 200) {
 		this.setState({
-		    first_name: response.data.first_name,
-		    last_name: response.data.last_name,
-		    userId: response.data.userId,
-		    studProf: response.data.studProf,
+		    user: {
+			first_name: response.data.user.first_name,
+			last_name: response.data.user.last_name,
+			email: this.state.user.email,
+			userId: response.data.user.userId,
+			studProf: response.data.user.studProf
+		    },
 		    fireRedirect: 1
 		});
 	    } else {
@@ -60,19 +64,14 @@ class FormInstance extends Component {
     }
     
     render() {
-	{/*this sets up redirect in component, from current page fireRedirect to root*/}
-	const { from } = this.props.user || '/signup';
-	const { fireRedirect } = this.state;
+	const user = this.state.user;
 	
         return (
-            
 	    <div>
-
 	      <Grid>
           	<Row>
           	  <Col xs={2}></Col>
           	  <Col xs={8}>
-
           	    <Jumbotron className="jumbotron">
           	      <h2 className="text-center welcome">Welcome to <span className='we-search'>We-Search</span></h2> 
 		      <Form horizontal>
@@ -81,7 +80,7 @@ class FormInstance extends Component {
 			    Email
 			  </Col>
 			  <Col sm={10}>
-			    <FormControl type="email" placeholder="Email" value={this.state.value} onChange={this.handleSetEmailChange} />
+			    <FormControl type="email" placeholder="Email" value={this.state.value} onChange={this.handleChange.bind(this, "email")} />
 			  </Col>
 			</FormGroup>
 
@@ -90,7 +89,7 @@ class FormInstance extends Component {
 			    Password
 			  </Col>
 			  <Col sm={10}>
-			    <FormControl type="password" placeholder="Password" value={this.state.value} onChange={this.handleSetPasswordChange} />
+			    <FormControl type="password" placeholder="Password" value={this.state.value} onChange={this.handleChange.bind(this, "password")} />
 			  </Col>
 			</FormGroup>
 
@@ -99,43 +98,33 @@ class FormInstance extends Component {
 			    <Checkbox className="labels">Remember me</Checkbox>
 			  </Col>
 			</FormGroup>
+			
 
 			<FormGroup>
 			  <Col smOffset={2} sm={10}>
 			    <Button type="submit" onClick={this.handleSubmit}>Sign in
-			      {/*<Link to='/profquestions'>Sign in</Link>*/}
 			    </Button>
-			    {/*{fireRedirect && (<Redirect to={from || '/dashboard'}/>)}*/}
-	    {(this.state.fireRedirect == 1 && this.state.fireRedirect != 0) ?
-	     (<Redirect to={{pathname: '/dashboard', state1: this.state.userId, state2: this.state.studProf, state3: this.state.first_name, state4: this.state.last_name, state5: this.state.email}}/>) : null}
+			    {(this.state.fireRedirect === 1 && this.state.fireRedirect !== 0) ?
+			    (<Redirect to={{pathname: '/dashboard', userId: user.userId, studProf: user.studProf, firstName: user.first_name, lastName: user.last_name, email: user.email}}/>) : null}
 	    </Col>
 		<Col smOffset={2} sm={10}>
 		<h5 className='account'>Don't have an account already?</h5>
 			  </Col>
 			  <Col smOffset={2} sm={10}>
-			    <Button type="submit">
-			      <Link to='/signup'>Create Account</Link>
-			    </Button>
+<button onClick={this.handleSignUp}>Create Account
+                </button>
+{(this.state.fireRedirect === 2 && this.state.fireRedirect !== 0) ? (<Redirect to={{pathname: '/signup'}}/>) : null}
+
 			  </Col>
 			</FormGroup>
 		      </Form>
 	  	    </Jumbotron>
-
   		  </Col>
   		  <Col xs={2}></Col>
   		</Row>
 	      </Grid>
-
             </div>
-
           );
-
-      }
-
-        
-      
-  }
-
-
-export default FormInstance;
+}
+}
 
