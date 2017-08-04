@@ -69,7 +69,7 @@ export default class Questions extends Component {
 		    <Col xs={2}></Col>
 		  </Row>
 		</Jumbotron>
-		
+		<Jumbotron>
 		<Row>
 		  <Col lg={12}>
 		    <h4>About You</h4>
@@ -216,7 +216,7 @@ export default class Questions extends Component {
 		    (<Redirect to='/'/>) : null}
 	    </Col>
 		</Row>
-
+		</Jumbotron>
 
 	    </Grid>
 		</div>

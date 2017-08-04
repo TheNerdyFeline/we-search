@@ -34,6 +34,7 @@ class Dashboard extends Component {
 
 	this.handleChange = this.handleChange.bind(this);
 	this.handleUpdate = this.handleUpdate.bind(this);
+	this.bestMatch = this.bestMatch.bind(this);
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -60,6 +61,36 @@ class Dashboard extends Component {
 	    });
     };
     
+    bestMatch() {
+
+    	axios.get('/api/allstudents', {
+	  
+		}).then(response => {
+			console.log(response);
+			fs.sendFile("match.js", response., function(err) {
+
+               // If an error was experienced we say it.
+                if (err) {
+                    console.log(err);
+                }
+                // If no error is experienced, we'll log the phrase "Content Added" to our node console.
+
+           });
+        });	
+		    }).catch(err => {
+			console.log(err);
+		    });
+	    
+
+	    axios.get('/api/allprofessors', {
+	  
+		}).then(response => {
+			console.log(response);	
+		    }).catch(err => {
+			console.log(err);
+		    });
+	    };
+
     render() {
 	const studProf = this.state.user.studProf;
 	const user = this.state.user;
@@ -81,7 +112,7 @@ class Dashboard extends Component {
           	  <Col xs={1}></Col>
           	  <Col className='text-center' xs={10}>	    
           	    <Panel header={title1} bsStyle="info">
-     		      <Button>Find Best Matches</Button>
+     		      <Button onClick={this.bestMatch}>Find Best Matches</Button>
     		    </Panel>
 		  </Col>
           	  <Col xs={1}></Col>
