@@ -6,26 +6,26 @@ module.exports = function(sequelize, DataTypes) {
             primaryKey: true
 	},
 	min_gpa: {
-	    type: DataTypes.INTEGER,
-	    allowNull: false,
-	},
-	research_interest: {
-	    type: DataTypes.STRING,
-	    allowNull: false,
-	},
-	location:  {
-	    type: DataTypes.STRING,
-	    allowNull: false,
-	},
-	student_achieve: {
-	    type: DataTypes.STRING,
+	    type: DataTypes.FLOAT,
 	    allowNull: false
 	},
-	long_distance: {
+	min_year: {
 	    type: DataTypes.STRING,
 	    allowNull: false 
 	},
-	career: {
+	field: {
+	    type: DataTypes.STRING,
+	    allowNull: false
+	},
+	university: {
+	    type: DataTypes.STRING,
+	    allowNull: false
+	},
+	student_status: {
+	    type: DataTypes.STRING,
+	    allowNull: false
+	},
+	help_get_in: {
 	    type: DataTypes.STRING,
 	    allowNull: false
 	},
@@ -33,25 +33,33 @@ module.exports = function(sequelize, DataTypes) {
 	    type: DataTypes.INTEGER,
 	    allowNull: false
 	},
+	pay_position: {
+	    type: DataTypes.STRING,
+	    allowNull: false
+	},
+	ta: {
+	    type: DataTypes.STRING,
+	    allowNull: false
+	},
+	research_interest: {
+	    type: DataTypes.STRING,
+	    allowNull: false
+	},
+	location:  {
+	    type: DataTypes.STRING,
+	    allowNull: false
+	},
 	available: {
 	    type: DataTypes.STRING,
-	    allowNull: false,
+	    allowNull: false
 	},
-	university: {
+	about: {
 	    type: DataTypes.STRING,
 	    allowNull: false
 	},
-	duration: {
+	linkedin: {
 	    type: DataTypes.STRING,
-	    allowNull: false
-	},
-	field: {
-	    type: DataTypes.STRING,
-	    allowNull: false   
-	},
-	cv: {
-	    type: DataTypes.BLOB('long'),
-	    allowNull: false
+	    allowNull: false 
 	},
      	uuid: {
 	    type: DataTypes.INTEGER

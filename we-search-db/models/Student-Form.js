@@ -1,49 +1,12 @@
 module.exports = function(sequelize, DataTypes) {
- var StudentForm = sequelize.define("StudentForm", {
+    var StudentForm = sequelize.define("StudentForm", {
 	id: {
             type: DataTypes.INTEGER,
             autoIncrement: true,
             primaryKey: true
 	},
 	gpa: {
-	    type: DataTypes.INTEGER,
-	    allowNull: false,
-	},
-	research_interest: {
-	    type: DataTypes.STRING,
-	    allowNull: false,
-	},
-	location:  {
-	    type: DataTypes.STRING,
-	    allowNull: false,
-	},
-	move: {
-	    type: DataTypes.STRING,
-	    allowNull: false
-	},
-	achieve: {
-	    type: DataTypes.STRING,
-	    allowNull: false
-	},
-	duration: {
-	    type: DataTypes.STRING,
-	    allowNull: false 
-	},
-	career: {
-	    type: DataTypes.STRING,
-	    allowNull: false
-	},
-	hours_week: {
-	    type: DataTypes.INTEGER,
-	    allowNull: false
-	},
-	university: {
-	    type: DataTypes.STRING,
-	    allowNull: false
-	},
-
-	university_switch: {
-	    type: DataTypes.STRING,
+	    type: DataTypes.FLOAT,
 	    allowNull: false
 	},
 	year: {
@@ -54,14 +17,58 @@ module.exports = function(sequelize, DataTypes) {
 	    type: DataTypes.STRING,
 	    allowNull: false
 	},
+	university: {
+	    type: DataTypes.STRING,
+	    allowNull: false
+	},
+	student_status: {
+	    type: DataTypes.STRING,
+	    allowNull: false
+	},
+	university_switch: {
+	    type: DataTypes.STRING,
+	    allowNull: false
+	},
+	hours_week: {
+	    type: DataTypes.INTEGER,
+	    allowNull: false
+	},
+	need_pay: {
+	    type: DataTypes.STRING,
+	    allowNull: false
+	},
+	ta: {
+	    type: DataTypes.STRING,
+	    allowNull: false
+	},
+	research_interest: {
+	    type: DataTypes.STRING,
+	    allowNull: false
+	},
+	location:  {
+	    type: DataTypes.STRING,
+	    allowNull: false
+	},
+	career: {
+	    type: DataTypes.STRING,
+	    allowNull: false
+	},
+	about: {
+	    type: DataTypes.TEXT('long'),
+	    allowNull: false
+	},
+	linkedin: {
+	    type: DataTypes.STRING,
+	    allowNull: false
+	},
+	website: {
+	    type: DataTypes.STRING,
+	    allowNull: true
+	},
 	resume: {
 	    type: DataTypes.BLOB('long'),
 	    allowNull: false
 	},
-	cover_letter: {
-	    type: DataTypes.BLOB('long'),
-	    allowNull: false
-	}, 
 	uuid: {
 	    type: DataTypes.INTEGER,
 	    allowNull: false
@@ -69,7 +76,7 @@ module.exports = function(sequelize, DataTypes) {
     }, {      
 	classMethods: {
             associate: function(model) {
-		Form.hasOne(model.Student, {
+		StudentForm.hasOne(model.User, {
 		});
             }
 	}

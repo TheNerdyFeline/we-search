@@ -43,7 +43,7 @@ router.post("/signup", function(req,res) {
 	    last_name: req.body.user.last_name,
 	    email: req.body.user.email,
 	    password: req.body.user.password,
-	    studentOrProf: req.body.user.studProf   
+	    studentOrProf: req.body.user.studProf
 	}
     }).then(function(newUser) {
 	userId = (newUser[0].id).toString();
@@ -64,17 +64,20 @@ router.post("/signup", function(req,res) {
 router.post("/api/newstudentform", function(req,res) {
     db.StudentForm.create({
         gpa: req.body.studentForm.gpa,
-	research_interest: req.body.studentForm.interest,
-        location: req.body.studentForm.location,
-        move: req.body.studentForm.willingMover,
-	achieve: req.body.studentForm.achieve,
-	duration: req.body.studentForm.duration,
-	career: req.body.studentForm.career,
-	hours_week: req.body.studentForm.commitment,
-	university: req.body.studentForm.university,
-	university_switch: req.body.studentForm.university_switch,
 	year: req.body.studentForm.year,
 	major: req.body.studentForm.major,
+	university: req.body.studentForm.university,
+	student_status: req.body.studentForm.student_status,
+	university_switch: req.body.studentForm.university_switch,
+	hours_week: req.body.studentForm.hours_week,
+	need_pay: req.body.studentForm.need_pay,
+	ta: req.body.studentForm.ta,
+	research_interest: req.body.studentForm.interest,
+        location: req.body.studentForm.location,
+	career: req.body.studentForm.career,
+        about: req.body.studentForm.about,
+	linkedin: req.body.studentForm.linkedin,
+	website: req.body.studentForm.website,
 	resume: req.body.studentForm.resume,
 	cover_letter: req.body.studentForm.cover_letter,
 	uuid: req.body.studentForm.uuid
@@ -89,18 +92,20 @@ router.post("/api/newstudentform", function(req,res) {
 // save professor form
 router.post("/api/newprofessorform", function(req,res) {
     db.ProfForm.create({
-        min_gpa: req.body.profForm.gpa,
+        min_gpa: req.body.profForm.min_gpa,
+	min_year: req.body.profForm.min_year,
+	field: req.body.profForm.field,
+	university: req.body.profForm.university,
+	student_status: req.body.profForm.student_status,
+	help_get_in: req.body.profForm.help_get_in,
+	hours_week: req.body.profForm.hours_week,
+	pay_position: req.body.profForm.pay_position,
+	ta: req.body.profForm.ta,
 	research_interest: req.body.profForm.interest,
         location: req.body.profForm.location,
-	student_achieve: req.body.profForm.achieve,
-	long_distance: req.body.profForm.long_dist,
-	career: req.body.profForm.career,
-	hours_week: req.body.profForm.hours_week,
 	available: req.body.profForm.available,
-	university: req.body.profForm.university,
-	duration: req.body.profForm.duration,
-	field: req.body.profForm.field,
-	cv: req.body.profForm.cv,
+	about: req.body.profForm.about,
+	linkedin: req.body.profForm.linkedin,	
 	uuid: req.body.profForm.uuid
     }).then(function(newProfForm) {
 	res.send('ok');
@@ -167,17 +172,20 @@ router.put("/api/updateuser", isAuthenticated, function(req, res) {
 router.put("/api/updatestudentform", function(req,res) {
     db.StudentForm.update({
         gpa: req.body.studentForm.gpa,
-	research_interest: req.body.studentForm.interest,
-        location: req.body.studentForm.location,
-        move: req.body.studentForm.willingMover,
-	achieve: req.body.studentForm.achieve,
-	duration: req.body.studentForm.duration,
-	career: req.body.studentForm.career,
-	hours_week: req.body.studentForm.commitment,
-	university: req.body.studentForm.university,
-	university_switch: req.body.studentForm.university_switch,
 	year: req.body.studentForm.year,
 	major: req.body.studentForm.major,
+	university: req.body.studentForm.university,
+	student_status: req.body.studentForm.student_status,
+	university_switch: req.body.studentForm.university_switch,
+	hours_week: req.body.studentForm.hours_week,
+	need_pay: req.body.studentForm.need_pay,
+	ta: req.body.studentForm.ta,
+	research_interest: req.body.studentForm.interest,
+        location: req.body.studentForm.location,
+	career: req.body.studentForm.career,
+        about: req.body.studentForm.about,
+	linkedin: req.body.studentForm.linkedin,
+	website: req.body.studentForm.website,
 	resume: req.body.studentForm.resume,
 	cover_letter: req.body.studentForm.cover_letter
     }, { where: 
@@ -193,18 +201,20 @@ router.put("/api/updatestudentform", function(req,res) {
 // upate professor form
 router.put("/api/updateprofessorform", function(req,res) {
     db.ProfForm.update({
-        min_gpa: req.body.profForm.gpa,
+        min_gpa: req.body.profForm.min_gpa,
+	min_year: req.body.profForm.min_year,
+	field: req.body.profForm.field,
+	university: req.body.profForm.university,
+	student_status: req.body.profForm.student_status,
+	help_get_in: req.body.profForm.help_get_in,
+	hours_week: req.body.profForm.hours_week,
+	pay_position: req.body.profForm.pay_position,
+	ta: req.body.profForm.ta,
 	research_interest: req.body.profForm.interest,
         location: req.body.profForm.location,
-	student_achieve: req.body.profForm.achieve,
-	long_distance: req.body.profForm.long_dist,
-	career: req.body.profForm.career,
-	hours_week: req.body.profForm.commitment,
 	available: req.body.profForm.available,
-	university: req.body.profForm.university,
-	duration: req.body.profForm.duration,
-	field: req.body.profForm.field,
-	cv: req.body.profForm.cv
+	about: req.body.profForm.about,
+	linkedin: req.body.profForm.linkedin
     }, { where:
 	 {uuid: req.body.profForm.uuid}
     }).then(function(newProfForm) {
@@ -213,6 +223,17 @@ router.put("/api/updateprofessorform", function(req,res) {
 	console.log(err);
         res.json(err);
     });
+});
+
+router.get("/api/allprofessors", function(req, res) {
+    db.ProfForm.findAll({
+    }).then(function(allProfessors) {
+	res.send(allProfessors);
+    }).catch(function(err) {
+	console.log(err);
+        res.json(err);
+    });
+    
 });
 
 module.exports = router;

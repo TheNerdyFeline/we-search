@@ -27,7 +27,6 @@ export default class FormInstance extends Component {
     handleSignUp(e) {
 	e.preventDefault();
 	this.setState({fireRedirect: 2});
-	console.log("fireRefirect: ", this.state.fireRedirect);
     }
 
     handleChange(property, e) {
