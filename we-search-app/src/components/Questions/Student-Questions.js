@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Button, FormGroup, FormControl, ControlLabel, Col, Grid, Row, Jumbotron } from 'react-bootstrap';
-//import NavbarComponent from '../Nav/NavbarComponent';
 import axios from "axios";
 import {Redirect} from "react-router-dom";
 
@@ -11,19 +10,21 @@ export default class Questions extends Component {
 	this.state = {
 	    studentForm: {
 		gpa: '',
-		interest: '',
-		location: '',
-		willingMover: '',
-		achieve: '',
-		duration: '',
-		career: '',
-		commitment: '',
-		university: '',
-		university_switch: '',
 		year: '',
 		major: '',
+		university: '',
+		student_status: '',
+		university_switch: '',
+		hours_week: '',
+		need_pay: '',
+		ta: '',
+		interest: '',
+		location: '',
+		career: '',
+		about: '',
+		linkedin: '',
+		website: '',
 		resume: '',
-		cover_letter: '',
 		uuid: this.props.location.state1
 	    },
 	    fireRedirect: 0,
@@ -80,8 +81,90 @@ export default class Questions extends Component {
 		      <FormGroup controlId='formControlsText'>
 			<ControlLabel>GPA</ControlLabel>
 			<FormControl type='text' placeholder="Enter GPA ( Ex: 3.54 )" value={studentForm.gpa} onChange={this.handleChange.bind(this, "gpa")}>
-
 			</FormControl>
+		      </FormGroup>
+
+		      <FormGroup controlId="formControlsSelect">
+			<ControlLabel>What year are you?</ControlLabel>
+			<select value={studentForm.year} onChange={this.handleChange.bind(this, "year")}>
+			  <option>Select</option>
+			  <option>High School Senior</option>
+			  <option>College Freshmen</option>
+			  <option>College Sophmore</option>
+			  <option>College Junior</option>
+			  <option>College Senior</option>
+			  <option>College Super Senior(5+ years)</option>
+			  <option>Grad School</option>
+			  <option>Doctorate</option>
+			</select>
+		      </FormGroup>
+
+		      <FormGroup controlId="formControlsSelect">
+			<ControlLabel>What is your major?</ControlLabel>
+			<select value={studentForm.major} onChange={this.handleChange.bind(this, "major")}>
+			  <option>Select</option>
+			  <option>Biology/Pre-Med</option>
+			  <option>Theatre Technology</option>
+			</select>
+		      </FormGroup>
+
+		      <FormGroup controlId="formControlsSelect">
+			<ControlLabel>Which univeristy are you currently enrolled in?</ControlLabel>
+			<br/>
+			<select value={studentForm.university} onChange={this.handleChange.bind(this, "university")}>
+			  <option>Select</option>
+			  <option>None</option>
+			  <option>UCLA</option>
+			  <option>USC</option>
+			</select>
+		      </FormGroup>
+
+		      <FormGroup controlId="formControlsSelect">
+      			<ControlLabel>What is your current student status?</ControlLabel>
+			<br/>
+			<select value={studentForm.student_status} onChange={this.handleChange.bind(this, "student_status")}>
+			  <option>Select</option>
+			  <option>Enrolled</option>
+			  <option>Applying To</option>
+			  <option>Enrolled and Appplyng to Switch</option>
+			  <option>Enrolled and Enrolled to Switch</option>
+			</select>
+		      </FormGroup>
+
+		      <FormGroup controlId="formControlsSelect">
+			<ControlLabel>What university do you plan to switch to?</ControlLabel>
+			<br/>
+			<select value={studentForm.university_switch} onChange={this.handleChange.bind(this, "university_switch")}>
+			  <option>Select</option>
+			  <option>UCLA</option>
+			  <option>USC</option>
+			</select>
+		      </FormGroup>
+
+		      <FormGroup controlId="formControlsSelect">
+      			<ControlLabel>How many hours per week can you commit to doing research?</ControlLabel>
+			<FormControl type="text" placeholder="" value={studentForm.hours_week} onChange={this.handleChange.bind(this, "hours_week")}>
+			</FormControl>
+		      </FormGroup>
+
+		      <FormGroup controlId="formControlsSelect">
+			<ControlLabel>Do you need a compensation(paid, partial scholarship, or credit)?</ControlLabel>
+			<br/>
+			<select value={studentForm.need_pay} onChange={this.handleChange.bind(this, "need_pay")}>
+			  <option>Select</option>
+			  <option>Yes</option>
+			  <option>No</option>
+			</select>
+		      </FormGroup>
+
+		      <FormGroup controlId="formControlsSelect">
+			<ControlLabel>Are you willing to be a TA?</ControlLabel>
+			<br/>
+			<select value={studentForm.ta} onChange={this.handleChange.bind(this, "ta")}>
+			  <option>Select</option>
+			  <option>Yes</option>
+			  <option>No</option>
+			</select>
 		      </FormGroup>
 		      
 		      <FormGroup controlId='formControlsText'>
@@ -95,92 +178,33 @@ export default class Questions extends Component {
 			<FormControl type="text" placeholder="City, ST" value={studentForm.location} onChange={this.handleChange.bind(this, "location")}>
 			</FormControl>
 		      </FormGroup>
-		      
+
 		      <FormGroup controlId="formControlsSelect">
-      			<ControlLabel>Are you willing to move?</ControlLabel>
-			<br/>
-			<select value={studentForm.willingMover} onChange={this.handleChange.bind(this, "willingMover")}>
-			  <option>Select</option>
-			  <option>Yes</option>
-			  <option>Maybe</option>
-			  <option>No</option>
-			</select>
-		      </FormGroup>
-		      
-		      <FormGroup controlId="formControlsSelect">
-      			<ControlLabel>What do you want to Achieve?</ControlLabel>
-			<FormControl type="text" placeholder="Achieve" value={studentForm.achieve} onChange={this.handleChange.bind(this, "achieve")}>
-			</FormControl>
-		      </FormGroup>
-		      
-		      <FormGroup controlId="formControlsSelect">
-      			<ControlLabel>How long are you planning to stay where you are?</ControlLabel>
-			<FormControl type="text" placeholder="How long" value={studentForm.duration} onChange={this.handleChange.bind(this, "duration")}>
-			</FormControl>
-		      </FormGroup>
-		      
-		      <FormGroup controlId="formControlsSelect">
-      			<ControlLabel>What is your career aspirtation?</ControlLabel>
+      			<ControlLabel>What are your career goals?</ControlLabel>
 			<FormControl type="text" placeholder="Career goals" value={studentForm.career} onChange={this.handleChange.bind(this, "career")}>
 			</FormControl>
 		      </FormGroup>
-		      
+
 		      <FormGroup controlId="formControlsSelect">
-      			<ControlLabel>How many hours per week can you commit to doing research?</ControlLabel>
-			<FormControl type="text" placeholder="" value={studentForm.commitment} onChange={this.handleChange.bind(this, "commitment")}>
+      			<ControlLabel>About Me</ControlLabel>
+			<FormControl type="text" placeholder="Career goals" value={studentForm.about} onChange={this.handleChange.bind(this, "about")}>
+			</FormControl>
+		      </FormGroup>
+
+		      <FormGroup controlId="formControlsSelect">
+      			<ControlLabel>LinkedIn</ControlLabel>
+			<FormControl type="text" placeholder="Career goals" value={studentForm.linkedin} onChange={this.handleChange.bind(this, "linkedin")}>
+			</FormControl>
+		      </FormGroup>
+
+		      <FormGroup controlId="formControlsSelect">
+      			<ControlLabel>Personal Website</ControlLabel>
+			<FormControl type="text" placeholder="Career goals" value={studentForm.website} onChange={this.handleChange.bind(this, "website")}>
 			</FormControl>
 		      </FormGroup>
 		      
-		      <FormGroup controlId="formControlsSelect">
-			<ControlLabel>Which univeristy do you attend?</ControlLabel>
-			<br/>
-			<select value={studentForm.university} onChange={this.handleChange.bind(this, "university")}>
-			  <option>Select</option>
-			  <option>UCLA</option>
-			  <option>USC</option>
-			</select>
-		      </FormGroup>
-		      
-		      <FormGroup controlId="formControlsSelect">
-			<ControlLabel>What year are you?</ControlLabel>
-			<select value={studentForm.year} onChange={this.handleChange.bind(this, "year")}>
-			  <option>Select</option>
-			  <option>High School</option>
-			  <option>First Year</option>
-			  <option>Second Year</option>
-			  <option>Third Year</option>
-			  <option>Fourth Year</option>
-			  <option>Fifth Year or More</option>
-			</select>
-			
-		      </FormGroup>
-
-		      <FormGroup controlId="formControlsSelect">
-			<ControlLabel>What university do you plan to work at?</ControlLabel>
-			<br/>
-			<select value={studentForm.university_switch} onChange={this.handleChange.bind(this, "university_switch")}>
-			  <option>Select</option>
-			  <option>UCLA</option>
-			  <option>USC</option>
-			</select>
-		      </FormGroup>                                                                                 
-
-		      <FormGroup controlId="formControlsSelect">
-			<ControlLabel>What major are you?</ControlLabel>
-			<select value={studentForm.major} onChange={this.handleChange.bind(this, "major")}>
-			  <option>Select</option>
-			  <option>Biology/Pre-Med</option>
-			  <option>Theatre Technology</option>
-			</select>
-		      </FormGroup>
-
 		      <FormGroup controlId='formControlsFile' value={studentForm.resume} onChange={this.handleChange.bind(this, "resume")}>
 			<ControlLabel>Resume Upload</ControlLabel>
-			<FormControl type='file' />
-   		      </FormGroup>
-		      
-		      <FormGroup controlId='formControlsFile' value={studentForm.cover_letter} onChange={this.handleChange.bind(this, "cover_letter")}>
-			<ControlLabel>Cover Letter Upload</ControlLabel>
 			<FormControl type='file' />
    		      </FormGroup>
 		      
