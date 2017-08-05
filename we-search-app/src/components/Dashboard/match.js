@@ -1,31 +1,31 @@
-import algorithmia from 'algorithmia';
+import Algorithmia from 'algorithmia';
 let studentArr, professorArr, studentObj, professorObj;
 
 const match = {
     sortStudents: (students) => {
-	studentArr = students.map( (el) => {
+	console.log(students);
+	/*studentArr = students.map( (el) => {
 	    studentObj = {};
 	    studentObj.interests = el.research_interest.split(",");;
 	    studentObj.gpa = el.gpa;
 	    studentObj.university = el.university;
 	    studentObj.year = el.year;
-
-	    console.log(studentObj);
-	    return studentObj;
 	});
+	console.log(studentArr);*/
+	return students;
     },
 
     sortProfessors: (professors) => {
+	console.log(professors);
 	professorArr = professors.map( (el) => {
 	    professorObj = {};
 	    professorObj.interests = el.research_interest.split(",");;
 	    professorObj.gpa = el.min_gpa;
 	    professorObj.university = el.university;
 	    professorObj.year = el.min_year;
-
-	    console.log(professorObj);
-	    return professorObj;
 	});
+	console.log(professorArr);
+	return professorArr;
     },
     
     findMatch: (students, professors) => {
@@ -45,11 +45,11 @@ const match = {
     };
 
 
-	var client = algorithmia("simkV7sJsw/on4nrPU7+S7cDyjR1");
-	client.algo("algo://matching/DatingAlgorithm/0.1.2")
+	Algorithmia.client("sim6PoydDBLnItzi82APiluLGIU1")
+	.algo("algo://matching/DatingAlgorithm/0.1.2")
 	    .pipe(input)
-	    .then(function(response) {
-		//console.log(response.get());
+	    .then(function(output) {
+		console.log(output);
 	    });
     }
 };

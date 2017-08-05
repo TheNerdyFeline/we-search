@@ -21,4 +21,3 @@ We-Search is an application built to aide a currently unorganized system for col
 * JSX
 * HTML
 * CSS
-

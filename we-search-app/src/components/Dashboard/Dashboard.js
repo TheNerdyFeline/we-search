@@ -30,7 +30,9 @@ class Dashboard extends Component {
 		email: this.props.location.email,
 		uuid: this.props.location.userId,
 		studProf: this.props.location.studProf
-	    }
+	    },
+	    students: {},
+	    professors: {}
 	};
 
 	this.handleChange = this.handleChange.bind(this);
@@ -60,31 +62,25 @@ class Dashboard extends Component {
 	}).catch(err => {
 	    console.log(err);
 	});
-    };
+    }
     
     bestMatch() {
     	axios.get('/api/allstudents', {
 	}).then(response => {
 	    console.log(response);
-	    let students = response.data;
-	    match.sortStudents(students).then(response => {
-		console.log(response);
-	    }).bind(this);
-	}).catch(err => {
-	    console.log(err);
-	});
-	
-	axios.get('/api/allprofessors', {  
+	    this.setState({students: response.data});
+	    axios.get('/api/allprofessors', {  
 	}).then(response => {
 	    console.log(response);
-	    let professors = response.data;
-	    match.sortProfessors(professors).then(response => {
-		console.log(response);
+	    this.setState({professors: response.data});
+	    match.findMatch(this.state.students, this.state.professors).then( response => {
+	    console.log(response);
 	    }).bind(this);
 	}).catch(err => {
 	    console.log(err);
 	});
-    };
+	});
+    }
     
     render() {
 	const studProf = this.state.user.studProf;
