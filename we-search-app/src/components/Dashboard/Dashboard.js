@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { Button, FormGroup, FormControl, Col, Grid, Row, Jumbotron, Panel, Table } from 'react-bootstrap';
+import axios from "axios";
 import Nav from '../Nav/NavbarComponent';
 import ProfessorEditQuestions from './EditQuestions/ProfessorEditQuestions';
 import StudentEditQuestions from './EditQuestions/StudentEditQuestions';
+import match from './match';
 
-import axios from "axios";
 
 const title1 = (
     <h3>Best Matches</h3>
@@ -55,71 +56,65 @@ class Dashboard extends Component {
 	axios.put('/api/updateuser', {
 	    user: this.state.user
 	}).then(response => {
-		console.log(response);	
-	    }).catch(err => {
-		console.log(err);
-	    });
+	    console.log(response);
+	}).catch(err => {
+	    console.log(err);
+	});
     };
     
     bestMatch() {
-
     	axios.get('/api/allstudents', {
-	  
-		}).then(response => {
-			console.log(response);
-			fs.sendFile("match.js", response., function(err) {
-
-               // If an error was experienced we say it.
-                if (err) {
-                    console.log(err);
-                }
-                // If no error is experienced, we'll log the phrase "Content Added" to our node console.
-
-           });
-        });	
-		    }).catch(err => {
-			console.log(err);
-		    });
-	    
-
-	    axios.get('/api/allprofessors', {
-	  
-		}).then(response => {
-			console.log(response);	
-		    }).catch(err => {
-			console.log(err);
-		    });
-	    };
-
+	}).then(response => {
+	    console.log(response);
+	    let students = response.data;
+	    match.sortStudents(students).then(response => {
+		console.log(response);
+	    }).bind(this);
+	}).catch(err => {
+	    console.log(err);
+	});
+	
+	axios.get('/api/allprofessors', {  
+	}).then(response => {
+	    console.log(response);
+	    let professors = response.data;
+	    match.sortProfessors(professors).then(response => {
+		console.log(response);
+	    }).bind(this);
+	}).catch(err => {
+	    console.log(err);
+	});
+    };
+    
     render() {
 	const studProf = this.state.user.studProf;
 	const user = this.state.user;
-        return (
+	return (
 	    
 	    <div>
 	      <Nav />
 	      <Grid>
-        	<Row>
-        	  <Col xs={1}></Col>
-        	  <Col xs={10}>
+		<Row>
+		  <Col xs={1}></Col>
+		  <Col xs={10}>
 		    <Jumbotron className="jumbotron">
 		      <h2 className="text-center">Dashboard</h2>		      
 		    </Jumbotron>
-	  	  </Col>
-	  	  <Col xs={1}></Col>
-	  	</Row>
-          	<Row>
-          	  <Col xs={1}></Col>
-          	  <Col className='text-center' xs={10}>	    
+		  </Col>
+		  <Col xs={1}></Col>
+		</Row>
+		<Row>
+		  <Col xs={1}></Col>
+		  <Col className='text-center' xs={10}>	    
           	    <Panel header={title1} bsStyle="info">
      		      <Button onClick={this.bestMatch}>Find Best Matches</Button>
     		    </Panel>
 		  </Col>
-          	  <Col xs={1}></Col>
-          	</Row>
-          	<Row>
-          	  <Col xs={1}></Col>
-          	  <Col className='text-center' xs={10}>		    
+		  <Col xs={1}></Col>
+		</Row>
+		<Row>
+		  <Col xs={1}></Col>
+		  <Col className='text-center' xs={10}>		    
           	    <Panel header={title2} bsStyle="info">
      		      <Table striped bordered condensed hover>
 			<tbody>
@@ -164,8 +159,8 @@ class Dashboard extends Component {
   		  <Col xs={1}></Col>
   		</Row>
   		<Row>
-          	  <Col xs={1}></Col>
-          	  <Col className='text-center' xs={10}>  
+		  <Col xs={1}></Col>
+		  <Col className='text-center' xs={10}>  
           	    <Panel header={title4} bsStyle="info">
      		      {/* insert correct component here based on state */}
 		      {studProf === "Student" ? (
@@ -179,12 +174,12 @@ class Dashboard extends Component {
 		</Grid>
 		</div>
 
-        );
+	);
 
     }
 
-    
-    
+
+
 }
 
 

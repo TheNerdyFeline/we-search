@@ -277,16 +277,6 @@ class ProfessorEditQuestions extends Component {
 		    </td>
 		  </tr>
 
-		  <tr>		    
-		    <th>CV Upload</th>
-		    <td>
-		      <form>
-			<FormGroup controlId='formControlsFile'>
-			  <FormControl type="file" value={profForm.resume} onChange={this.handleChange.bind(this, "cv")}/>
-			</FormGroup>
-		      </form>
-		    </td>
-		  </tr>
 		</tbody>
 	      </Table>
 	      <Button onClick={this.handleUpdate}>Update</Button>

@@ -108,7 +108,6 @@ export default class Questions extends Component {
                         <br/>
                         <select value={profForm.field} onChange={this.handleChange.bind(this, "field")}>
 			  <option>Select</option>
-                          <option>Select</option>
                           <option>Medical/Pre-med</option>
                           <option>Theatre</option>
                         </select>

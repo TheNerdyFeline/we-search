@@ -4,6 +4,7 @@
   "private": true,
   "proxy": "http://localhost:3001/",
   "dependencies": {
+    "algorithmia": "^0.3.10",
     "eslint-plugin-react": "^7.1.0",
     "react": "^15.6.1",
     "react-bootstrap": "^0.31.0",

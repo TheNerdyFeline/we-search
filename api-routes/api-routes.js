@@ -237,7 +237,6 @@ router.get("/api/allprofessors", function(req, res) {
 });
 
 router.get("/api/allstudents", function(req, res) {
-
     db.StudentForm.findAll({
     }).then(function(allStudents) {
 	res.send(allStudents);
@@ -245,7 +244,6 @@ router.get("/api/allstudents", function(req, res) {
 	console.log(err);
         res.json(err);
     });
-
 });
 
 module.exports = router;

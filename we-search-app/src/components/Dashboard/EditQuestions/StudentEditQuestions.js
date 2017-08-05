@@ -268,6 +268,29 @@ class StudentEditQuestions extends Component {
 		    </td>
 		  </tr>
 
+		  <tr> 
+		    <th>LinkedIn</th>
+		    <td>
+		      <form>
+			<FormGroup>
+			  <FormControl type="text" value={studentForm.linkedin} onChange={this.handleChange.bind(this, "linkedin")}/>
+			</FormGroup>
+		      </form>
+		    </td>
+		  </tr>
+
+		  <tr> 
+		    <th>Website</th>
+		    <td>
+		      <form>
+			<FormGroup>
+			  <FormControl type="text" value={studentForm.website} onChange={this.handleChange.bind(this, "website")}/>
+			</FormGroup>
+		      </form>
+		    </td>
+		  </tr>
+
+
 		  <tr>		    
 		    <th>Resume Upload</th>
 		    <td>
